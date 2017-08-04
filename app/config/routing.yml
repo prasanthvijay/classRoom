@@ -1,0 +1,11 @@
+trax_user:
+    resource: "@TraxUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+trax_admin:
+    resource: "@TraxAdminBundle/Resources/config/routing.yml"
+    prefix:   /manage
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

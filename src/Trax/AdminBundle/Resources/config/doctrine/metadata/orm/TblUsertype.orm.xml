@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="TblUsertype" table="tbl_UserType">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="usertype" type="string" column="usertype" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="status" type="string" column="status" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="default">Active</option>
+      </options>
+    </field>
+    <field name="createdat" type="datetime" column="createdAt" nullable="true"/>
+  </entity>
+</doctrine-mapping>

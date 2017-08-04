@@ -1,0 +1,84 @@
+<?php 
+	//$view->extend('::header.html.php'); 
+			$view->extend('::headernew.html.php'); 
+
+?>
+<div id="base">
+			
+	<div id="content">
+			<section>
+			<div class="section-header">
+				<ol class="breadcrumb">
+				<li class="active">Trainee List</li>
+				</ol>
+
+			</div>
+			<div class="section-body contain-lg">
+
+			<!-- BEGIN INTRO -->
+			
+
+			<!-- BEGIN BASIC ELEMENTS -->
+			<div class="row">
+				
+				<div class="col-lg-offset-1 col-md-10 col-sm-12">
+					<div class="card">
+						<div class="card-body">
+							Under Construction...
+						</div><!--end .card-body -->
+					</div><!--end .card -->
+				</div><!--end .col -->
+							</div></div>
+
+				
+
+	</section>
+				
+		</div>
+<!--<div class="inner-block">
+    <div class="portlet-grid-page">  
+
+	
+
+			
+
+	
+  <table id="example" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>S.NO</th>
+                <th>Name</th>
+                <th>User Name</th>
+                <th>Password</th>
+                <th>Mobile no</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+
+	<?php  for($i=0;$i<count($EmployeeList);$i++)
+		{ 
+?>
+            <tr>
+                <td><?php echo $i+1; ?></td>
+                <td><?php echo $EmployeeList[$i]['employeename']; ?></td>
+                <td><?php echo $EmployeeList[$i]['username']; ?></td>
+                <td><?php echo $EmployeeList[$i]['password']; ?></td>
+                <td><?php echo $EmployeeList[$i]['mobileno']; ?></td>
+               	<th><a href=""  onclick="editFunction(<?php echo $EmployeeList[$i]['empid'];?>)" data-toggle="modal"  data-target="#myModal">Edit</a></th>
+		<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $EmployeeList[$i]['userid']; ?>);">Delete</a></th>
+            </tr>
+	<?php } ?>
+
+            
+        </tbody>
+    </table>	
+
+	
+
+		<div class="clearfix"> </div>
+<br> <a href="trainer" class="btn btn-primary">Add  Trainee</a><br>
+  </div>
+</div>-->

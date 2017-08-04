@@ -1,0 +1,30 @@
+trax_admin_homepage:
+    path:     /
+    defaults: { _controller: TraxAdminBundle:Admin:index }
+trax_admin_getFunction:
+    path:     /getFunction
+    defaults: { _controller: TraxAdminBundle:Admin:getFunction }
+trax_admin_adminMaster:
+    path:     /adminMaster
+    defaults: { _controller: TraxAdminBundle:Admin:adminMaster }
+trax_admin_LoadModalContent:
+    path:     /LoadModalContent
+    defaults: { _controller: TraxAdminBundle:Admin:LoadModalContent }
+trax_admin_dataTableMaster:
+    path:     /dataTableMaster
+    defaults: { _controller: TraxAdminBundle:Admin:dataTableMaster }
+trax_admin_logout:
+    path:     /logout
+    defaults: { _controller: TraxAdminBundle:Admin:logout }
+trax_admin_InsertAdminMaster:
+    path:     /InsertAdminMaster
+    defaults: { _controller: TraxAdminBundle:Admin:InsertAdminMaster }
+trax_admin_BasicMaster:
+    path:     /BasicMaster
+    defaults: { _controller: TraxAdminBundle:Admin:BasicMaster }
+trax_admin_addEmployeeMaster:
+    path:     /addEmployeeMaster
+    defaults: { _controller: TraxAdminBundle:Admin:addEmployeeMaster }
+trax_admin_MapModule:
+    path:     /MapModule
+    defaults: { _controller: TraxAdminBundle:Admin:MapModule }

@@ -1,0 +1,61 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblMapbatchtoemployee
+ *
+ * @ORM\Table(name="tbl_mapBatchtoEmployee")
+ * @ORM\Entity
+ */
+class TblMapbatchtoemployee
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mapModuleId", type="integer", nullable=true)
+     */
+    private $mapmoduleid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="employeeId", type="string", length=255, nullable=true)
+     */
+    private $employeeid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

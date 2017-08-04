@@ -1,0 +1,211 @@
+<?php  if($getFunctionType=='getTrainingProgram'){ ?>
+
+		<select class="form-control" id="ProgramName" name="ProgramName" >
+		<option value="">Select Program</option>
+		<?php  for($i=0;$i<count($trainingprogramList);$i++){ ?>
+		<option value="<?php echo $trainingprogramList[$i]['prgid']; ?>" ><?php echo $trainingprogramList[$i]['programname']; ?></option>
+		<?php }?> 				
+		</select>
+
+
+<?php } else if($getFunctionType=='getEmployeeList'){ ?>
+
+		<select multiple size="3" class="form-control" name="employeelist[]" id="employeelist" >
+		<?php  for($i=0;$i<count($EmployeeList);$i++){ ?>
+		<option value="<?php echo $EmployeeList[$i]['empid']; ?>"><?php echo $EmployeeList[$i]['employeename']; ?></option>
+		<?php }?> 
+		</select>
+<?php } else if($getFunctionType=='getDepartment'){ 
+	
+	echo json_encode($deptListarray);	
+
+ } else if($getFunctionType=='getDepartmenttrainer'){ 
+	
+	echo json_encode($deptListarray);	
+
+ } else if($getFunctionType=='getEmplist'){ ?>
+
+<select aria-hidden="true" tabindex="-1" multiple="multiple"  name="employeelist[]" id="employeelist" class="select2 select2-hidden-accessible">
+		<?php for($i=0;$i<count($departList);$i++){ 
+
+			$employeeList = $em->createQuery("SELECT j.userid,j.employeename,j.chorusid FROM TraxAdminBundle:TblEmployee j  where j.department = '".$departList[$i]['dprtid']."' and j.customerid='".$loginuserId."' and j.employeetype='Trainee'")->getArrayResult();
+
+?>		
+		  <optgroup label="<?php echo $departList[$i]['department']; ?>">
+
+        				<?php  for($j=0;$j<count($employeeList);$j++){ ?>                                  
+					<option value="<?php echo $employeeList[$j]['userid']; ?>"><?php echo $employeeList[$j]['employeename']." - ".$employeeList[$j]['chorusid']; ?> </option>
+					<?php } ?>
+                                       </optgroup>
+        	<?php } ?>
+		</select><div id="erroremployeelist" style="color:red"></div>
+<?php } else if($getFunctionType=='getEmplisttrainer') {   ?>
+
+<select aria-hidden="true" tabindex="-1" multiple="multiple"  name="employeelist[]" id="employeelist" class="select2 select2-hidden-accessible">
+		<?php for($i=0;$i<count($departList);$i++){ 
+
+			$employeeList = $em->createQuery("SELECT j.empid,j.employeename,j.chorusid FROM TraxAdminBundle:TblEmployee j  where j.department = '".$departList[$i]['dprtid']."' and j.customerid='".$userlistid[0]['adminid']."' and j.employeetype='Trainee'")->getArrayResult();
+
+
+?>		
+		  <optgroup label="<?php echo $departList[$i]['department']; ?>">
+        				<?php  for($j=0;$j<count($employeeList);$j++){ ?>                                  
+					<option value="<?php echo $employeeList[$j]['empid']; ?>"><?php echo $employeeList[$j]['employeename']." - ".$employeeList[$j]['chorusid']; ?></option>
+					<?php } ?>
+                                       </optgroup>
+        	<?php } ?>
+		</select><div id="erroremployeelist" style="color:red"></div>
+<?php } else if($getFunctionType=='ExistEmployee'){ ?>
+
+		<select class="form-control" name="Trainername" id="Trainername" >
+		<option value="">Select Trainer</option>
+		<?php  for($i=0;$i<count($trainerNamelist);$i++){ ?>
+		<option value="<?php echo $trainerNamelist[$i]['empid']; ?>"><?php echo $trainerNamelist[$i]['employeename']; ?></option>
+		<?php }?> 
+		</select>
+
+<?php } else if($getFunctionType=='getModuleFile'){
+		for($i=0;$i<count($subCategoryListarray);$i++) {
+		
+			$Modulelist = $em->createQuery("SELECT j.moduleid,j.modulename,j.filetype,j.filename,j.filepath FROM TraxAdminBundle:TblModulefiles j where j.subcategory='".$subCategoryListarray[$i]['subcatid']."' and j.customerid='".$loginuserId."' ")->getArrayResult();
+				//print_r($Modulelist);
+?>
+		<div class="col-sm-4" >
+		<h2  style="color:#052E51;"> <?php echo $subCategoryListarray[$i]['subcategory'];  ?></h2>	
+				
+		<?php   if(count($Modulelist)>0){ for($j=0;$j<count($Modulelist);$j++) { 
+			$fileName=explode( '.', $Modulelist[$j]['filename'] ); ?>				
+				<div class="row">
+				<label><input type="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>">&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?> </label>
+				</br>
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href="<?php echo "../uploadfiles/".$Modulelist[$j]['filename']; ?>"><?php if($Modulelist[$j]['filetype']=='url'){ echo "View URL"; }else{  echo  $Modulelist[$j]['filename']; }  ?></a></lable>
+				</div>
+			<?php } } ?><div id="errorelearningModule" style="color:red"></div>
+
+</div>
+
+<?php  } ?>			
+
+<?php } else if($getFunctionType=='getsubCategory'){ ?>
+
+		<select name="SubCategory" id="SubCategory" class="form-control" >
+		<option value="">Select Sub Category </option>
+		<?php  for($i=0;$i<count($subCategoryList);$i++){ ?>
+		<option value="<?php echo $subCategoryList[$i]['subcatid']; ?>"><?php echo $subCategoryList[$i]['subcategory']; ?></option>
+		<?php }?> 
+		</select>
+
+<?php } else if($getFunctionType=='getsubCategoryMultiple'){ 
+			echo json_encode($deptListarray);	
+ } else if($getFunctionType=='getCategoryList'){ ?>
+
+		 <select name="CategoryId" id="CategoryId" class="form-control"  onchange="getsubCategory(this.value)">
+						<option value="">Select Category </option>
+						<?php for($i=0;$i<count($Categorylist);$i++) { ?>
+						<option value="<?php echo $Categorylist[$i]['cateid'];  ?>" ><?php  echo $Categorylist[$i]['modulecategory'];  ?></option>
+						<?php  } ?>
+					  </select><div id="errorCategoryId" style="color:red"></div>
+
+<?php } else if($getFunctionType=='checkUserName') { 
+		echo json_encode($userlist);	
+
+}  else if($getFunctionType=='LoginCheckApp') { 
+	if($frmoapp=='1') { 
+			echo json_encode($userListarray);
+	} 
+
+} else if($getFunctionType=='getcontentdoclist') { 
+		echo json_encode($mapmodulelistarray);
+
+
+ } else if($getFunctionType=='SessionList') { 
+		echo json_encode($sessionListarray);
+ } else if($getFunctionType=='SessionListEmp') { 
+		echo json_encode($sessionListEmparray);
+
+ }else if($getFunctionType=='employeeDetails') { 
+
+	echo json_encode($employeeArray);	
+	
+}else if($getFunctionType=='ModuleFile') { 
+
+	echo json_encode($mapModuleFileArray);	
+	}
+else if($getFunctionType=='EmployeefullDetails') { 
+
+	echo json_encode($employeeArray);	
+} else if($getFunctionType=='Changepassword') { 
+		echo json_encode($successmsg);
+ } else if($getFunctionType=='viewhistory') { 
+		echo json_encode($successmsg);
+ } else if($getFunctionType=='SendEmail') { 
+
+if(count($usermaillist) > 0)
+{
+
+
+$em->createQuery("update TraxAdminBundle:TblUser j set j.password='".$newpassword."' WHERE j.emailid='".$usermaillist[0]['emailid']."' ")->execute();
+
+		$mailSubject='Password Reset';
+		$mailContent="Dear Sir/Madam,<br><br>This is Your New password ".$newpassword."<br><br><br>Thanks";
+   		$content   = "";
+		$doc_title = "test";
+		$dirPath   = $dirPath;
+		$file_name = $fileName;
+		//$mailIdArray = self::getEmailIds();
+		//$tomailid    = "girish@dotcue.net";
+                 $tomailid    = $usermaillist[0]['emailid'];
+
+		$ccmail	     = "support@dotcue.net";
+		//$bccmailid   = "ashok@dotcue.net";
+		$sub         = "Password Reset";
+		$emailfinaltext = $mailContent;
+               $senderId="support@dotcue.net";
+
+		$FileName = date('YmsHis');
+               $pathvariable="/var/www/html/traxerpv1/web/mailFiles/";
+		$myFile =  $pathvariable. $FileName . ".txt";
+          	$fh = fopen($myFile, 'w+') or die("can't open file");
+          	fwrite($fh, $emailfinaltext);
+          	fclose($fh);
+         	$bodyContent=$FileName.".txt";
+
+		$phpMailerUrl = "http://www.traxerp.com/PHPMailer/examples/infomail.php";
+          	$url = $phpMailerUrl;
+		
+		$bodyfile_name_with_full_path = realpath( $pathvariable.$bodyContent);
+
+		
+		
+			$postdata = array('extra_info' => '123456','v2'=>$tomailid,'v3'=>$sub,'bfile'=>'@'.$bodyfile_name_with_full_path,'bcid'=>$bccmailid,'att'=>$attachment,'cc'=>$ccmail,'senderId'=>$senderId);
+                           
+		$useragent= "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)" ;
+        	$ch = curl_init();
+        	curl_setopt($ch, CURLOPT_COOKIEJAR, "cookies.txt");
+        	curl_setopt($ch, CURLOPT_COOKIEFILE, "cookies.txt");
+        	curl_setopt($ch, CURLOPT_USERAGENT, $useragent); //set our user agent
+                curl_setopt($ch, CURLOPT_POST, 1); //set how many paramaters
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+                curl_setopt($ch, CURLOPT_URL,$url); //set the url we want to use
+
+
+                curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false); //set the uploaded file safe option we want to use /*18jan2015 for php new version */
+
+                curl_setopt($ch, CURLOPT_POSTFIELDS,$postdata); //set data to post
+                $result= curl_exec ($ch); //execute and get the results
+    		$response_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+		//echo "responce code====".$response_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+		/***** EMAIL Function END *******/
+
+if($response_code==200)
+{
+
+//echo " Send successfully";
+}
+  
+
+}
+
+
+		echo json_encode($usermaillist);
+ }  ?>

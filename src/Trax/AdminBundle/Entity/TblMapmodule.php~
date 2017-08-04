@@ -1,0 +1,68 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblMapmodule
+ *
+ * @ORM\Table(name="tbl_mapModule")
+ * @ORM\Entity
+ */
+class TblMapmodule
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mapId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $mapid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trainerId", type="integer", nullable=true)
+     */
+    private $trainerid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="scheduleDate", type="string", length=255, nullable=true)
+     */
+    private $scheduledate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

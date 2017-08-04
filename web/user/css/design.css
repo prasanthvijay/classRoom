@@ -1,0 +1,167 @@
+#dropcontainDiv
+	{
+		min-height:-100px !important;
+	}
+	#categoryDiv
+	{
+		color:red;
+	}
+	#modulesDiv
+	{
+		color:red;
+	}
+	#modulesDiv1
+	{
+		color:red;
+	}
+	.box .modules , .box .categories {
+		width:80%;
+		text-align:center;
+		position:relative;
+		border:1px solid #E5E6E6;
+		margin:10px auto;
+		cursor:pointer;
+	    	border-radius: 10px;
+		padding-right:30px;
+		padding-left:30px;
+		color:#3B92B0;
+	}
+	.box {
+		min-height:200px;
+		background:#FFF;
+		padding:10px;        $depforEmp=$_GET['dprtid'];
+		margin:10px auto;
+	}
+	.box .modules0 , .box .categories {
+		width:80%;
+		text-align:center;
+		position:relative;
+		border:1px solid #E5E6E6;
+		margin:10px auto;
+		cursor:pointer;
+	    	border-radius: 10px;
+		padding-right:30px;
+		padding-left:30px;
+		color:#3B92B0;
+	}
+	.box {
+		min-height:250px;
+		background:#FFF;
+		padding:10px;
+		margin:10px auto;
+	}
+
+	/*==================================================
+	 * Effect 7
+	 * ===============================================*/
+	.effect7
+	{
+	    position:relative;
+	    box-shadow:0 5px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	}
+	.effect7:before, .effect7:after
+	{
+		content:"";
+	    position:absolute; 
+	    z-index:-1;
+	    box-shadow:0 0 20px rgba(0,0,0,0.8);
+	    top:0;
+	    bottom:0;
+	    left:10px;
+	    right:10px;
+	    border-radius:100px / 10px;
+	} 
+	.effect7:after
+	{
+	    right:10px; 
+	    left:auto; 
+	    transform:skew(8deg) rotate(3deg);
+	}
+	#cateDiv
+	{
+	right:1px;
+	border-top:none;
+	border-bottom:none;
+	color:red;
+	text-align:center;
+	border-right:1px dotted black;
+	border-left:none;
+	height:	300px;
+	}
+	#modeDiv
+	{
+	right:0px;
+	border-top:none;
+	color:red;
+	text-align:center;
+	border-bottom:none;
+
+	border-left:none;
+	height:300px;
+	}
+	#vacatDiv
+	{
+	right:1px;
+	color:red;
+	text-align:center;
+	height:300px;
+	}
+	#dropcontainDiv 
+	{
+	margin-top:30px;
+	}
+	@media(max-width:320px)
+	{
+		#cateDiv
+		{
+			border-top:none;
+			border-right:none;
+			border-bottom:1px dotted black;
+			border-left:none;
+			height:300px;
+		}
+		#modeDiv
+		{
+			height:300px;
+		}
+		#vacatDiv
+		{
+			height:300px;
+		}
+	}
+	@media(max-width:360px)
+	{
+		#cateDiv
+		{
+			border-top:none;
+			border-right:none;
+			border-bottom:1px dotted black;
+			border-left:none;
+			min-height:300px;
+		}
+		#modeDiv
+		{
+			height:300px;
+		}
+		#vacatDiv
+		{
+			height:300px;
+		}
+	}
+	.categories , .modules
+	{
+	z-index:1000;
+	}
+	.categories , .modules
+	{
+	z-index:1000;
+	}
+
+	.categories , #modules
+	{
+	z-index:1000;
+	}
+	.categories , .modules0
+	{
+	z-index:1000;
+	}

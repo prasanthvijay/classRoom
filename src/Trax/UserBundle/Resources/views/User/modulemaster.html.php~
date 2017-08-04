@@ -1,0 +1,104 @@
+<?php 
+	//$view->extend('::header.html.php'); 
+			$view->extend('::headernew.html.php'); 
+?>
+<div id="base">
+			
+	<div id="content">
+			<section>
+			<div class="section-header">
+				<ol class="breadcrumb">
+				<li class="active">Add Category</li>
+				</ol>
+
+			</div>
+			<div class="section-body contain-lg">
+
+			<div class="row">
+				
+				<div class="col-lg-offset-1 col-md-10 col-sm-12">
+					<div class="card">
+						<div class="card-body">
+				<form action="" id="customerForm" name="customerForm" style="border-radius: 0px;" class="form" enctype="multipart/form-data">
+				<div class="row form-group" style="display:none;" id="updateSuccess"> 
+				<div class="col-md-3"></div>
+				<div class="col-md-5">
+					<div class="alert alert-success">
+				        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				         	Successfully Updated...
+				    	</div>
+		     		</div>
+		     		</div>
+
+				<div class="row form-group" style="display:none;" id="insertSuccess"> 
+				<div class="col-md-3"></div>
+				<div class="col-md-5">
+				    <div class="alert alert-success">
+				        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				         Successfully Inserted...
+				    </div>
+		     		</div>
+		     		</div>
+								<div class="form-group">
+<input class="form-control" id="Category" name="Category" value="<?php echo $editModuleCategory[0]['modulecategory']; ?>" type="text">
+									<label for="regular1">Module Category</label>
+								</div>
+								<div class="form-group">
+<textarea class="form-control" id="Description" name="Description"><?php echo $editModuleCategory[0]['description']; ?></textarea>
+									<label for="regular1">Module Description</label>
+								</div>
+																
+<div class="form-group">
+<button class="btn btn-success" type="button" id="homemenu" name="homemenu" value="homemenu"  onclick="submitForm();"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
+								</div>
+
+<input type="hidden" name="customerId" id="customerId" value="<?php echo $customerId; ?>">
+				<input type="hidden" name="loginuserId" id="loginuserId" value="<?php echo $loginuserId; ?>">
+							</form>
+						</div><!--end .card-body -->
+					</div><!--end .card -->
+				</div><!--end .col -->
+							</div></div>
+
+				
+
+	</section>
+				
+		</div>
+
+
+<script>
+function submitForm() {
+
+	var type='ModuleCategory';
+	if(type=="ModuleCategory")
+		{
+		var val="1";
+		
+		var Category = document.getElementById('Category').value;
+if (Category == "")
+{
+
+document.getElementById('Category').focus();
+return false;
+}
+
+var Description = document.getElementById('Description').value;
+if (Description == "")
+{
+
+document.getElementById('Description').focus();
+return false;
+}
+		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function() {
+
+		$('#customerForm')[0].reset();	
+		$('html, body').animate({scrollTop : 0},800);
+		$('#insertSuccess').show();
+
+		})
+
+			
+	}
+}
+</script>

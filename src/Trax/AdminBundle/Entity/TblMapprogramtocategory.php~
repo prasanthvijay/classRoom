@@ -1,0 +1,75 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblMapprogramtocategory
+ *
+ * @ORM\Table(name="tbl_mapProgramtoCategory")
+ * @ORM\Entity
+ */
+class TblMapprogramtocategory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mapModuleId", type="integer", nullable=true)
+     */
+    private $mapmoduleid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="categoryId", type="string", length=255, nullable=true)
+     */
+    private $categoryid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subCategoryId", type="string", length=255, nullable=true)
+     */
+    private $subcategoryid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="moduleId", type="string", length=255, nullable=true)
+     */
+    private $moduleid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

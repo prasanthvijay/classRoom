@@ -1,0 +1,96 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblTrainingschedule
+ *
+ * @ORM\Table(name="tbl_trainingSchedule")
+ * @ORM\Entity
+ */
+class TblTrainingschedule
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="scheId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $scheid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="batchId", type="integer", nullable=true)
+     */
+    private $batchid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="programId", type="integer", nullable=true)
+     */
+    private $programid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="moduleCateId", type="integer", nullable=true)
+     */
+    private $modulecateid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="trainerName", type="string", length=255, nullable=true)
+     */
+    private $trainername;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="scheduleDate", type="datetime", nullable=true)
+     */
+    private $scheduledate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="departId", type="integer", nullable=true)
+     */
+    private $departid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="employeeId", type="integer", nullable=true)
+     */
+    private $employeeid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

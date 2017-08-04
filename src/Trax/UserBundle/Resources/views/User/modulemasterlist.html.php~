@@ -1,0 +1,153 @@
+<?php 
+	//$view->extend('::header.html.php'); 
+$view->extend('::headernew.html.php'); 
+
+
+?>
+
+<div id="base">
+		<!-- BEGIN CONTENT-->
+		<div id="content">
+				<section>
+						<div class="section-header">
+								<ol class="breadcrumb">
+													<li class="active">Module List</li>
+										</ol>
+
+						</div>
+		<div class="section-body">
+			<div class="card">
+
+				<!-- BEGIN SEARCH HEADER -->
+				<div class="card-head style-primary">
+					<div class="tools pull-left">
+						<form class="navbar-search" role="search" action="" id="pstEditOrDeleteFrm">
+							<div class="form-group">
+								<input class="form-control" name="contactSearch" placeholder="Enter your keyword" type="text">
+
+
+							</div>
+							<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+											<div class="tools">
+							Add Category<a class="btn btn-floating-action btn-default-light" href="<?php echo $view['assets']->getUrl('modulemaster') ?>"><i class="fa fa-plus"></i></a>
+						</div>
+				</div><!--end .card-head -->
+
+				<!-- END SEARCH HEADER -->
+
+				<!-- BEGIN SEARCH RESULTS -->
+				<div class="card-body">
+					<div class="row">
+
+						<!-- BEGIN SEARCH NAV -->
+						<div class="col-sm-4 col-md-3 col-lg-2">
+							<ul class="nav nav-pills nav-stacked">
+
+									<!--<li class="active"><a href="">Module List<small class="pull-right text-bold opacity-75"><?php echo count($ModuleCategory); ?></small></a></li>-->
+								<?php for($i=0;$i<count($DepartmentList);$i++){ ?>  
+<li class=""><a href=""><?php echo $DepartmentList[$i]['department']; ?><small class="pull-right text-bold opacity-75"></small></a></li>
+	
+								<?php } ?>
+								
+								
+								
+								
+							</ul>
+						</div><!--end .col -->
+						<!-- END SEARCH NAV -->
+
+
+							
+								<!-- BEGIN SEARCH RESULTS LIST -->
+								<div class="margin-bottom-xxl">
+									
+										<button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
+											<!--<span class="glyphicon glyphicon-arrow-down"></span> Sort-->
+										</button>
+<div class="list-results">
+	<table id="example" class="table table-bordered data-table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>S.NO</th>
+                <th>Module Name</th>
+                <th>Description</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+
+	<?php for($i=0;$i<count($ModuleCategory);$i++)
+		{ 
+
+		
+
+
+
+?>
+            <tr>
+                <td><?php echo $i+1; ?></td>
+                <td><?php echo $ModuleCategory[$i]['modulecategory']; ?></td>
+                <td><?php echo $ModuleCategory[$i]['description']; ?></td>
+                <!--<td><a href="<?php echo $view['assets']->getUrl('userlogin/table') ?>?id=<?php echo $user[$i]['id']; ?>&type=edit">edit</a></td> -->
+               
+  <th><a href="<?php  echo $view['assets']->getUrl('modulemaster') ?>?id=<?php echo $ModuleCategory[$i]['cateid']; ?>&type=edit">edit</a></th>
+               		<!--<th><a href="javascript:void(0);" onclick="editFunction(<?php  echo $ModuleCategory[$i]['cateid']; ?>);">Edit</a></th>-->
+			<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $ModuleCategory[$i]['cateid']; ?>);">Delete</a></th>
+
+            </tr>
+	<?php } ?>
+
+            
+        </tbody>
+    </table>
+
+								</div><!--end .margin-bottom-xxl -->
+								
+								<!-- BEGIN SEARCH RESULTS LIST -->
+
+								
+
+													</div><!--end .col -->
+					</div><!--end .row -->
+				</div><!--end .card-body -->
+				<!-- END SEARCH RESULTS -->
+
+			</div><!--end .card -->
+		</div><!--end .section-body -->
+	</section>
+
+		</div><!--end #content-->		
+		<!-- END CONTENT -->
+
+
+</div>
+<script>
+function editFunction(id)
+{
+	var editId=id;
+
+	$.get("?editId="+editId, function(data){
+		alert(data);
+	});
+	window.location.reload();
+
+
+}
+
+function deleteFunction(id)
+{
+	var delmodulemasterlist=id;
+
+	$.get("?delmodulemasterlist="+delmodulemasterlist, function(data){
+		alert(data);
+	});
+	window.location.reload();
+
+
+}
+</script>
+

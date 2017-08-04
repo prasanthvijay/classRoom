@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="TblTrainingschedule" table="tbl_trainingSchedule">
+    <id name="scheid" type="integer" column="scheId">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="batchid" type="integer" column="batchId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="programid" type="integer" column="programId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="modulecateid" type="integer" column="moduleCateId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="trainername" type="string" column="trainerName" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="scheduledate" type="datetime" column="scheduleDate" nullable="true"/>
+    <field name="departid" type="integer" column="departId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="employeeid" type="integer" column="employeeId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="customerid" type="integer" column="customerId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="adminid" type="integer" column="adminId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="createdat" type="datetime" column="createdAt" nullable="true"/>
+  </entity>
+</doctrine-mapping>

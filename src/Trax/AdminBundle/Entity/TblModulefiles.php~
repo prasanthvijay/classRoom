@@ -1,0 +1,103 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblModulefiles
+ *
+ * @ORM\Table(name="tbl_moduleFiles")
+ * @ORM\Entity
+ */
+class TblModulefiles
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="moduleId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $moduleid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="moduleName", type="string", length=255, nullable=true)
+     */
+    private $modulename;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trainerId", type="integer", nullable=true)
+     */
+    private $trainerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="moduleCategory", type="integer", nullable=true)
+     */
+    private $modulecategory;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="subCategory", type="integer", nullable=true)
+     */
+    private $subcategory;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fileType", type="string", length=255, nullable=true)
+     */
+    private $filetype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fileName", type="string", length=255, nullable=true)
+     */
+    private $filename;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="filePath", type="string", length=255, nullable=true)
+     */
+    private $filepath;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

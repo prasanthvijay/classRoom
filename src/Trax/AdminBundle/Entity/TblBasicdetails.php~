@@ -1,0 +1,96 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblBasicdetails
+ *
+ * @ORM\Table(name="tbl_BasicDetails")
+ * @ORM\Entity
+ */
+class TblBasicdetails
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Name", type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="managerName", type="string", length=255, nullable=true)
+     */
+    private $managername;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chorusId", type="string", length=255, nullable=true)
+     */
+    private $chorusid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="GId", type="string", length=255, nullable=true)
+     */
+    private $gid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="location", type="integer", nullable=true)
+     */
+    private $location;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="department", type="integer", nullable=true)
+     */
+    private $department;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", length=255, nullable=true)
+     */
+    private $gender;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

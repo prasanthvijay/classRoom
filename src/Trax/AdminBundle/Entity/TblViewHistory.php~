@@ -1,0 +1,47 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblViewHistory
+ *
+ * @ORM\Table(name="tbl_view_history")
+ * @ORM\Entity
+ */
+class TblViewHistory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="empid", type="integer", nullable=true)
+     */
+    private $empid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="module_id", type="integer", nullable=true)
+     */
+    private $moduleId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="view_date", type="datetime", nullable=true)
+     */
+    private $viewDate;
+
+
+}
+

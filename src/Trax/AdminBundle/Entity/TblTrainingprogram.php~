@@ -1,0 +1,61 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblTrainingprogram
+ *
+ * @ORM\Table(name="tbl_trainingProgram")
+ * @ORM\Entity
+ */
+class TblTrainingprogram
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="prgId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $prgid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="batchId", type="integer", nullable=true)
+     */
+    private $batchid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="programName", type="string", length=255, nullable=true)
+     */
+    private $programname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

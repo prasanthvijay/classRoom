@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="TblEmployee" table="tbl_employee">
+    <id name="empid" type="integer" column="empId">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="userid" type="integer" column="userId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="employeename" type="string" column="employeeName" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="gender" type="string" column="gender" length="249" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="employeetype" type="string" column="employeeType" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="department" type="integer" column="department" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="location" type="integer" column="location" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="chorusid" type="string" column="chorusId" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="customerid" type="integer" column="customerId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="adminid" type="integer" column="adminId" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="createdat" type="datetime" column="createdAt" nullable="true"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,73 @@
+trax_user_homepage:
+    path:     /
+    defaults: { _controller: TraxUserBundle:User:index }
+trax_user_portlet:
+    path:     /portlet
+    defaults: { _controller: TraxUserBundle:User:portlet }
+trax_user_trainer:
+    path:     /trainer
+    defaults: { _controller: TraxUserBundle:User:trainer }
+trax_user_logout:
+    path:     /logout
+    defaults: { _controller: TraxUserBundle:User:logout }
+trax_user_userFunction:
+    path:     /userFunction
+    defaults: { _controller: TraxUserBundle:User:userFunction }
+trax_user_traineelist:
+    path:     /traineelist
+    defaults: { _controller: TraxUserBundle:User:traineelist }
+trax_user_maptraniee:
+    path:     /maptraniee
+    defaults: { _controller: TraxUserBundle:User:maptraniee }
+trax_user_mappedtranieelist:
+    path:     /mappedtranieelist
+    defaults: { _controller: TraxUserBundle:User:mappedtranieelist }
+trax_user_modulemaster:
+    path:     /modulemaster
+    defaults: { _controller: TraxUserBundle:User:modulemaster }
+trax_user_submodulemaster:
+    path:     /submodulemaster
+    defaults: { _controller: TraxUserBundle:User:submodulemaster }
+trax_user_submodulemasterlist:
+    path:     /submodulemasterlist
+    defaults: { _controller: TraxUserBundle:User:submodulemasterlist }
+trax_user_mapmodule:
+    path:     /mapmodule
+    defaults: { _controller: TraxUserBundle:User:mapmodule }
+trax_user_mappingmodulelist:
+    path:     /mappingmodulelist
+    defaults: { _controller: TraxUserBundle:User:mappingmodulelist }
+trax_user_modulemasterlist:
+    path:     /modulemasterlist
+    defaults: { _controller: TraxUserBundle:User:modulemasterlist }
+trax_user_mapmoduletouser:
+    path:     /mapmoduletouser
+    defaults: { _controller: TraxUserBundle:User:mapmoduletouser }
+trax_user_trainingCalendar:
+    path:     /trainingCalendar
+    defaults: { _controller: TraxUserBundle:User:trainingCalendar }
+trax_user_maptrainerbatch:
+    path:     /maptrainerbatch
+    defaults: { _controller: TraxUserBundle:User:maptrainerbatch }
+trax_user_maptrainerprogram:
+    path:     /maptrainerprogram
+    defaults: { _controller: TraxUserBundle:User:maptrainerprogram }
+trax_user_maptrainingschedule:
+    path:     /maptrainingschedule
+    defaults: { _controller: TraxUserBundle:User:maptrainingschedule }
+trax_user_trainingbatch:
+    path:     /trainingbatch
+    defaults: { _controller: TraxUserBundle:User:trainingbatch }
+trax_user_trainingprogram:
+    path:     /trainingprogram
+    defaults: { _controller: TraxUserBundle:User:trainingprogram }
+trax_user_trainingschedule:
+    path:     /trainingschedule
+    defaults: { _controller: TraxUserBundle:User:trainingschedule }
+trax_user_mapmodulelist:
+    path:     /mapmodulelist
+    defaults: { _controller: TraxUserBundle:User:mapmodulelist }
+
+
+
+

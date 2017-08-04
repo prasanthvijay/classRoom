@@ -1,0 +1,96 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblEmployee
+ *
+ * @ORM\Table(name="tbl_employee")
+ * @ORM\Entity
+ */
+class TblEmployee
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="empId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $empid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="userId", type="integer", nullable=true)
+     */
+    private $userid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="employeeName", type="string", length=255, nullable=true)
+     */
+    private $employeename;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", length=249, nullable=true)
+     */
+    private $gender;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="employeeType", type="string", length=255, nullable=true)
+     */
+    private $employeetype;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="department", type="integer", nullable=true)
+     */
+    private $department;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="location", type="integer", nullable=true)
+     */
+    private $location;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chorusId", type="string", length=255, nullable=true)
+     */
+    private $chorusid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

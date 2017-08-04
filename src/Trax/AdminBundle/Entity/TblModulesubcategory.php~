@@ -1,0 +1,75 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblModulesubcategory
+ *
+ * @ORM\Table(name="tbl_moduleSubCategory")
+ * @ORM\Entity
+ */
+class TblModulesubcategory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="subCatid", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $subcatid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="catId", type="integer", nullable=true)
+     */
+    private $catid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subCategory", type="string", length=255, nullable=true)
+     */
+    private $subcategory;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trainerId", type="integer", nullable=true)
+     */
+    private $trainerid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+
+}
+

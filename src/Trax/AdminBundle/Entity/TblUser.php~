@@ -1,0 +1,166 @@
+<?php
+
+namespace Trax\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblUser
+ *
+ * @ORM\Table(name="tbl_User")
+ * @ORM\Entity
+ */
+class TblUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="userid", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $userid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Username", type="string", length=255, nullable=true)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sureName", type="string", length=255, nullable=true)
+     */
+    private $surename;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Name", type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="EmailId", type="string", length=255, nullable=true)
+     */
+    private $emailid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mobileNo", type="bigint", nullable=true)
+     */
+    private $mobileno;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Address", type="text", length=65535, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", length=255, nullable=true)
+     */
+    private $gender;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="employeeType", type="string", length=255, nullable=true)
+     */
+    private $employeetype;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="department", type="integer", nullable=true)
+     */
+    private $department;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="location", type="integer", nullable=true)
+     */
+    private $location;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chorusId", type="string", length=255, nullable=true)
+     */
+    private $chorusid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Gid", type="string", length=255, nullable=true)
+     */
+    private $gid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="filename", type="string", length=255, nullable=true)
+     */
+    private $filename;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagePath", type="string", length=255, nullable=true)
+     */
+    private $imagepath;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="usertypeId", type="integer", nullable=true)
+     */
+    private $usertypeid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="customerId", type="integer", nullable=true)
+     */
+    private $customerid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adminId", type="integer", nullable=true)
+     */
+    private $adminid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     */
+    private $status = 'active';
+
+
+}
+
