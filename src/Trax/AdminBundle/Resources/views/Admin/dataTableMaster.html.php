@@ -290,7 +290,7 @@
                 <th>S.NO</th>
                 <th>Module Category</th>
                 <th>Description</th>
-                <th>Edit</th>
+                <!--<th>Edit</th>-->
                 <th>Delete</th>
             </tr>
         </thead>
@@ -304,7 +304,7 @@
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $CategoryList[$i]['modulecategory']; ?></td>
                 <td><?php echo $CategoryList[$i]['description']; ?></td>
-               	<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $CategoryList[$i]['cateid'];?>)">Edit</a></th>
+               	<!--<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $CategoryList[$i]['cateid'];?>)">Edit</a></th>-->
 		<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $CategoryList[$i]['cateid']; ?>);">Delete</a></th>
             </tr>
 	<?php } ?>
@@ -401,7 +401,7 @@
                 <td><?php echo ucfirst($MapModuleList[$i]['name']); ?></td>
 		 <td>
 
-<a href="javascript:void(0);" data-toggle="modal" data-target="#myModalupdate" onclick="viewdatepicker(<?php echo $i+1; ?>,<?php echo $MapModuleList[$i]['subcatid'];?>);"><?php echo $MapModuleList[$i]['scheduledate'];?></a>
+<a href="javascript:void(0);" data-toggle="modal" data-target="#myModalupdate" onclick="viewdatepicker(<?php echo $MapModuleList[$i]['mapid'];?>);"><?php echo $MapModuleList[$i]['scheduledate'];?></a>
 
 			
 		</td>

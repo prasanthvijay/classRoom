@@ -102,8 +102,8 @@
 							<div class="radio-inline">
 								 <input type="radio" name="gender" id="female" class="styled" value="Female"  <?php if($editEmployeeList[0]['gender']=="Female"){ echo "checked"; } ?>>
 								<label for="checkbox3">Female</label><div id="errormale" class="errorText"></div>
-							</div><div id="errorgender" class="errorText"></div>
-						</div>
+							</div>
+						</div><div id="errorgender" class="errorText"></div>
 
 					</div> 
 					<div class="form-group"><div class="col-sm-1"></div>
@@ -240,16 +240,7 @@ function submitForm() {
 			{
 			$('#errorPassword').html(" ");
 			}
-			if($('input[name=userTypeId]:checked').length<=0)
-					{
-					$('#errordefaulttrainer').html("Please Select the  Trainer Type");
-					document.getElementById('userTypeId').focus();
-					return false; 
-					}
-					else
-					{
-					$('#errordefaulttrainer').html(" ");
-					}
+	
 			if($('input[name=gender]:checked').length<=0)
 					{
 					$('#errorgender').html("Please Select the  gender");

@@ -73,11 +73,11 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=ModuleCategory">Module Category</a></li>
                             <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=ModuleSubCategory">Module Sub Category</a></li>
-                            <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=Module">Upload Module</a></li>
+                            <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=Module">Upload Content</a></li>
                     		 <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=Viewfilehistory">View History</a></li>
                         </ul>
 			</li>
- 			<li class=""><a href="<?php echo $view['assets']->getUrl('manage/MapModule') ?>">Map Module</a></li>	
+ 			<li class=""><a href="<?php echo $view['assets']->getUrl('manage/MapModule') ?>">Map Content to Trainee</a></li>	
                  </ul>
 
                 <ul class="nav navbar-nav navbar-right user-nav">

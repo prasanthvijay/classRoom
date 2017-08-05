@@ -31,7 +31,7 @@ if($type=='Category'){
 					<h4 class="text-primary">Successfully Inserted...</h4>
 					</div>
 								<div class="form-group">
-<input class="form-control" id="Category" name="Category" value="<?php echo $editmodcatlist[0]['modulecategory']; ?>" type="text">
+<input class="form-control" id="Category" name="Category" value="<?php echo $editmodcatlist[0]['modulecategory']; ?>" type="text"><div style="color:red" id="errorCategory"></div>
 									<label for="regular1">Module Category</label>
 								</div>
 								<div class="form-group">
@@ -42,7 +42,7 @@ if($type=='Category'){
 <div class="form-group">
 <button class="btn btn-success" type="button" id="homemenu" name="homemenu" value="homemenu"  onclick="submitForm();"><?php if($editmodcatlist!=''){ echo "Update"; } else { echo "Submit"; }?></button>
 								</div>
-				<input type="hidd en" id="Trainer" name="Trainer" value="<?php echo $loginemployeeuserId; ?>">
+				<input type="hidden" id="Trainer" name="Trainer" value="<?php echo $loginemployeeuserId; ?>">
 				<input type="hidden" name="customerId" id="customerId" value="<?php echo $customerId; ?>">
 				<input type="hidden" name="editId" id="editId" value="<?php echo $editmodcatlist[0]['cateid']; ?>">
 							</form>
@@ -65,22 +65,20 @@ function submitForm() {
 	if(type=="ModuleCategory")
 		{
 		var val="1";
-		
+	       
 		var Category = document.getElementById('Category').value;
 		if (Category == "")
 		{
-
+                $('#errorCategory').html("Please enter the Module Category");
 		document.getElementById('Category').focus();
 		return false;
 		}
-
-		var Description = document.getElementById('Description').value;
-		if (Description == "")
+		else
 		{
-
-		document.getElementById('Description').focus();
-		return false;
+		$('#errorCategory').html(" ");
 		}
+
+		
 		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function() {
 
 		$('#customerForm')[0].reset();	
@@ -132,12 +130,13 @@ function submitForm() {
 						<?php for($i=0;$i<count($ModuleCategory);$i++) { ?>
 						<option value="<?php echo $ModuleCategory[$i]['cateid'];  ?>" <?php if($editModuleCategory[0]['cateid'] == $ModuleCategory[$i]['cateid']) echo "selected"; ?>><?php  echo $ModuleCategory[$i]['modulecategory'];  ?></option>
 						<?php  } ?>
-					  </select>
+					  </select><div style="color:red" id="errorCategoryId"></div>
 									<label for="regular1">Category</label>
 								</div>
 
 								<div class="form-group">
 <input class="form-control" id="SubCategory" name="SubCategory" value="<?php echo $editModuleCategory[0]['subcategory']; ?>" type="text">
+<div style="color:red" id="errorSubCategory"></div>
 									<label for="regular1">Module Sub Category
 </label>
 								</div>
@@ -176,27 +175,30 @@ function submitForm() {
 		var Category = document.getElementById('CategoryId').value;
 		if (Category == "")
 		{
-
+                 $('#errorCategoryId').html("Please select  the Module Category");
 		document.getElementById('CategoryId').focus();
 		return false;
+		}
+		else
+		{
+		 $('#errorCategoryId').html(" ");
 		}
 
 		var subCategory = document.getElementById('SubCategory').value;
 		if (subCategory == "")
 		{
-
+                $('#errorSubCategory').html("Please enter  the SubCategory");
 		document.getElementById('SubCategory').focus();
 		return false;
 		}
-
-
-		var Description = document.getElementById('Description').value;
-		if (Description == "")
+		
+		else
 		{
-
-		document.getElementById('Description').focus();
-		return false;
+		 $('#errorSubCategory').html(" ");
 		}
+
+
+		
 		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function() {
 
 		$('#customerForm')[0].reset();	
@@ -245,7 +247,7 @@ function submitForm() {
 						<?php for($i=0;$i<count($ModuleCategory);$i++) { ?>
 						<option value="<?php echo $ModuleCategory[$i]['cateid'];  ?>" <?php if($editmodulefilelist[0]['modulecategory'] == $ModuleCategory[$i]['cateid']) echo "selected"; ?>><?php  echo $ModuleCategory[$i]['modulecategory'];  ?></option>
 						<?php  } ?>
-					  </select>
+					  </select><div style="color:red" id="errorCategoryId"></div>
 									<label for="regular1">Category</label>
 								</div>
 					
@@ -257,15 +259,15 @@ function submitForm() {
 								</div>
 
 								<div class="form-group">
-<input type="text" id="ModuleName" name="ModuleName" class="form-control" value="<?php echo $editmodulefilelist[0]['modulename']; ?>">
-									<label for="regular1">Module Name</label>
+<input type="text" id="ModuleName" name="ModuleName" class="form-control" value="<?php echo $editmodulefilelist[0]['modulename']; ?>"><div style="color:red" id="errorModuleName"></div>
+									<label for="regular1">Content Name</label>
 								</div>
 <div class="form-group">
 <textarea class="form-control" id="Description" name="Description"><?php echo $editmodulefilelist[0]['description']; ?></textarea>
-									<label for="regular1">Module Description</label>
+									<label for="regular1">Description</label>
 								</div>
 <div class="form-group">
-					<input class="" id="uploadedFile" name="uploadedFile" value="" type="file">
+					<input class="" id="uploadedFile" name="uploadedFile" value="" type="file"><div style="color:red" id="erroruploadedFile"></div>
 									<label for="regular1">Upload Files</label>
 
 			
@@ -285,7 +287,7 @@ function submitForm() {
 <div class="form-group">
 <button class="btn btn-success" type="button" id="homemenu" name="homemenu" value="homemenu"  onclick="submitForm();"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
 								</div>
-<input type="hidden" name="loginemployeeuserId" id="loginemployeeuserId" value="<?php echo $loginemployeeuserId; ?>">
+			<input type="hidden" name="Trainer" id="Trainer" value="<?php echo $loginemployeeuserId; ?>">
 			<input type="hidden" name="customerId" id="customerId" value="<?php echo $customerId; ?>">
 				<input type="hidden" name="loginuserId" id="loginuserId" value="<?php echo $loginuserId; ?>">
 							</form>
@@ -319,28 +321,50 @@ function submitForm() {
 	var Category = document.getElementById('CategoryId').value;
 	if (Category == "")
 	{
-
+           $('#errorCategoryId').html("Please select the Category");
 	document.getElementById('CategoryId').focus();
 	return false;
+	}
+	
+	else
+	{
+	$('#errorCategoryId').html(" ");
+	}
+	var SubCategory = document.getElementById('SubCategory').value;
+	if (SubCategory == "")
+	{
+       $('#errorSubCategory').html("Please select the SubCategory");
+	document.getElementById('SubCategory').focus();
+	return false;
+	}
+	
+	else
+	{
+	$('#errorSubCategory').html(" ");
 	}
 	
 	var ModuleName = document.getElementById('ModuleName').value;
 	if (ModuleName == "")
 	{
-
+	$('#errorModuleName').html("Please enter the Content Name ");
 	document.getElementById('ModuleName').focus();
 	return false;
+	}
+	else
+	{
+	$('#errorModuleName').html(" ");
 	}
 
 	var uploadedFile = document.getElementById('uploadedFile').value;
 	if (uploadedFile == "")
 	{
-
+        $('#erroruploadedFile').html("Please upload File ");
 	document.getElementById('uploadedFile').focus();
 	return false;
 	}
+	
 	else{
-		//$('#erroruploadedFile').html("");
+		$('#erroruploadedFile').html(" ");
 			//var editId=$('#editId').val();
 			$('#progress').show();
                         $('#fileCancel').show();
@@ -370,7 +394,7 @@ function submitForm() {
 				if(response=='Success'){
 						$('#progress').hide();
 		       				$('#fileCancel').hide();
-						$('#customerForms')[0].reset();
+						$('#customerForm')[0].reset();
 						$("#insertSuccess").show();
 						dataTableFunction();
 					}					
@@ -455,15 +479,15 @@ function getsubCategory(catid){
 
 
 								<div class="form-group">
-<input class="form-control" id="Employeename" name="Employeename"  value="<?php echo $editEmployeeList[0]['employeename'] ?>" type="email" onblur="employeeDetils(this.value);">
+<input class="form-control" id="Employeename" name="Employeename"  value="<?php echo $editEmployeeList[0]['employeename'] ?>" type="email" onblur="employeeDetils(this.value);"><div style="color:red" id="errorEmployeename"></div>
 									<label for="regular1">Trainee Name</label>
 								</div>
 								<div class="form-group">
-<input class="form-control" id="gid" name="gid" placeholder="GId" value="<?php echo $editEmployeeList[0]['username'] ?>" <?php if($editId!=""){ echo "readonly";} ?> type="text" onblur="checkUserName(this.value);">
+<input class="form-control" id="gid" name="gid" placeholder="GId" value="<?php echo $editEmployeeList[0]['username'] ?>" <?php if($editId!=""){ echo "readonly";} ?> type="text" onblur="checkUserName(this.value);"><div style="color:red" id="errorgid"></div>
 									<label for="regular1">User Name <span class="text-danger" id="errorusername"></span></label>
 								</div>
 								<div class="form-group">
-<input class="form-control" <?php if($editId!=""){ echo "readonly";} ?> id="Password" name="Password" value="<?php echo $editEmployeeList[0]['password'] ?>" type="text">
+<input class="form-control" <?php if($editId!=""){ echo "readonly";} ?> id="Password" name="Password" value="<?php echo $editEmployeeList[0]['password'] ?>" type="text"><div style="color:red" id="errorPassword"></div>
 									<label for="password1">Password / Chorus Id</label>
 								</div>
 								<!--<div class="form-group">
@@ -493,7 +517,7 @@ function getsubCategory(catid){
 								<option value="<?php echo $DepartmentList[$i]['dprtid']; ?>" <?php if($editEmployeeList[0]['dprtid']== $DepartmentList[$i]['dprtid']) echo "selected";  ?>><?php echo $DepartmentList[$i]['department']; ?></option>
 
 								<?php }?> 				
-								</select>
+								</select><div style="color:red" id="errordepartment"></div>
 									<label for="select1">Select Department</label>
 								</div>
 								<div class="form-group">
@@ -503,7 +527,7 @@ function getsubCategory(catid){
 								<option value="<?php echo $LocationList[$i]['zoneid']; ?>" ><?php echo $LocationList[$i]['location']; ?></option>
 
 								<?php }?> 				
-								</select>
+								</select><div style="color:red" id="errorlocation"></div>
 									<label for="select1">Select Location</label>
 								</div>
 								<!--<div class="form-group">
@@ -557,6 +581,66 @@ $.get('manage/getFunction', { employeeId: employeeId,customerId:customerId,type:
 } 
 function submitForm() {
 
+     if ($('#Employeename').val()=='')
+	{
+	$('#errorEmployeename').html("Please enter the Trainee Name");
+	document.getElementById('Employeename').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errorEmployeename').html("");
+	}
+	
+	if ($('#gid').val()=='')
+	{
+	$('#errorgid').html("Please enter the User Name");
+	document.getElementById('gid').focus();
+
+	return false;
+	}
+	
+	else
+	{
+	$('#errorgid').html("");
+	}
+	
+	if ($('#Password').val()=='')
+	{
+	$('#errorPassword').html("Please enter the Password / Chorus Id");
+	document.getElementById('Password').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errorPassword').html("");
+	}
+	
+	if ($('#department').val()=='')
+	{
+	$('#errordepartment').html("Please select the Department");
+	document.getElementById('departments').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errordepartment').html("");
+	}
+	
+	if ($('#location').val()=='')
+	{
+	$('#errorlocation').html("Please select the Location");
+	document.getElementById('location').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errorlocation').html("");
+	}
 
 	$('#errorMobile').html("");
 

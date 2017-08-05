@@ -31,18 +31,19 @@
 					
 					</div>  
 					<?php } ?>
-<div class="form-group">
+					<div class="form-group">
 					<label class="col-sm-4 control-label">Trainer</label>
 					<div class="col-sm-5">
-					 <select name="Trainer" id="Trainer" class="form-control" onchange="getCategoryList(this.value);getDepart();">
+					 <select name="Trainer" id="TrainerId" class="form-control" onchange="getCategoryList(this.value);getDepart();">
 						<option value="">Select Trainer </option>
 						<?php for($i=0;$i<count($TrainerList);$i++) { ?>
 						<option value="<?php echo $TrainerList[$i]['userid'];  ?>" ><?php  echo $TrainerList[$i]['name'];  ?></option>
 						<?php  } ?>
-					  </select><div id="errorTrainer" class="errorText"></div></div>
+					  </select><div id="errorTrainermoduler" class="errorText"></div>
 					<div class="col-sm-2">
 					<!--<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:115px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('TrainerNew');" >Add Trainer</button>-->
 					
+					</div>
 					</div>
 					</div>  
 
@@ -50,14 +51,14 @@
 					<label class="col-sm-4 control-label">Module Category</label>
 					<div class="col-sm-5">
 					 <div id="CategoryDiv">
-					 <select name="Category" id="Category" class="form-control" onchange="getsubCategory(this.value)">
+					 <select name="Category" id="CategoryIdNew" class="form-control" onchange="getsubCategory(this.value)">
 						<option value="">Select Category </option>
 						
 					  </select><div id="errorCategory" class="errorText"></div>
 					</div>
 					</div>
 <div class="col-sm-2">
-					<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:115px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('ModuleCategory');">Add Category</button>
+					<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:115px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick="modalWindow('ModuleCategory');">Add Category</button>
 					
 					</div>
 					</div>
@@ -100,8 +101,8 @@
                                             <fieldset>
                                                     <div class="controls">
                                                         <div class="input-prepend input-group"><span class="add-on input-group-addon primary"><span class="glyphicon glyphicon-th"></span></span>
-                                                            <input id="reservation"  name="reservation" value="" placeholder="" class="form-control" type="text"><div id="errorreservation" class="errorText"></div>
-                                                        </div>
+                                                            <input id="reservation"  name="reservation" value="" placeholder="" class="form-control" type="text">
+                                                        </div><div id="errorreservation" class="errorText"></div>
                                                     </div>
 
                                             </fieldset>
@@ -175,12 +176,13 @@
 <script>
 modalWindow();
 
-
 function modalWindow(type)
 {
-	$.get( "LoadModalContent",{ type : type},function(data) {
+
+ 	$.get( "LoadModalContent",{ type : type},function(data) {
 	$( "#DisplayModlaDiv" ).html( data );
-		//App.formElements();
+	App.init();
+	App.formElements();
 	})
 
 
@@ -206,7 +208,7 @@ function getsubCategory(catid){
 
 function getCategoryList(trainerId)
 {
-	var type="getCategoryList";
+	var type="getCategoryListNew";
 	$.get( "getFunction",{ type : type,trainerId : trainerId},function(data) {
 	$('#CategoryDiv').html(data);
 	});
@@ -372,6 +374,29 @@ var origin="#search";
 
 function submitForm(type) {
 		if(type=="ModuleCategory"){
+			var Trainermodul=$('#Trainer').val();
+			if(Trainermodul=="")
+			{
+			$('#errorTrainer').html("Please Select the Trainer");
+			document.getElementById('Trainer').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorTrainer').html(" ");
+			}
+			
+			var Categorymod=$('#Category').val();
+			if(Categorymod=="")
+			{
+			$('#errorMenu').html("Please Select the  Category Name");
+			document.getElementById('Category').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorMenu').html(" ");
+			
 			var Trainer=document.getElementById('Trainer').value;
 			var Category=document.getElementById('Category').value;
 				var editId=$('#editId').val();
@@ -386,11 +411,44 @@ function submitForm(type) {
 getCategoryList(Trainer);
 					
 
-					
-
 				})
+				}
 			}
 	if(type=="ModuleSubCategory"){
+			var Trainermodul=$('#Trainer').val();
+			if(Trainermodul=="")
+			{
+			$('#errorTrainer').html("Please  Select the Trainer");
+			document.getElementById('Trainer').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorTrainer').html(" ");
+			}
+			
+			var Categorymod=$('#CategoryId').val();
+			if(Categorymod=="")
+			{
+			$('#ErrCategoryId').html("Please Select the  Category Name");
+			document.getElementById('CategoryId').focus();
+			return false; 
+			}
+			else
+			{
+			$('#ErrCategoryId').html(" ");
+			}
+			var SubCategory=$('#SubCategory').val();
+			if(SubCategory=="")
+			{
+			$('#errorSubCategory').html("Please Enter the  SubCategory Name");
+			document.getElementById('SubCategory').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorSubCategory').html(" ");
+			}
 			var Trainer=document.getElementById('Trainer').value;
 			var CategoryId=document.getElementById('CategoryId').value;
 			var SubCategory=document.getElementById('SubCategory').value;				
@@ -407,7 +465,18 @@ getCategoryList(Trainer);
 
 
 }
-		if(type=="Department"){
+		if(type=="Department"){ 
+					var department=$('#department').val();
+					if(department=="")
+					{
+					$('#errordepartment').html("Please Enter the  Department");
+					document.getElementById('department').focus();
+					return false; 
+					}
+					else
+					{
+					$('#errordepartment').html(" ");
+					}
 					var department=document.getElementById('department').value;
 		
 						var editId=$('#editId').val();
@@ -425,7 +494,62 @@ getCategoryList(Trainer);
 
 		}
 		if(type=="Module")
-		{
+		{	var Trainer=$('#Trainer').val();
+			if(Trainer=="")
+			{
+			$('#errorTrainer').html("Please Select the  Trainer Name");
+			document.getElementById('Trainer').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorTrainer').html(" ");
+			}
+			var Categorymod=$('#CategoryId').val();
+			if(Categorymod=="")
+			{
+			$('#errorCategoryId').html("Please Select the  Category Name");
+			document.getElementById('CategoryId').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorCategoryId').html(" ");
+			}
+			
+			var SubCategory=$('#SubCategory').val();
+			if(SubCategory=="")
+			{
+			$('#errorSubCategory').html("Please Select the  SubCategory Name");
+			document.getElementById('SubCategory').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorSubCategory').html(" ");
+			}
+			var ModuleName=$('#ModuleName').val();
+			if(ModuleName=="")
+			{
+			$('#errorModuleName').html("Please Enter the  Module Name");
+			document.getElementById('ModuleName').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorModuleName').html(" ");
+			}
+			var uploadedFile=document.getElementById('uploadedFile').value;	
+			if(uploadedFile=="")
+			{		
+
+				$('#erroruploadedFile').html("Please uploaded File");
+				document.getElementById('uploadedFile').focus();
+				return false;
+		    	}
+			else
+			{
+			$('#erroruploadedFile').html("");
 			var Trainer=document.getElementById('Trainer').value;
 
 			var CategoryId=document.getElementById('CategoryId').value;
@@ -511,35 +635,32 @@ getCategoryList(Trainer);
 			});*/
 
 				
-			
+		}
 			
 		}
 
 	if(type=='Mapping'){
-			var Trainer = document.getElementById('Trainer').value;
+			var Trainer = document.getElementById('TrainerId').value;
 			if (Trainer == "")
 			{
-			$('#errorTrainer').html("Please select Trainer");
-			document.getElementById('Trainer').focus();
+			$('#errorTrainermoduler').html("Please select Trainer");
+			document.getElementById('TrainerId').focus();
 			return false;
 			}
 			 else
 			 { 
-		 	$('#errorTrainer').html(" ");
+		 	$('#errorTrainermoduler').html(" ");
 			 }
-			
-			if($('#CategoryId').val()== "")
+			if($('#CategoryIdNew').val()== "")
 			{		
 				$('#errorCategoryId').html("Please select Category");
-				document.getElementById('CategoryId').focus();
+				document.getElementById('CategoryIdNew').focus();
 				return false;
 		    	}
 			else
 			{
 				$('#errorCategoryId').html("");
 			}
-
-
 			if($('#subCategory_to').val()==null || $('#subCategory_to').val()=="" )
 			{		
 				$('#errorsubCategory_to').html("Please  select subCategory");
@@ -551,9 +672,8 @@ getCategoryList(Trainer);
 			$('#errorsubCategory_to').html("");
 					
                          }
-            		  var checking=0;
+            		 var checking=0;
 			var chks = document.getElementsByName('elearningModule[]');
-			
 			for(var i=0; i<chks.length; i++)
 			{
 				if(chks[i].checked)
@@ -584,7 +704,7 @@ getCategoryList(Trainer);
 				}
 
 
-              if($('#search_to').val()==null || $('#search_to').val()=="" )
+            		 if($('#search_to').val()==null || $('#search_to').val()=="" )
 			{		
 				$('#errorsearch_to').html("Please  select Department");
 				document.getElementById('search_to').focus();
@@ -603,8 +723,7 @@ getCategoryList(Trainer);
 		    	}
 			else
 			{
-				$('#erroremployeelist').html("");
-				}
+			$('#erroremployeelist').html("");
 				var editId=$('#editId').val();
 
 				$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type=MapModule", $( "#customerForm" ).serialize(),function() {
@@ -621,6 +740,7 @@ getCategoryList(Trainer);
 					$('#updateSuccess').show();
 					}
 				})
+			}
 			
 		}
 

@@ -301,7 +301,7 @@ function editFunction(id)
                 <td><?php echo $modulefilelist[$i]['modulecategory']; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulename']; ?></td>
                 <td><?php echo $modulefilelist[$i]['description']; ?></td>
-		<td><a target=_blank href="<?php if($modulefilelist[$i]['filetype']=='Story'){ $pathArray= explode("/", $modulefilelist[$i]['filepath']);  echo "../web/uploadfiles/".$pathArray[7]."/".$pathArray[8]."story.html"; }else{ echo "../web/uploadfiles/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
+		<td><a target=_blank href="<?php if($modulefilelist[$i]['filetype']=='Story'){ $pathArray= explode("/", $modulefilelist[$i]['filepath']);  echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."story.html"; }else{ $pathArray= explode("/", $modulefilelist[$i]['filepath']); echo "../uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
                	<!--<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $modulefilelist[$i]['moduleid'];?>)">Edit</a></th>-->
 		<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $modulefilelist[$i]['moduleid']; ?>);">Delete</a></th>
             </tr>
@@ -378,7 +378,7 @@ function editFunction(id)
             <tr>
                 <th>S.NO</th>
                 <th>Module Category</th>
-                <th>Sub Category</th>
+                <th>Trainer</th>
 		<th>Schedule Date</th>
                 <th>Trainees</th>
 			
@@ -390,15 +390,11 @@ function editFunction(id)
 
 	<?php  for($i=0;$i<count($MapModuleList);$i++)
 		{ 
-
-$date= $MapModuleList[$i]['scheduledate'];
-list($start, $enddate) = split('[-.-]', $date);
-
 ?>
             <tr>
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $MapModuleList[$i]['modulecategory']; ?></td>
-                <td><?php echo $MapModuleList[$i]['subcategory']; ?></td>
+                <td><?php echo $MapModuleList[$i]['name']; ?></td>
 		 <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModalupdate" onclick="viewdatepicker(<?php echo $i+1; ?>,<?php echo $MapModuleList[$i]['subcatid'];?>);"><?php echo $MapModuleList[$i]['scheduledate'];?></a>
 		</td>
                 <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" onclick="modalWindowemployee('loademployeelist',<?php echo $MapModuleList[$i]['subcatid']  ?>);">View Trainees</a></td>

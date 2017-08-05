@@ -17,7 +17,7 @@ border-bottom:none!important;
 
 			<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button  type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">Customer</h4>
 				</div>
 				<div class="modal-body form">
@@ -178,7 +178,7 @@ border-bottom:none!important;
 					<div class="form-group"><div class="col-sm-2"></div>
 					<label class="col-sm-3 control-label"><?php echo preg_replace('/([A-Z])/', ' $1', $mastertype);  ?> </label>
 					<div class="col-sm-4">
-					<input class="form-control" id="department" name="department" value="<?php echo $editDepartment[0]['department']; ?>" type="text"><div id="errorLocation"  class="errorText"></div>
+					<input class="form-control" id="department" name="department" value="<?php echo $editDepartment[0]['department']; ?>" type="text"><div id="errordepartment"  class="errorText"></div>
 					</div>
 					</div>  
 					<div class="form-group">
@@ -736,8 +736,8 @@ $("#datevalue").datetimepicker({format: 'yyyy-mm-dd',
 						<?php for($i=0;$i<count($Categorylist);$i++) { ?>
 						<option value="<?php echo $Categorylist[$i]['cateid'];  ?>" ><?php  echo $Categorylist[$i]['modulecategory'];  ?></option>
 						<?php  } ?>
-					  </select>
-					</div></div><div id="errorMenu" class="errorText"></div>
+					  </select><div id="ErrCategoryId" class="errorText">
+					</div></div></div>
 					</div>
 					<div class="form-group">
 					<label class="col-sm-4 control-label">Module Sub Category</label>
@@ -815,12 +815,12 @@ function getCategoryList(trainerId){
 					<label class="col-sm-4 control-label">Module Category</label>
 					<div class="col-sm-5">
 					<div id="CategoryDive">
-					 <select name="Category" id="Category" class="form-control" onchange="getsubCategory(this.value)">
+					 <select name="Category" id="CategoryId" class="form-control" onchange="getsubCategory(this.value)">
 						<option value="">Select Category </option>
 						
-					  </select>
+					  </select><div id="errorMenu" class="errorText">
 					</div>
-					</div><div id="errorMenu" class="errorText"></div>
+					</div></div>
 					</div>
 					<div class="form-group">
 					<label class="col-sm-4 control-label">Module Sub Category</label>
@@ -828,9 +828,9 @@ function getCategoryList(trainerId){
 					<div id="subCategoryDiv"> 
 					 <select name="SubCategory" id="SubCategory" class="form-control" >
 						<option value="">Select Category </option>
-					 </select>
+					 </select><div id="errorSubCategory" class="errorText">
 					</div>
-					</div><div id="errorMenu" class="errorText"></div>
+					</div></div>
 					</div>
 
 
@@ -1154,17 +1154,17 @@ function getsubCategory(catid){
 				<div class="form-group">
 				<div class="modal-body form">
 				<form action="" id="updatedate<?php echo $id; ?>" name="updatedate<?php echo $id; ?>">
-			<div id="calendershow<?php echo $id; ?>"  class="calendershow"> 
+			<div id="calendershow"  class="calendershow"> 
 			<div class="col-sm-3"></div><div class="col-sm-5">
 			<fieldset><div class="controls">
                         <div class="input-prepend input-group"><span class="add-on input-group-addon primary"><span class="glyphicon glyphicon-th"></span></span>
-                        <input id="reservation"  name="reservation<?php echo $id; ?>" value="" placeholder="" class="form-control" type="text">
+                        <input id="reservation"  name="reservation" value="<?php echo $SelectDate[0]['scheduledate']; ?>" placeholder="" class="form-control" type="text">
                         </div>
                         </div>
 			</fieldset>
 			</div>
 			<div class="col-sm-4"></div>
-			<div class="col-sm-4" >	<input type="hidden" name="subcatid<?php echo $id; ?>" id="subcatid<?php echo $id; ?>" value="<?php echo $subcatid;?>">
+			<div class="col-sm-4" >	<input type="hidden" name="subcatid" id="subcatid" value="<?php echo $SelectDate[0]['mapid']; ?>">
 			<button align="center" class="btn btn-success" type="button" id="homemenu" name="homemenu" value="homemenu"  onclick="updatescheduledate('updatedatepicker',<?php echo $id; ?>);">Submit</button>
 			</div>
 			</div>
@@ -1178,5 +1178,10 @@ function getsubCategory(catid){
 
 <?php } ?>
 
+<style>
+.modal-header .close {
 
+    color: #FFF !important;
+}
+</style>
 

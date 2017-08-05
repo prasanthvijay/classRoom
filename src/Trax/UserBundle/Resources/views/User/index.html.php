@@ -35,13 +35,14 @@ function submitForm(){
 		var username=$('#username').val();
 		var password=$('#password').val();
 	 	$.get( "userFunction",{ type:'LoginCheck',username : username,password : password},function(data) {
-			if(data=='Employee'){
+			var result=parseInt(data);
+			if(result=='Employee'){
 				window.location.href = "portlet";
 			}
-			else if(data=='Trainer' || data=='Guest Trainer'){
+			else if(result=='4'){
 				window.location.href = "modulemaster?type=Trainee";
 			}
-			else if(data=='2'){
+			else if(result=='2'){
 				window.location.href = "manage/adminMaster?master=Employee";
 			}
 			else{

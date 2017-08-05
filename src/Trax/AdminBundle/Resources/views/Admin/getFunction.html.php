@@ -44,13 +44,13 @@
 <select aria-hidden="true" tabindex="-1" multiple="multiple"  name="employeelist[]" id="employeelist" class="select2 select2-hidden-accessible">
 		<?php for($i=0;$i<count($departList);$i++){ 
 
-			$employeeList = $em->createQuery("SELECT j.empid,j.employeename,j.chorusid FROM TraxAdminBundle:TblEmployee j  where j.department = '".$departList[$i]['dprtid']."' and j.customerid='".$userlistid[0]['adminid']."' and j.employeetype='Trainee'")->getArrayResult();
+			$employeeList = $em->createQuery("SELECT j.userid,j.name,j.chorusid FROM TraxAdminBundle:TblUser j  where j.department = '".$departList[$i]['dprtid']."' and j.employeetype='Trainee'")->getArrayResult();
 
 
 ?>		
 		  <optgroup label="<?php echo $departList[$i]['department']; ?>">
         				<?php  for($j=0;$j<count($employeeList);$j++){ ?>                                  
-					<option value="<?php echo $employeeList[$j]['empid']; ?>"><?php echo $employeeList[$j]['employeename']." - ".$employeeList[$j]['chorusid']; ?></option>
+					<option value="<?php echo $employeeList[$j]['userid']; ?>"><?php echo $employeeList[$j]['name']." - ".$employeeList[$j]['chorusid']; ?></option>
 					<?php } ?>
                                        </optgroup>
         	<?php } ?>
@@ -67,18 +67,27 @@
 <?php } else if($getFunctionType=='getModuleFile'){
 		for($i=0;$i<count($subCategoryListarray);$i++) {
 		
-			$Modulelist = $em->createQuery("SELECT j.moduleid,j.modulename,j.filetype,j.filename,j.filepath FROM TraxAdminBundle:TblModulefiles j where j.subcategory='".$subCategoryListarray[$i]['subcatid']."' and j.customerid='".$loginuserId."' ")->getArrayResult();
-				//print_r($Modulelist);
+			$Modulelist = $em->createQuery("SELECT j.moduleid,j.modulename,j.filetype,j.filename,j.filepath FROM TraxAdminBundle:TblModulefiles j where j.subcategory='".$subCategoryListarray[$i]['subcatid']."' ")->getArrayResult();
+//print_r($Modulelist);
 ?>
 		<div class="col-sm-4" >
 		<h2  style="color:#052E51;"> <?php echo $subCategoryListarray[$i]['subcategory'];  ?></h2>	
 				
 		<?php   if(count($Modulelist)>0){ for($j=0;$j<count($Modulelist);$j++) { 
-			$fileName=explode( '.', $Modulelist[$j]['filename'] ); ?>				
+			$fileName=explode( '.', $Modulelist[$j]['filename'] ); 
+			$filepath=explode( '/', $Modulelist[$j]['filepath'] );	
+		if($Modulelist[$j]['filetype']=='Story'){
+
+			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename']."/story.html";
+		}
+		else{
+			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename'];
+		}	
+?>				
 				<div class="row">
 				<label><input type="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>">&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?> </label>
 				</br>
-				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href="<?php echo "../uploadfiles/".$Modulelist[$j]['filename']; ?>"><?php if($Modulelist[$j]['filetype']=='url'){ echo "View URL"; }else{  echo  $Modulelist[$j]['filename']; }  ?></a></lable>
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href='<?php echo $url; ?>'><?php if($Modulelist[$j]['filetype']=='url'){ echo "View URL"; }else{  echo  $Modulelist[$j]['filename']; }  ?></a></lable>
 				</div>
 			<?php } } ?><div id="errorelearningModule" style="color:red"></div>
 
@@ -104,7 +113,25 @@
 						<?php for($i=0;$i<count($Categorylist);$i++) { ?>
 						<option value="<?php echo $Categorylist[$i]['cateid'];  ?>" ><?php  echo $Categorylist[$i]['modulecategory'];  ?></option>
 						<?php  } ?>
-					  </select><div id="errorCategoryId" style="color:red"></div>
+					  </select><div id="errorCategoryId" class="errorText" style="color:red">
+
+<?php } else if($getFunctionType=='getCategoryListM'){ ?>
+
+		 <select name="CategoryId" id="CategoryIdM" class="form-control"  onchange="getsubCategory(this.value)">
+						<option value="">Select Category </option>
+						<?php for($i=0;$i<count($Categorylist);$i++) { ?>
+						<option value="<?php echo $Categorylist[$i]['cateid'];  ?>" ><?php  echo $Categorylist[$i]['modulecategory'];  ?></option>
+						<?php  } ?>
+					  </select><div id="errorCategoryId" class="errorText">
+
+<?php } else if($getFunctionType=='getCategoryListNew'){ ?>
+
+		 <select name="CategoryId" id="CategoryIdNew" class="form-control"  onchange="getsubCategory(this.value)">
+						<option value="">Select Category </option>
+						<?php for($i=0;$i<count($Categorylist);$i++) { ?>
+						<option value="<?php echo $Categorylist[$i]['cateid'];  ?>" ><?php  echo $Categorylist[$i]['modulecategory'];  ?></option>
+						<?php  } ?>
+					  </select><div id="errorCategoryId" class="errorText">
 
 <?php } else if($getFunctionType=='checkUserName') { 
 		echo json_encode($userlist);	

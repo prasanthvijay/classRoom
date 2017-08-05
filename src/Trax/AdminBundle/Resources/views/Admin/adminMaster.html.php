@@ -87,7 +87,6 @@ modalWindow();
 function modalWindow()
 {
 	var type='<?php echo $master; ?>';
-
 	 	$.get( "LoadModalContent",{ type : type},function(data) {
 		$( "#DisplayModlaDiv" ).html( data );
 		App.init();
@@ -105,14 +104,11 @@ function modalWindowemployee(type,mapid)
 function viewdatepicker(id,subcatid)
 {
 var type ="updatescheduledate";
-
 $.get( "LoadModalContent",{ type : type,id: id,subcatid:subcatid},function(data) {
 $( "#DisplayModlaupdateDiv" ).html( data );
 App.init();
 App.formElements();
 })
-
-
 
 }
 
@@ -242,12 +238,12 @@ function submitForm() {
 				
 							
 				if($('#department').val()==""){
-					$('#errorLocation').html("Enter Department ");
+					$('#errordepartment').html("Enter Department ");
 					document.getElementById('department').focus();
 					return false;
 				}
 				else{
-				$('#errorLocation').html("");
+				$('#errordepartment').html("");
 			
 					var editId=$('#editId').val();
 
@@ -570,20 +566,18 @@ function submitForm() {
 				$('#errorTrainer').html("");
 			}
 
-var CategoryId=document.getElementById('CategoryId').value;
-			
-
+			var CategoryId=document.getElementById('CategoryId').value;
 
 			if(CategoryId=="")
 			{		
 
-				$('#errorCategoryId').html("Please Select Category");
+				$('#ErrCategoryId').html("Please Select Category");
 				document.getElementById('CategoryId').focus();
 				return false;
 		    	}
 			else
 			{
-				$('#errorCategoryId').html("");
+				$('#ErrCategoryId').html("");
 			}
 var SubCategory=document.getElementById('SubCategory').value;
 			
@@ -998,10 +992,10 @@ swal({
 
 function updatescheduledate(type,id)
 {
-$.get( "getFunction?type="+type+"&id="+id, $( "#updatedate"+id).serialize(),function() {
+$.get( "getFunction?type="+type+"&id="+id, $( "#updatedate"+id).serialize(),function(data) {
 
 					$('#updatedate'+id)[0].reset();	
-					dataTableFunction();				
+					dataTableFunction();
 				})
 
 	

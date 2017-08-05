@@ -25,15 +25,12 @@ class UserController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$myownclass = new myownclass();
 		$getFunctionType=$request->get('type');
- 		$loginuserId = $session->get('loginuserId');
-		$loginExeType = $session->get('loginExeType');
-		$customerId = $session->get('customerId');
+ 		
 		if($getFunctionType=="LoginCheck"){
 			 $username=$request->get('username');
 			 $password=$request->get('password');
 
 			$userList = $em->createQuery("SELECT j.userid,j.usertypeid,j.name,j.employeetype,j.customerid FROM TraxAdminBundle:TblUser j  where j.username='".$username."' and j.password='".$myownclass->encryptor('encrypt',$password)."'")->getArrayResult();
-			
 				if($userList[0]['usertypeid']=='Trainee'){
 
 					$session->set('loginuserId', $employeeList[0]['empid']);
@@ -44,7 +41,7 @@ class UserController extends Controller
 					$_SESSION['employeetype']=$employeeList[0]['employeetype'];
 					$_SESSION['employeename']=$employeeList[0]['name'];
 					$_SESSION['customerid']=$employeeList[0]['customerid'];
-					echo $userList[0]['employeetype']; 
+					//echo $userList[0]['employeetype']; 
 					}
 				if($userList[0]['employeetype']=='Trainer' || $userList[0]['employeetype']=='Guest Trainer'){
 
@@ -56,7 +53,7 @@ class UserController extends Controller
 					$_SESSION['employeetype']=$userList[0]['employeetype'];
 					$_SESSION['employeename']=$userList[0]['employeename'];
 					$_SESSION['customerid']=$userList[0]['customerid'];
-					echo $userList[0]['employeetype']; 
+					echo $userList[0]['usertypeid']; 
 					}
 
 				if($userList[0]['usertypeid']==2){
@@ -70,7 +67,7 @@ class UserController extends Controller
 	     	}
 		
 		$loginId = $session->get('loginId');
-		$loginuserId = $session->get('loginuserId');
+		$loginuserId = $session->get('loginemployeeuserId');
 		$loginExeType = $session->get('loginExeType');
 		$customerId = $session->get('customerId');
 
@@ -84,7 +81,22 @@ class UserController extends Controller
 			//$subCategoryList = $em->createQuery("SELECT j.subcatid,j.subcategory FROM TraxAdminBundle:TblModulesubcategory j where j.catid='".$catid."' ")->getArrayResult();	
 
 		}
-		return $this->render('TraxUserBundle:User:userFunction.html.php',array('getFunctionType'=>$getFunctionType,'subCategoryList'=>$subCategoryList,'loginuserId'=>$loginuserId,'customerId'=>$customerId));
+		if($getFunctionType=="ModuleSubCategory"){	
+			$Categorylist = $em->createQuery("SELECT j.cateid,j.modulecategory FROM TraxAdminBundle:TblModulecategory j where j.trainerid='".$loginuserId."' ")->getArrayResult();	
+		}
+		if($getFunctionType=="Module"){	
+			$Categorylist = $em->createQuery("SELECT j.cateid,j.modulecategory FROM TraxAdminBundle:TblModulecategory j where j.trainerid='".$loginuserId."' ")->getArrayResult();	
+		}
+		
+		
+		if($getFunctionType=="trainer")
+		{
+			
+			$DepartmentList = $em->createQuery("SELECT j.dprtid,j.department FROM TraxAdminBundle:TblDepartment j where j.customerid='".$customerId."'")->getArrayResult();
+			$LocationList = $em->createQuery("SELECT j.zoneid,j.location FROM TraxAdminBundle:TblLocation j where j.customerid='".$customerId."'")->getArrayResult();
+
+		}
+		return $this->render('TraxUserBundle:User:userFunction.html.php',array('getFunctionType'=>$getFunctionType,'subCategoryList'=>$subCategoryList,'loginuserId'=>$loginuserId,'customerId'=>$customerId,'Categorylist'=>$Categorylist,'DepartmentList'=>$DepartmentList,'LocationList'=>$LocationList));
 	}
 	public function portletAction(Request $request)
 	{
@@ -244,6 +256,8 @@ $TrainingSchedulelist = $em->createQuery("SELECT j.scheid,j.scheduledate,k.batch
 		if($type=='ModuleList'){
 
 			$modulefilelist = $em->createQuery("SELECT j.moduleid,j.modulename,j.description,k.modulecategory,j.filename,j.filepath, j.filetype FROM TraxAdminBundle:TblModulefiles j INNER JOIN TraxAdminBundle:TblModulecategory k with k.cateid=j.modulecategory where j.trainerid='".$loginemployeeuserId."'")->getArrayResult();
+			
+			//print_r($modulefilelist);
 
 
 		}
@@ -251,7 +265,8 @@ $TrainingSchedulelist = $em->createQuery("SELECT j.scheid,j.scheduledate,k.batch
 
 			/*$MapModuleList = $em->createQuery("SELECT j.description,k.modulecategory,j.employeeid,l.subcategory,l.subcatid,j.subcategory as subcatid,j.scheduledate FROM TraxAdminBundle:TblMapmodule j INNER JOIN  TraxAdminBundle:TblModulecategory k with k.cateid=j.categoryid  INNER JOIN TraxAdminBundle:TblModulesubcategory l with l.subcatid=j.subcategory where j.trainerid='".$loginemployeeuserId."' group by j.subcategory ")->getArrayResult();*/
 
-
+$MapModuleList = $em->createQuery("SELECT j.mapid,j.scheduledate,m.modulecategory,l.name FROM TraxAdminBundle:TblMapmodule j INNER JOIN TraxAdminBundle:TblMapprogramtocategory k with k.mapmoduleid=j.mapid INNER JOIN TraxAdminBundle:TblModulecategory m with m.cateid=k.categoryid INNER JOIN TraxAdminBundle:TblUser l with l.userid =j.trainerid where j.customerid='".$customerId."' and j.trainerid='".$loginemployeeuserId."'")->getArrayResult();
+//print_r($MapModuleList);
 		}
 		if($type=='TraineeList'){
 

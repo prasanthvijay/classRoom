@@ -10,7 +10,7 @@
 			<section>
 			<div class="section-header">
 				<ol class="breadcrumb">
-				<li class="active">Map Module to Trainee</li>
+				<li class="active">Map Content to Trainee</li>
 				</ol>
 
 			</div>
@@ -102,8 +102,8 @@
 
 						</select> <div id="errorsearch_to" style="color:red"></div>
 					</div>
-<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('Department');">Add department</button>
-				
+<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('Department');">Add Department</button><br><br>
+				<!--<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('Trainee');">Add Trainee</button>-->
 				</div>
 										
 					<div class="form-group">
@@ -113,8 +113,11 @@
                                        
                                     </select> 
 					</div>
+					
                                         </div><div class="checkbox-warning">	<input class="styled" type="checkbox" name="select_All" id="select_All">
 						<label for="checkbox3">&nbsp; Select All Trainees</label></div>
+						
+						<!--<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('trainer');">Add Trainee</button>-->
                                     </div> 
                                    	<div class="form-group">
 					<label class="col-sm-2 control-label">Module Description</label>
@@ -193,7 +196,6 @@ $(function() {
 
 <script>
 getCategoryList();
-
 function getsubCategory(catid){
 	var i;
 	$.get( "manage/getFunction",{type:"getsubCategoryMultiple",catid:catid} ,function( data ) {
@@ -221,6 +223,7 @@ var type="getCategoryList";
 	});
 
 }
+
 function getmodule() 
 {
 var origin="#subCategory";
@@ -273,7 +276,7 @@ var origin="#subCategory";
 		$('#arrayvaluenew1').val(","+catid);
 		if(catid!=''){
 			var type="getModuleFile";	
-			$.get( "manage/getFunction",{ type : type, deprtId:catid},function(data) {
+			$.get( "manage/getFunction",{ type : type, subCategory:catid},function(data) {
 			$('#ResourceDiv').html(data);
 			App.formElements();
 			})
@@ -282,7 +285,7 @@ var origin="#subCategory";
 		else{
 			$('#arrayvaluenew1').val('');
 			var type="getModuleFile";	
-			$.get( "manage/getFunction",{ type : type, deprtId:0},function(data) {
+			$.get( "manage/getFunction",{ type : type, subCategory:0},function(data) {
 			$('#ResourceDiv').html(data);
 		App.formElements();
 			})	
@@ -379,8 +382,9 @@ var origin="#search";
 		
 }
 		function submitForm(type) {
-			
-				if(type=='Mapping'){
+
+				if(type=='Mapping')
+				{
 				var getCategoryList = document.getElementById('CategoryId').value;
 				if (getCategoryList == "")
 				{
@@ -484,8 +488,20 @@ var origin="#search";
 
 		}
 		 if(type=="ModuleCategory"){
-			var Trainer=document.getElementById('Trainer').value;
-			var Category=document.getElementById('Category').value;
+		 
+
+			if ($('#Category').val()=='')
+			{
+			$('#errorCategory').html("Please enter the Category Name");
+			document.getElementById('Category').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errorCategory').html("");
+			}
+
 			var editId=$('#editId').val();
 			$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function() {
 
@@ -496,6 +512,276 @@ var origin="#search";
 			}
 			})
 			}
+		 if(type=="ModuleSubCategory"){
+		 
+
+		     if ($('#CategoryIdm').val()=='')
+			{
+			$('#errorCategorych').html("Please selec the Category");
+			document.getElementById('CategoryIdm').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errorCategorych').html("");
+			}
+		        
+		        
+		        if ($('#SubCategoryt').val()=='')
+			{
+			$('#errorSubCategorych').html("Please enter the subCategory");
+			document.getElementById('SubCategoryt').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errorSubCategorych').html("");
+			}
+
+		        
+
+			var editId=$('#editId').val();
+			$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function() {
+
+			$('#customerForm')[0].reset();	
+			if(editId==""){
+			$('#insertSuccesss').show();
+
+			}
+			})
+			}
+			if(type=="Department"){
+			
+			if ($('#department').val()=='')
+			{
+			$('#errordepartment').html("Please enter the Department");
+			document.getElementById('department').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errordepartment').html("");
+			}
+			
+			
+
+			var editId=$('#editId').val();
+			$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function() {
+
+			$('#customerForm')[0].reset();	
+			if(editId==""){
+			$('#insertSuccesss').show();
+
+			}
+			})
+			}
+		 if(type=="Module"){
+		 
+		 
+		     if ($('#CategoryIdModule').val()=='')
+			{
+			$('#errorCategoryIdModule').html("Please select the Category");
+			document.getElementById('CategoryIdModule').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errorCategoryIdModule').html("");
+			}
+			
+			if ($('#SubCategory').val()=='')
+			{
+			$('#errorSubCategory').html("Please select the SubCategory");
+			document.getElementById('SubCategory').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errorSubCategory').html("");
+			}
+			
+			
+			if ($('#ModuleName').val()=='')
+			{
+			$('#errorModuleName').html("Please enter the ContentName");
+			document.getElementById('ModuleName').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errorModuleName').html("");
+			}
+			
+			
+			
+			if ($('#uploadedFile').val()=='')
+			{
+			$('#errorfile').html("Please upload File");
+			document.getElementById('uploadedFile').focus();
+
+			return false;
+			}
+			else
+			{
+			$('#errorfile').html("");
+			}
+
+			$('#progress').show();
+                        $('#fileCancel').show();
+			$('#homemenu').prop('disabled', true);
+			var vFD = new FormData(document.getElementById('customerForm'));			
+			var hrx= $.ajax({
+			url: "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster')?>?type="+type+"&val=1",
+			data: vFD,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			// this part is progress bar
+			xhr: function () {
+			var xhr = new window.XMLHttpRequest();
+			xhr.upload.addEventListener("progress", function (evt) {
+			if (evt.lengthComputable) {
+			var percentComplete = evt.loaded / evt.total;
+			percentComplete = parseInt(percentComplete * 100);
+			$('.myprogress').text(percentComplete + '%');
+			$('.myprogress').css('width', percentComplete + '%');
+			}
+			}, false);
+			return xhr;			
+			},
+			success: function (response) {
+			$('#homemenu').prop('disabled', false);
+				if(response=='Success'){
+						$('#progress').hide();
+		       				$('#fileCancel').hide();
+						$('#customerForm')[0].reset();
+						$("#insertSuccesss").show();
+						$('#erroruploadedFile').html("");
+					}					
+					else{
+                      				  $('#progress').hide();
+                       				 $('#fileCancel').hide();
+						$('#erroruploadedFile').html(response);
+					}	
+				}
+			});
+
+			$('#cancel_all').on('click',function(evt){
+			hrx.abort();
+			$('#homemenu').prop('disabled', false);
+			$('#uploadedFile').val("");
+                      				  $('#progress').hide();
+                       				 $('#fileCancel').hide();
+			});
+			}
+			
+if(type=="trainer")
+{
+
+	
+if ($('#Employeename').val()=='')
+	{
+	$('#errorEmployeename').html("Please enter the Trainee Name");
+	document.getElementById('Employeename').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errorEmployeename').html("");
+	}
+	
+	if ($('#gid').val()=='')
+	{
+	$('#errorgid').html("Please enter the User Name");
+	document.getElementById('gid').focus();
+
+	return false;
+	}
+	
+	else
+	{
+	$('#errorgid').html("");
+	}
+	
+	if ($('#Password').val()=='')
+	{
+	$('#errorPassword').html("Please enter the Password / Chorus Id");
+	document.getElementById('Password').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errorPassword').html("");
+	}
+	
+	if ($('#department').val()=='')
+	{
+	$('#errordepartment').html("Please select the Department");
+	document.getElementById('departments').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errordepartment').html("");
+	}
+	
+	if ($('#location').val()=='')
+	{
+	$('#errorlocation').html("Please select the Location");
+	document.getElementById('location').focus();
+
+	return false;
+	}
+	else
+	{
+	$('#errorlocation').html("");
+	}
+
+	$('#errorMobile').html("");
+
+	var editId=$('#editId').val();
+	
+	//var filePost = new FormData(document.getElementById('customerForm'));
+	
+	/*$.ajax({
+	url: "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster')?>?type=Employee&val=1",
+	type: "POST",
+	data: filePost,
+	processData: false,
+	contentType: false,
+	success: function(response) {
+	$('#customerForm')[0].reset();
+	$('html, body').animate({scrollTop : 0},800);
+	$("#insertSuccess").show();
+
+	}
+
+
+	});*/
+	$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type=Employee&val=1", $( "#customerForm" ).serialize(),function() {
+
+					$('#customerForm')[0].reset();	
+					if(editId==""){
+					$('#insertSuccess').show();
+					}
+					else{
+					$('#customerForm')[0].reset();	
+					$('#updateSuccess').show();
+					}
+
+				})
+				
+		}
+			
 
 }
 
