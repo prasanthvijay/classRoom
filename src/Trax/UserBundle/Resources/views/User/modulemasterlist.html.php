@@ -295,7 +295,7 @@ function editFunction(id)
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulecategory']; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulename']; ?></td>
-		<td><a target=_blank class="text-warning" href="<?php if($modulefilelist[$i]['filetype']=='Story'){  echo "/uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else{  echo "/uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
+		<td><a target=_blank class="text-warning" href="<?php if($modulefilelist[$i]['filetype']=='Story'){  echo "web/uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else{  echo "web/uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
                	<!--<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $modulefilelist[$i]['moduleid'];?>)">Edit</a></th>-->
 		<th><a href="javascript:void(0);" class="text-danger" onclick="deleteFunction(<?php  echo $modulefilelist[$i]['moduleid']; ?>);">Delete</a></th>
             </tr>
