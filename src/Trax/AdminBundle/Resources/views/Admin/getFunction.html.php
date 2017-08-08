@@ -70,8 +70,8 @@
 			$Modulelist = $em->createQuery("SELECT j.moduleid,j.modulename,j.filetype,j.filename,j.filepath FROM TraxAdminBundle:TblModulefiles j where j.subcategory='".$subCategoryListarray[$i]['subcatid']."' ")->getArrayResult();
 //print_r($Modulelist);
 ?>
-		<div class="col-sm-4" >
-		<h2  style="color:#052E51;"> <?php echo $subCategoryListarray[$i]['subcategory'];  ?></h2>	
+		<div class="col-sm-3" >
+		<h4  style="color:#052E51;"><strong> <?php echo $subCategoryListarray[$i]['subcategory'];  ?></strong></h4>	
 				
 		<?php   if(count($Modulelist)>0){ for($j=0;$j<count($Modulelist);$j++) { 
 			$fileName=explode( '.', $Modulelist[$j]['filename'] ); 

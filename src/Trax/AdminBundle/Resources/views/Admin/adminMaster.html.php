@@ -117,7 +117,7 @@ function dataTableFunction()
 var loginExeType="<?php echo $loginExeType; ?>";
 	var type='<?php echo $master; ?>';
 	if(type=='Customer'){
-	$( "#DisplayTableDiv" ).html( "<div align='center'><img src='http://www.dotcue.in/contentDistribution/web/assets/load2.gif'></div>" );	
+	$( "#DisplayTableDiv" ).html( "<div align='center'><img src='/assets/load2.gif'></div>" );	
 		$.get( "dataTableMaster",{ type : type},function(data) {
 		$( "#DisplayTableDiv" ).html( data );
 		$('#example').DataTable();
@@ -134,7 +134,7 @@ var loginExeType="<?php echo $loginExeType; ?>";
 		customer="<?php echo $loginuserId; ?>";
 		}
 	
-		$( "#DisplayTableDiv" ).html( "<div align='center'><img src='http://www.dotcue.in/contentDistribution/web/assets/load2.gif'></div>" );	
+		$( "#DisplayTableDiv" ).html( "<div align='center'><img src='/assets/load2.gif'></div>" );	
 		$.get( "dataTableMaster",{ type : type,customer:customer},function(data) {
 		$( "#DisplayTableDiv" ).html( data );
 		$('#example').DataTable();
@@ -797,6 +797,7 @@ var SubCategory=document.getElementById('SubCategory').value;
 							else{
 								$('#updateSuccess').show();	
 							}
+					dataTableFunction();				
 						}
 					});
 	
@@ -879,23 +880,24 @@ function deleteFunction(deleteId){
 
 
 }
- function deleteFunctionemplooyee(deleteId,subcatid){
+ function deleteFunctionemplooyee(deleteId,mapid){
 	var type='loademployeelist';
 	
 	swal({
 	title: "Are you sure?",
-	text: "You will not be able to recover this imaginary file!",
+	text: "Remove this Trainee to this program!",
 	type: "warning",
 	showCancelButton: true,
 	confirmButtonColor: "#052E51",
-	confirmButtonText: "Yes, delete it!",
+	confirmButtonText: "Yes, Remove it!",
 	closeOnConfirm: false
 	},
 	function(){
-	$.get( "adminMaster?master="+type,{ deleteId : deleteId,subcatid:subcatid},function(data) {
+	$.get( "adminMaster?master="+type,{ deleteId : deleteId},function(data) {
 	})
-	swal("Deleted!", "Your imaginary file has been deleted.", "success");
+	swal("Removed!", "Remove this Trainee to this program.", "success");
 	dataTableFunction();
+	modalWindowemployee(type,mapid);
 	});
 
 

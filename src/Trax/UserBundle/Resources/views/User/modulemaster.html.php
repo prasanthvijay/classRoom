@@ -10,6 +10,7 @@ if($type=='Category'){
 			<div class="section-header">
 				<ol class="breadcrumb">
 				<li class="active"><?php if($editId!=''){ echo "Edit"; }else { echo "Add"; }  ?> Category</li>
+				<li class="active"><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=Category" class="btn btn-sm btn-primary">Category List</a></li>
 				</ol>
 
 			</div>
@@ -103,6 +104,7 @@ function submitForm() {
 			<div class="section-header">
 				<ol class="breadcrumb">
 				<li class="active"><?php if($editId!=''){ echo "Edit"; }else { echo "Add"; }  ?> Sub Category</li>
+<li class="active"><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=SubCategory" class="btn btn-sm btn-primary">Sub Category List</a></li>
 				</ol>
 
 			</div>
@@ -223,6 +225,7 @@ function submitForm() {
 			<div class="section-header">
 				<ol class="breadcrumb">
 				<li class="active">Upload Content</li>
+<li class="active"><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=ModuleList" class="btn btn-sm btn-primary">Upload Content List</a></li>
 				</ol>
 
 			</div>
@@ -393,6 +396,7 @@ function submitForm() {
 			$('#homemenu').prop('disabled', false);
 				if(response=='Success'){
 						$('#progress').hide();
+			$('.myprogress').css('width', '0%');
 		       				$('#fileCancel').hide();
 						$('#customerForm')[0].reset();
 						$("#insertSuccess").show();
@@ -400,6 +404,7 @@ function submitForm() {
 					}					
 					else{
                       				  $('#progress').hide();
+			$('.myprogress').css('width', '0%');
                        				 $('#fileCancel').hide();
 						$('#erroruploadedFile').html(response);
 					}	
@@ -411,6 +416,7 @@ function submitForm() {
 			$('#homemenu').prop('disabled', false);
 			$('#uploadedFile').val("");
                       				  $('#progress').hide();
+			$('.myprogress').css('width', '0%');
                        				 $('#fileCancel').hide();
 			});
 
@@ -454,6 +460,7 @@ function getsubCategory(catid){
 			<div class="section-header">
 				<ol class="breadcrumb">
 				<li class="active">Add Trainee</li>
+<li class="active"><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=TraineeList" class="btn btn-sm btn-primary">Trainee List</a></li>
 				</ol>
 
 			</div>

@@ -11,6 +11,7 @@ if($type=='Category'){
 						<div class="section-header">
 								<ol class="breadcrumb">
 	<li class="active">Category List</li>
+<li class=""><a href="<?php echo $view['assets']->getUrl('modulemaster') ?>?type=Category" class="btn btn-sm btn-primary">Add Category</a></li>
 	</ol>
 
 	</div>
@@ -119,6 +120,7 @@ function editFunction(id)
 						<div class="section-header">
 								<ol class="breadcrumb">
 								<li class="active">Sub Category List</li>
+<li class=""><a href="<?php echo $view['assets']->getUrl('modulemaster') ?>?type=SubCategory" class="btn btn-sm btn-primary">Add Sub Category</a></li>
 										</ol>
 
 						</div>
@@ -151,12 +153,7 @@ function editFunction(id)
 							<ul class="nav nav-pills nav-stacked">
 
 									<!--<li class="active"><a href="">Module List<small class="pull-right text-bold opacity-75"><?php echo count($ModuleCategory); ?></small></a></li>-->
-								<?php for($i=0;$i<count($DepartmentList);$i++){ ?>  
-<li class=""><a href=""><?php echo $DepartmentList[$i]['department']; ?><small class="pull-right text-bold opacity-75"></small></a></li>
-<?php 	print_r($DepartmentList); ?>
-								<?php } ?>
-								
-								
+																
 								
 								
 							</ul>
@@ -188,9 +185,6 @@ function editFunction(id)
 
 	<?php  for($i=0;$i<count($userListt);$i++)
 		{ 
-
-		
-
 
 
 ?>
@@ -239,7 +233,8 @@ function editFunction(id)
 				<section>
 						<div class="section-header">
 								<ol class="breadcrumb">
-													<li class="active">Module Files</li>
+													<li class="active">Content Files</li>
+				<li class=""><a href="<?php echo $view['assets']->getUrl('modulemaster') ?>?type=UploadModule" class="btn btn-sm btn-primary">Add Content</a></li>
 										</ol>
 
 						</div>
@@ -283,7 +278,6 @@ function editFunction(id)
                 <th>S.NO</th>
                 <th>Module Category</th>
 		<th>Module Name</th>
-                <th>Description</th>
 		<th>File</th>
                 <!--<th>Edit</th>-->
                 <th>Delete</th>
@@ -294,16 +288,16 @@ function editFunction(id)
 
 	<?php for($i=0;$i<count($modulefilelist);$i++)
 		{ 
-		
+		$pathArray= explode("/", $modulefilelist[$i]['filepath']);
+//print_r($pathArray);
 ?>
             <tr>
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulecategory']; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulename']; ?></td>
-                <td><?php echo $modulefilelist[$i]['description']; ?></td>
-		<td><a target=_blank href="<?php if($modulefilelist[$i]['filetype']=='Story'){ $pathArray= explode("/", $modulefilelist[$i]['filepath']);  echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."story.html"; }else{ $pathArray= explode("/", $modulefilelist[$i]['filepath']); echo "../uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
+		<td><a target=_blank class="text-warning" href="<?php if($modulefilelist[$i]['filetype']=='Story'){  echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else{  echo "../uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
                	<!--<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $modulefilelist[$i]['moduleid'];?>)">Edit</a></th>-->
-		<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $modulefilelist[$i]['moduleid']; ?>);">Delete</a></th>
+		<th><a href="javascript:void(0);" class="text-danger" onclick="deleteFunction(<?php  echo $modulefilelist[$i]['moduleid']; ?>);">Delete</a></th>
             </tr>
 	<?php } ?>
 
@@ -338,8 +332,9 @@ function editFunction(id)
 				<section>
 						<div class="section-header">
 								<ol class="breadcrumb">
-													<li class="active">Mapped Trainee List</li>
-										</ol>
+								<li class="active">Mapped Trainee List</li>
+<li class=""><a href="<?php echo $view['assets']->getUrl('mapmoduletouser') ?>" class="btn btn-sm btn-primary">Map Content to Trainee</a></li>
+								</ol>
 
 						</div>
 		<div class="section-body">
@@ -356,7 +351,7 @@ function editFunction(id)
 						</form>
 					</div>
 											<div class="tools">
-							Map Module to Trainee<a class="btn btn-floating-action btn-default-light" href="<?php echo $view['assets']->getUrl('mapmoduletouser') ?>"><i class="fa fa-plus"></i></a>
+							Map Content to Trainee<a class="btn btn-floating-action btn-default-light" href="<?php echo $view['assets']->getUrl('mapmoduletouser') ?>"><i class="fa fa-plus"></i></a>
 						</div>
 				</div><!--end .card-head -->
 
@@ -381,7 +376,7 @@ function editFunction(id)
                 <th>Trainer</th>
 		<th>Schedule Date</th>
                 <th>Trainees</th>
-			
+		<th>Delete</th>		
 
             </tr>
         </thead>
@@ -395,9 +390,10 @@ function editFunction(id)
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $MapModuleList[$i]['modulecategory']; ?></td>
                 <td><?php echo $MapModuleList[$i]['name']; ?></td>
-		 <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModalupdate" onclick="viewdatepicker(<?php echo $i+1; ?>,<?php echo $MapModuleList[$i]['subcatid'];?>);"><?php echo $MapModuleList[$i]['scheduledate'];?></a>
+		 <td><a href="javascript:void(0);" data-toggle="modal" class="text-primary" data-target="#myModalupdate" onclick="viewdatepicker(<?php echo $i+1; ?>,<?php echo $MapModuleList[$i]['subcatid'];?>);"><?php echo $MapModuleList[$i]['scheduledate'];?></a>
 		</td>
-                <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" onclick="modalWindowemployee('loademployeelist',<?php echo $MapModuleList[$i]['subcatid']  ?>);">View Trainees</a></td>
+                <th><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="text-warning" onclick="modalWindowemployee('loademployeelist',<?php echo $MapModuleList[$i]['mapid']  ?>);">View Trainees</a></th>
+               	<th><a href="javascript:void(0);" class="text-danger" onclick="deleteFunction(<?php  echo $MapModuleList[$i]['mapid']; ?>,'MapModule');">Delete</a></th>
                	
             </tr>
 	<?php } ?>
@@ -436,10 +432,10 @@ function editFunction(id)
      		</div>
 	</div>	
 <script type="text/javascript">
-function modalWindowemployee(type,subcatid)
+function modalWindowemployee(type,mapid)
 {
 
-	 	$.get( "manage/LoadModalContent",{ type : type,subcatid : subcatid },function(data) {
+	 	$.get( "manage/LoadModalContent",{ type : type,mapid : mapid },function(data) {
 		$( "#DisplayModlaDiv" ).html( data );
   		})
 
@@ -457,23 +453,24 @@ App.formElements();
 
 
 }
-function deleteFunctionemplooyee(deleteId,subcatid){
+function deleteFunctionemplooyee(deleteId,mapid){
 	var type='loademployeelist';
 	
 	swal({
 	title: "Are you sure?",
-	text: "You will not be able to recover this imaginary file!",
+	text: "Remove this Trainee to this program!",
 	type: "warning",
 	showCancelButton: true,
-	confirmButtonColor: "#DD6B55",
-	confirmButtonText: "Yes, delete it!",
+	confirmButtonColor: "#3AB9B1",
+	confirmButtonText: "Yes, Remove it!",
 	closeOnConfirm: false
 	},
 	function(){
-	$.get( "manage/adminMaster?master="+type,{ deleteId : deleteId,subcatid:subcatid},function(data) {
+	$.get( "manage/adminMaster?master="+type,{ deleteId : deleteId},function(data) {
 	})
-	swal("Deleted!", "Your imaginary file has been deleted.", "success");
-	dataTableFunction();
+	swal("Removed!", "Remove this Trainee to this program.", "success");
+	modalWindowemployee(type,mapid);
+
 	});
 
 
@@ -510,6 +507,7 @@ $.get( "manage/getFunction?type="+type+"&id="+id, $( "#updatedate"+id).serialize
 		<div class="section-header">
 				<ol class="breadcrumb">
 									<li class="active">Trainee List</li>
+<li class=""><a href="<?php echo $view['assets']->getUrl('modulemaster') ?>?type=Trainee" class="btn btn-sm btn-primary">Add Trainee</a></li>
 						</ol>
 
 		</div>

@@ -359,14 +359,15 @@
 
 	<?php for($i=0;$i<count($modulefilelist);$i++)
 		{ 
-		
+		$pathArray= explode("/", $modulefilelist[$i]['filepath']);
+//print_r($pathArray);
 ?>
             <tr>
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulecategory']; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulename']; ?></td>
                 <td><?php echo $modulefilelist[$i]['description']; ?></td>
-		<td><a href="<?php if($modulefilelist[$i]['filetype']=='Story'){ $pathArray= explode("/", $modulefilelist[$i]['filepath']);  echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else{ echo "../uploadfiles/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
+		<td><a target="_blank" href="<?php if($modulefilelist[$i]['filetype']=='Story'){   echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else{ echo "../uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
                	<!--<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $modulefilelist[$i]['moduleid'];?>)">Edit</a></th>-->
 		<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $modulefilelist[$i]['moduleid']; ?>);">Delete</a></th>
             </tr>
@@ -434,8 +435,7 @@
 
 	<?php   for($i=0;$i<count($historylist);$i++)
 		{ 
-$employeelist = $em->createQuery("SELECT j.userid,j.employeename,j.chorusid FROM TraxAdminBundle:TblEmployee j where j.userid='".$historylist[$i]['userid']."'")->getArrayResult();
-
+$employeelist = $em->createQuery("SELECT j.userid,j.name,j.chorusid FROM TraxAdminBundle:TblUser j where j.userid='".$historylist[$i]['empid']."'")->getArrayResult();
 $filenamelist = $em->createQuery("SELECT j.modulename,j.filename,j.filepath,j.filetype FROM TraxAdminBundle:TblModulefiles j where j.moduleid='".$historylist[$i]['moduleId']."'")->getArrayResult();
 
 
@@ -444,7 +444,7 @@ $filenamelist = $em->createQuery("SELECT j.modulename,j.filename,j.filepath,j.fi
 ?>
             <tr>
                 <td><?php echo $i+1; ?></td>
-                <td><?php echo $employeelist[0]['employeename'].'-('.$employeelist[0]['chorusid'].')' ; ?></td>
+                <td><?php echo $employeelist[0]['name'].'-('.$employeelist[0]['chorusid'].')' ; ?></td>
 		 <td><a href="<?php if($filenamelist[0]['filetype']=='Story')      { $pathArray= explode("/", $filenamelist[0]['filepath']);  echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."story.html"; }else{ echo "../uploadfiles/".$filenamelist[0]['filename']; } ?>"><?php echo $filenamelist[0]['filename']; ?></a></td>
 		<td><?php echo date_format($historylist[$i]['viewDate'], 'Y-m-d H:i:s'); ?></td>
             </tr>

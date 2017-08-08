@@ -143,7 +143,161 @@ border-bottom:none!important;
 <div class="modal-footer"></div>
 			</div> 
 			
+<?php }  if($mastertype=='Trainees') { ?> 	
+
+<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"><?php if($editId!=''){ echo "Edit"; } else { echo "Add"; }?> Trainee</h4>
+				</div>
+				<div class="modal-body form">
+				<form action="" id="customerForms" name="customerForms" style="border-radius: 0px;" class="form-horizontal group-border-dashed" enctype="multipart/form-data">
+					<div align="center" style="display:none;" id="updateSuccess"> 
+					<h4>Successfully Updated...</h4>
+					</div>
+
+					<div align="center" style="display:none;" id="insertSuccess"> 
+					<h4>Successfully Inserted...</h4>
+					</div>
+					<?php if($editId!=""){ ?>
+					<div class="form-group">	
+					<div class="col-sm-1"></div>
+						<label class="col-sm-3 control-label">Sure Name </label>
+							<div class="col-sm-5">
+							<input class="form-control" placeholder='Trainee Name' id="surename" name="surename" value="<?php echo $editEmployeeList[0]['surename'] ?>" type="text"><div id="errorEmployeename" class="errorText"></div>
+
+							</div>
+						
+					</div>
+
+					<?php } ?>
+					<div class="form-group"><div class="col-sm-1"></div>
+						<label class="col-sm-3 control-label">Trainee Name </label>
+							<div class="col-sm-7">
+							<input class="form-control" placeholder='Trainee Name' id="Employeename" name="Employeename" value="<?php echo $editEmployeeList[0]['name'] ?>" type="text" <?php if($editId==""){ ?>onblur="employeeDetils(this.value);" <?php } ?>>
+							<div style="color:red" id="errorEmployeename" class="errorText"></div>
+							
+							</div>
+						
+					</div>
+
+					<div class="form-group"><div class="col-sm-1"></div>
+						<label class="col-sm-3 control-label">User Name </label>
+							<div class="col-sm-7">
+							<input class="form-control" id="gid" name="gid" placeholder="GID" value="<?php echo $editEmployeeList[0]['username'] ?>" <?php if($editId!=""){ echo "readonly";} ?> type="text" onblur="checkUserName(this.value);"><div id="errorUsername" class="errorText"></div>
+							</div>
+						
+					</div>
+					<div class="form-group"><div class="col-sm-1"></div>
+						<label class="col-sm-3 control-label">Password / Chorus Id</label>
+							<div class="col-sm-7">
+							<input class="form-control" placeholder='chorus Id' id="Password" name="Password" value="" type="text"><div id="errorPassword" class="errorText"></div>
+							</div>
+						
+					</div>
+					
+<div class="form-group"><div class="col-sm-1"></div>
+					<label class="col-sm-3 control-label">Trainer Type</label>
+						<div class="col-sm-2">
+							<div class="radio-inline">
+								 <input type="radio" name="userTypeId" id="defaulttrainer" class="styled" value="Trainer" <?php if($editEmployeeList[0]['employeetype']=="Trainer"){ echo "checked"; } ?>>
+								<label for="checkbox3">Trainer</label>
+	    						</div>
+						</div>
+								
+						<div class="col-sm-3">
+							<div class="radio-inline">
+								 <input type="radio" name="userTypeId" id="Guesttrainer" class="styled" value="Guest Trainer" <?php if($editEmployeeList[0]['employeetype']=="Guest Trainer"){ echo "checked"; } ?> >
+								<label for="checkbox3">Guest Trainer</label><div id="errordefaulttrainer" class="errorText"></div>
+							</div>
+						</div>
+						<?php if($editId!=""){ ?>
+						<div class="col-sm-3">
+							<div class="radio-inline">
+								 <input type="radio" name="userTypeId" id="Trainee" class="styled" 						<?php if($editEmployeeList[0]['employeetype']=="Trainee"){ echo "checked"; } ?> value="Trainee"  >
+								<label for="checkbox3">Trainee</label>
+							</div>
+						</div>
+						<?php } ?>
+						<div class="col-sm-3"><a href="javascript:void(0)" onclick="removeuserType()" class="control-label">Reset</a></div>
+
+					</div> 
+					<div class="form-group"><div class="col-sm-1"></div>
+					<label class="col-sm-3 control-label">Gender</label>
+						<div class="col-sm-2">
+							<div class="radio-inline">
+								 <input type="radio" name="gender" id="male" class="styled" value="Male" <?php if($editEmployeeList[0]['gender']=="Male"){ echo "checked"; } ?> >
+								<label for="checkbox3">Male</label>
+	    						</div>
+						</div>
+								
+						<div class="col-sm-3">
+							<div class="radio-inline">
+								 <input type="radio" name="gender" id="female" class="styled" value="Female"  <?php if($editEmployeeList[0]['gender']=="Female"){ echo "checked"; } ?>>
+								<label for="checkbox3">Female</label><div id="errormale" class="errorText"></div>
+							</div>
+						</div><div id="errorgender" class="errorText"></div>
+
+					</div> 
+					<div class="form-group"><div class="col-sm-1"></div>
+						<label class="col-sm-3 control-label">Department</label>
+						<div class="col-sm-7">
+						<select id="department" name="department" class="form-control" >
+								<option value="">Select Department</option>
+								<?php  for($i=0;$i<count($DepartmentList);$i++){ ?>
+								<option value="<?php echo $DepartmentList[$i]['dprtid']; ?>" <?php if($editEmployeeList[0]['dprtid']== $DepartmentList[$i]['dprtid']) echo "selected";  ?>><?php echo $DepartmentList[$i]['department']; ?></option>
+
+								<?php }?> 				
+								</select><div id="errordepartment" class="errorText"></div>
+							</div>
+
+					</div>
+					<div class="form-group"><div class="col-sm-1"></div>
+						<label class="col-sm-3 control-label">Location</label>
+						<div class="col-sm-7">
+						<select id="location" name="location" class="form-control">
+								<option value="">Select Location</option>
+								<?php  for($i=0;$i<count($locationList);$i++){ ?>
+								<option value="<?php echo $locationList[$i]['zoneid']; ?>" <?php if($editEmployeeList[0]['zoneid']== $locationList[$i]['zoneid']) echo "selected";  ?>><?php echo $locationList[$i]['location']; ?></option>
+
+								<?php }?> 				
+								</select><div id="errorLocation" class="errorText"></div>
+							</div>
+
+					</div>
+				
+				<input type="hidden" name="editId" id="editId" value="<?php echo $editEmployeeList[0]['userid']; ?>">
+					<div class="form-group">
+					<label class="col-sm-4 control-label"></label>
 	
+					<div class="col-sm-4" >
+					<button class="btn btn-success" type="button" id="homemenu" name="homemenu" value="homemenu"  onclick="submitForm('Employee');"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
+					
+					</div>
+<div id="image" style="display:none">
+<div class="col-sm-1 "  >
+					<img src="<?php echo $view['assets']->getUrl('assets/img/spinner.gif')?>">
+						</div></div>
+					</div>
+					
+				</form>	
+<div class="modal-footer"></div>
+			</div> 
+			
+<script>
+var xhr;
+var customerId="<?php echo $loginuserId; ?>";
+$('input[name="Employeename"]').autoComplete({
+    source: function(term, response){
+        try { xhr.abort(); } catch(e){}
+        xhr = $.getJSON('getFunction', { employeename: term,customerId:customerId,type:"employeeDetails" }, function(data){ response(data); });
+    }
+});
+function removeuserType(){
+	$('#defaulttrainer').attr('checked', false); // Checks it
+	$('#Guesttrainer').attr('checked', false);
+} 
+</script>		
 
 <?php }  if($mastertype=='Department') { ?> 	
 
@@ -223,8 +377,8 @@ border-bottom:none!important;
 					</div>
 					</div>  
 					<?php } ?>
-					<div class="form-group"><div class="col-sm-2"></div>
-					<label class="col-sm-3 control-label">Upload File </label>
+					<div class="form-group"><div class="col-sm-3" align="right"><a href="../assets/sample.csv" >Sample.csv</a></div>
+					<label class="col-sm-2 control-label">Upload File </label>
 					<div class="col-sm-4">
 					
 					<input class="" id="file" name="file" value="" type="file">
@@ -257,7 +411,7 @@ border-bottom:none!important;
 <h4 class="modal-title"><?php if($editId!=''){ echo "Edit"; } else { echo "Add"; }?> <?php echo preg_replace('/([A-Z])/', ' $1', $mastertype);  ?></h4>
 				</div>
 				<div class="modal-body form">
-				<form action="" id="customerForm" name="customerForm" style="border-radius: 0px;" class="form-horizontal group-border-dashed" enctype="multipart/form-data">
+				<form action="" id="customerForm" name="customerForms" style="border-radius: 0px;" class="form-horizontal group-border-dashed" enctype="multipart/form-data">
 					<div align="center" style="display:none;" id="updateSuccess"> 
 					<h4>Successfully Updated...</h4>
 					</div>
@@ -827,7 +981,7 @@ function getCategoryList(trainerId){
 					<div class="col-sm-5">
 					<div id="subCategoryDiv"> 
 					 <select name="SubCategory" id="SubCategory" class="form-control" >
-						<option value="">Select Category </option>
+						<option value="">Select Sub Category </option>
 					 </select><div id="errorSubCategory" class="errorText">
 					</div>
 					</div></div>
@@ -1131,7 +1285,7 @@ function getsubCategory(catid){
 
 					<?php for($j=0;$j<count($getemployeevalue);$j++){ ?>
 					<div align="center"><label class="control-label"><?php echo $getemployeevalue[$j]['name']." Chorus id :".$getemployeevalue[$j]['chorusid']." GId : ".$getemployeevalue[$j]['gid']; ?></label>		
-					<span id="dismiss" class="dismiss" style="color:#EB7A75; font-weight:bold; cursor:pointer;" onclick="deleteFunctionemplooyee(<?php  echo $getemployeevalue[0]['userid']; ?>)">
+					<span id="dismiss" class="dismiss" style="color:#EB7A75; font-weight:bold; cursor:pointer;" onclick="deleteFunctionemplooyee(<?php  echo $getemployeevalue[0]['userid']; ?>,<?php  echo $getemployeevalue[0]['mapmoduleid']; ?>)">
 					<i class="fa fa-trash-o" style="color:#EB7A75;" aria-hidden="true"></i>
 					</span></div>
 

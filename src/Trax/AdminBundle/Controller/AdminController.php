@@ -550,7 +550,7 @@ public function LoadModalContentAction(Request $request)
 			{
 				$mapid=$request->get('mapid');
 
-				$getemployeevalue = $em->createQuery("SELECT k.name,k.userid,k.chorusid,k.gid FROM TraxAdminBundle:TblMapbatchtoemployee j INNER JOIN TraxAdminBundle:TblUser k with k.userid=j.employeeid where j.mapmoduleid='".$mapid."'")->getArrayResult(); 
+				$getemployeevalue = $em->createQuery("SELECT k.name,k.userid,k.chorusid,k.gid,j.mapmoduleid FROM TraxAdminBundle:TblMapbatchtoemployee j INNER JOIN TraxAdminBundle:TblUser k with k.userid=j.employeeid where j.mapmoduleid='".$mapid."'")->getArrayResult(); 
 //print_r($getemployeevalue);
 			}
 			if($mastertype=='updatescheduledate') 
@@ -559,7 +559,12 @@ public function LoadModalContentAction(Request $request)
 			  $SelectDate = $em->createQuery("SELECT k FROM TraxAdminBundle:TblMapmodule k where k.mapid='".$id."'")->getArrayResult(); 		
 
 			}
+			if($mastertype=='Trainees') 
+			{
+			  $locationList = $em->createQuery("SELECT k FROM TraxAdminBundle:TblLocation k where k.customerid='".$loginuserId."' order by k.zoneid desc")->getArrayResult();
+				$DepartmentList = $em->createQuery("SELECT j.dprtid,j.department  FROM TraxAdminBundle:TblDepartment j  where j.customerid ='".$loginuserId."'")->getArrayResult();
 
+			}
         return $this->render('TraxAdminBundle:Admin:LoadModalContent.html.php',array('mastertype'=>$mastertype,'editId'=>$editId,'editDepartment'=>$editDepartment,'editEmployeeList'=>$editEmployeeList,'editLocation'=>$editLocation,'editcustomerList'=>$editcustomerList,'locationList'=>$locationList,'DepartmentList'=>$DepartmentList,'batchlist'=>$batchlist,'edittrainingProgram'=>$edittrainingProgram,'departList'=>$departList,'editModuleCategory'=>$editModuleCategory,'ModuleCategory'=>$ModuleCategory,'editmodulefilelist'=>$editmodulefilelist,'moduleCateList'=>$moduleCateList,'Categorylist'=>$Categorylist,'TrainerList'=>$TrainerList,'getemployeevalue'=>$getemployeevalue,'em'=>$em,'id'=>$id,'subcatid'=>$subcatid,'SelectDate'=>$SelectDate));
     }
 public function dataTableMasterAction(Request $request)
@@ -1097,7 +1102,7 @@ public function InsertAdminMasterAction(Request $request)
 					$catName=$categoreyName[0]['subcategory'];
 					if($id=="")
 					{
-						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' || $exten== 'docx' || $exten== 'doc' || $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' )	
+						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' )	
 						{
 								if($uploadedFile!=""){
 							
@@ -1420,7 +1425,7 @@ public function MapModuleAction(Request $request)
 		
 		
 		$TrainerList=$em->createQuery("SELECT j.userid,j.name  FROM TraxAdminBundle:TblUser j  where j.employeetype ='Trainer' and j.customerid='".$loginuserId."'")->getArrayResult();
-	return $this->render('TraxAdminBundle:Admin:MapModule.html.php',array('loginExeType'=>$loginExeType,'customerList'=>$customerList,'ModuleCategory'=>$ModuleCategory,'departList'=>$departList,'TrainerList'=>$TrainerList));
+	return $this->render('TraxAdminBundle:Admin:MapModule.html.php',array('loginExeType'=>$loginExeType,'customerList'=>$customerList,'ModuleCategory'=>$ModuleCategory,'departList'=>$departList,'TrainerList'=>$TrainerList,'loginuserId'=>$loginuserId));
 	}
 public function addEmployeeMasterAction(Request $request)
 	{

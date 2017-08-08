@@ -30,7 +30,7 @@
 					</div>
 
 					<div align="center" style="display:none;" id="insertSuccesss"> 
-					<h4 class="text-primary">Successfully Inserted...</h4>
+					<h4 class="text-primary">Successfully Insert.</h4>
 					</div>
 
 
@@ -79,7 +79,7 @@
 					</div>
 
 					<div align="center" style="display:none;" id="insertSuccesss"> 
-					<h4 class="text-primary">Successfully Inserted...</h4>
+					<h4 class="text-primary">Successfully Insert.</h4>
 					</div>
                          <div class="form-group">
                              <div id="CategoryDivm">
@@ -151,7 +151,7 @@ var type="getCategoryListM";
 					</div>
 
 					<div align="center" style="display:none;" id="insertSuccesss"> 
-					<h4 class="text-primary">Successfully Inserted...</h4>
+					<h4 class="text-primary">Successfully Insert.</h4>
 					</div>
 					
 					<div class="form-group">	
@@ -236,7 +236,7 @@ function getsubcategory(catid){
 					</div>
 
 					<div align="center" style="display:none;" id="insertSuccesss"> 
-					<h4 class="text-primary">Successfully Inserted...</h4>
+					<h4 class="text-primary">Successfully Insert.</h4>
 					</div>
                         
 								
@@ -266,18 +266,18 @@ function getsubcategory(catid){
 <div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><?php if($editId!=''){ echo "Edit"; } else { echo "Add"; }?> <?php echo preg_replace('/([A-Z])/', ' $1', $getFunctionType);  ?></h4>
+				<h4 class="modal-title"><?php if($editId!=''){ echo "Edit"; } else { echo "Add"; }?> Trainee</h4>
 				</div>  
 				
 				
 <form action="" id="customerForm" name="customerForm" style="border-radius: 0px;" class="form" enctype="multipart/form-data">
  <div class="modal-body">
-				<div align="center" style="display:none;" id="updateSuccess"> 
+				<div align="center" style="display:none;" id="updateSuccesss"> 
 					<h4 >Successfully Updated...</h4>
 					</div>
 
-					<div align="center" style="display:none;" id="insertSuccess"> 
-					<h4 class="text-primary">Successfully Inserted...</h4>
+					<div align="center" style="display:none;" id="insertSuccesss"> 
+					<h4 class="text-primary">Successfully Insert.</h4>
 					</div>
 
 
@@ -370,6 +370,14 @@ function getsubcategory(catid){
 }
 
 
+var xhr;
+var customerId="<?php echo $customerId; ?>";
+$('input[name="Employeename"]').autoComplete({
+    source: function(term, response){
+        try { xhr.abort(); } catch(e){}
+        xhr = $.getJSON('manage/getFunction', { employeename: term,customerId:customerId,type:"employeeDetails" }, function(data){ response(data); });
+    }
+});
 function employeeDetils(employeeId){
 var type="EmployeefullDetails";
 $.get('manage/getFunction', { employeeId: employeeId,customerId:customerId,type:type }, function(data){ 

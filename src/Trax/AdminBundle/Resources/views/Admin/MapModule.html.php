@@ -128,7 +128,7 @@
 					</div>
 <div class="col-sm-2">
 					<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:115px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('Department');">Add Department</button>
-					
+					<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:115px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('Trainees');">Add Trainees</button>
 					</div>
 				
 				</div>
@@ -175,7 +175,49 @@
 
 <script>
 modalWindow();
+var xhr;
+var customerId="<?php echo $loginuserId; ?>";
+$('input[name="Employeename"]').autoComplete({
+    source: function(term, response){
+        try { xhr.abort(); } catch(e){}
+        xhr = $.getJSON('getFunction', { employeename: term,customerId:customerId,type:"employeeDetails" }, function(data){ response(data); });
+    }
+});
+function employeeDetils(employeeId){
+var type="EmployeefullDetails";
+var customerId="<?php echo $loginuserId; ?>";
+$.get('getFunction', { employeeId: employeeId,customerId:customerId,type:type }, function(data){ 	
+			var result=JSON.parse(data);
+			if(result!=""){
+				$('#Password').val(result[0]['chorusid']);
+				$('#gid').val(result[0]['gid']);
+				if(result[0]['gender']=='Male'){
+					$('#male').attr('checked', true); 
+				}else if(result[0]['gender']=='Female') {	
+					$('#female').attr('checked', true);
+				}				
+				$("#department").val(result[0]['department']);
+				$("#location").val(result[0]['location']);
+			}
+				
+ });
 
+} 
+function checkUserName(username){
+			var type="checkUserName";
+			$.get( "getFunction",{ type : type,username : username},function(data) {
+
+				var result=JSON.parse(data);
+				if(result!=""){
+					$('#errorUsername').html("User Already Exists..!");
+					$('#gid').focus();
+				}
+				else{
+					$('#errorUsername').html("");
+				}
+					
+  			});
+}
 function modalWindow(type)
 {
 
@@ -332,6 +374,7 @@ var origin="#search";
 		$( origin).find(':selected').appendTo(dest);
 	
 }
+
 function getEmplistremove() {
 var origin="#search";
  var dest="#search_to";
@@ -713,14 +756,17 @@ getCategoryList(Trainer);
 			else
 			{
 				$('#errorsearch_to').html("");
-				}
-
-			if($('#employeelist').val()==null || $('#employeelist').val()=="")
+			}
+                   	if($('#select_All').prop("checked") == false){
+               		if($('#employeelist').val()==null || $('#employeelist').val()=="")
 			{		
-				$('#erroremployeelist').html("Please  select Employee's");
+				$('#erroremployeelist').html("Please select a Trainee");
 				document.getElementById('employeelist').focus();
 				return false;
 		    	}
+
+            		}    
+			
 			else
 			{
 			$('#erroremployeelist').html("");
@@ -744,7 +790,115 @@ getCategoryList(Trainer);
 			
 		}
 
-		
+		if(type=='Employee'){
+
+		var Employeename=$('#Employeename').val();
+			if(Employeename=="")
+			{
+			$('#errorEmployeename').html("Please enter the  Trainee Name");
+			document.getElementById('Employeename').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorEmployeename').html(" ");
+			}
+			var gid=$('#gid').val();
+			if(gid=="")
+			{
+			$('#errorUsername').html("Please enter the  User Name");
+			document.getElementById('gid').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorUsername').html(" ");
+			}
+
+			var Password=$('#Password').val();
+			if(Password=="")
+			{
+			$('#errorPassword').html("Please enter the  Password");
+			document.getElementById('Password').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorPassword').html(" ");
+			}
+	
+			if($('input[name=gender]:checked').length<=0)
+					{
+					$('#errorgender').html("Please Select the  gender");
+					document.getElementById('gender').focus();
+					return false; 
+					}
+					else
+					{
+					$('#errorgender').html(" ");
+					}
+
+		var department=$('#department').val();
+			if(department=="")
+			{
+			$('#errordepartment').html("Please enter the  department");
+			document.getElementById('department').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errordepartment').html(" ");
+			}
+
+			var location=$('#location').val();
+			if(location=="")
+			{
+			$('#errorLocation').html("Please enter the  Location");
+			document.getElementById('location').focus();
+			return false; 
+			}
+			else
+			{
+			$('#errorLocation').html(" ");
+			}
+			
+
+	$('#errorcustomername').html("");
+				 			
+			var editId=$('#editId').val();
+				 	
+			/*var filePost = new FormData(document.getElementById('customerForm'));
+   			$('#image').show();
+			$.ajax({
+			url: "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster')?>?type=Employee",
+			type: "GET",
+			data: filePost,
+			processData: false,
+			contentType: false,
+			success: function(response) {
+   			$('#image').hide();
+					$('#customerForm')[0].reset();
+					$("#insertSuccess").show();
+					}
+				
+
+			});*/
+
+		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type=Employee", $( "#customerForms" ).serialize(),function() {
+
+					$('#customerForms')[0].reset();	
+					if(editId==""){
+					$('#insertSuccess').show();
+					}
+					else{
+					$('#customerForms')[0].reset();	
+					$('#updateSuccess').show();
+					}
+
+				})
+
+
+		}	
 
 }
 </script>

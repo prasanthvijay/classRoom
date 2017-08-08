@@ -226,7 +226,7 @@
 		<ul style="">
 		<li><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=Category"><span class="title">Category</span></a></li>
 		<li><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=SubCategory"><span class="title">Sub Category list</span></a></li>
-		<li><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=ModuleList"><span class="title">Upload Module List</span></a></li>
+		<li><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=ModuleList"><span class="title">Upload Content</span></a></li>
 		
 
 		</ul>
@@ -239,8 +239,8 @@
 		</a>
 
 		<ul style="">
-			<li><a href="<?php echo $view['assets']->getUrl('mapmoduletouser') ?>"><span class="title">Map Module to User</span></a></li>
-		<li><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=MappedModuletoUserList"><span class="title">Mapped Module List</span></a></li>
+			<li><a href="<?php echo $view['assets']->getUrl('mapmoduletouser') ?>"><span class="title">Map Content to Trainee</span></a></li>
+		<li><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=MappedModuletoUserList"><span class="title">Mapped Trainee List</span></a></li>
 			<!--<li><a href="<?php echo $view['assets']->getUrl('maptraniee') ?>"><span class="title">Map Trainee</span></a></li>
 			<li><a href="<?php echo $view['assets']->getUrl('trainingbatch') ?>"><span class="title">Add Training Batch</span></a></li>
 			<li><a href="<?php echo $view['assets']->getUrl('trainingprogram') ?>"><span class="title">Add Training Program</span></a></li>

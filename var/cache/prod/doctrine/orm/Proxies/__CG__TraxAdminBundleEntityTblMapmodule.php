@@ -64,10 +64,10 @@ class TblMapmodule extends \Trax\AdminBundle\Entity\TblMapmodule implements \Doc
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'mapid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'trainerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'categoryid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'subcategory', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'moduleid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'description', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'scheduledate', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'customerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'adminid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'createdat'];
+            return ['__isInitialized__', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'mapid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'trainerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'description', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'scheduledate', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'customerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'adminid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'createdat'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'mapid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'trainerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'categoryid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'subcategory', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'moduleid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'description', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'scheduledate', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'customerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'adminid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'createdat'];
+        return ['__isInitialized__', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'mapid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'trainerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'description', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'scheduledate', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'customerid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'adminid', '' . "\0" . 'Trax\\AdminBundle\\Entity\\TblMapmodule' . "\0" . 'createdat'];
     }
 
     /**
@@ -208,72 +208,6 @@ class TblMapmodule extends \Trax\AdminBundle\Entity\TblMapmodule implements \Doc
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTrainerid', []);
 
         return parent::getTrainerid();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCategoryid($categoryid)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategoryid', [$categoryid]);
-
-        return parent::setCategoryid($categoryid);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCategoryid()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCategoryid', []);
-
-        return parent::getCategoryid();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setSubcategory($subcategory)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubcategory', [$subcategory]);
-
-        return parent::setSubcategory($subcategory);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getSubcategory()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubcategory', []);
-
-        return parent::getSubcategory();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setModuleid($moduleid)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModuleid', [$moduleid]);
-
-        return parent::setModuleid($moduleid);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getModuleid()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModuleid', []);
-
-        return parent::getModuleid();
     }
 
     /**

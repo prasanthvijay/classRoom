@@ -11,6 +11,7 @@
 			<div class="section-header">
 				<ol class="breadcrumb">
 				<li class="active">Map Content to Trainee</li>
+				<li class="active"><a href="<?php echo $view['assets']->getUrl('modulemasterlist') ?>?type=MappedModuletoUserList" class="btn btn-sm btn-primary">Mapped Trainee List</a></li>
 				</ol>
 
 			</div>
@@ -28,7 +29,7 @@
 					</div>
 
 					<div align="center" style="display:none;" id="insertSuccess"> 
-					<h4 class="text-primary">Successfully Inserted...</h4>
+					<h4 class="text-primary">Successfully Insert</h4>
 					</div>
 					<div class="form-group">
 					<label class="col-sm-2 control-label">Category</label>
@@ -54,7 +55,7 @@
 							
 							</select>
 						</div>
-						<div class="col-xs-1">
+						<div class="col-sm-1">
 							<button type="button" id="search_right" class="btn btn-block" onclick="getmodule()"><i class="glyphicon glyphicon-chevron-right"></i></button>
 							<button type="button" id="search_left" class="btn btn-block" onclick="getmoduleremove()"><i class="glyphicon glyphicon-chevron-left"></i></button>
 						</div>
@@ -93,7 +94,7 @@
 							
 							</select>
 						</div>
-						<div class="col-xs-1">
+						<div class="col-sm-1">
 							<button type="button" id="search_rightSelected" class="btn btn-block" onclick="getEmplist()"><i class="glyphicon glyphicon-chevron-right"></i></button>
 							<button type="button" id="search_leftSelected" class="btn btn-block" onclick="getEmplistremove()"><i class="glyphicon glyphicon-chevron-left"></i></button>
 						</div>
@@ -103,7 +104,7 @@
 						</select> <div id="errorsearch_to" style="color:red"></div>
 					</div>
 <button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('Department');">Add Department</button><br><br>
-				<!--<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('Trainee');">Add Trainee</button>-->
+				<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('trainer');">Add Trainee</button>
 				</div>
 										
 					<div class="form-group">
@@ -119,12 +120,7 @@
 						
 						<!--<button type="button" class="btn btn-info btn-sm" style="text-align:center; width:150px" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" onclick=" modalWindow('trainer');">Add Trainee</button>-->
                                     </div> 
-                                   	<div class="form-group">
-					<label class="col-sm-2 control-label">Module Description</label>
-					<div class="col-sm-7">
-					<textarea class="form-control" id="Description" name="Description"><?php echo $editmodulefilelist[0]['description']; ?></textarea>
-					</div><div id="errordes" class="errorText"></div>
-					</div>							
+                                   						
                                     <div class="form-group">
 
                                         <div class="col-sm-2" align="right"></div> 
@@ -165,6 +161,8 @@
 
 
 <script>
+
+
 function modalWindow(type)
 {
 	$.get( "userFunction",{ type : type},function(data) {
@@ -196,6 +194,7 @@ $(function() {
 
 <script>
 getCategoryList();
+getDepart();
 function getsubCategory(catid){
 	var i;
 	$.get( "manage/getFunction",{type:"getsubCategoryMultiple",catid:catid} ,function( data ) {
@@ -211,7 +210,6 @@ function getsubCategory(catid){
 	}
 
 	});
-	getDepart();
 }
 function getCategoryList(){
 var trainerId = <?php echo $loginemployeeuserId; ?>;
@@ -454,17 +452,18 @@ var origin="#search";
 				{
 				$('#errorsearch_to').html(" ");
 				}
-			
+			 if($('#select_All').prop("checked") == false){
 				var employeelist = document.getElementById('employeelist').value;
 				if (employeelist == "")
 				{
 				$('#erroremployeelist').html("Please select Trainees");
 				document.getElementById('employeelist').focus();
 				return false;
+			
+					}
 				}
-
-	else
-{
+				else
+				{
 				$('#erroremployeelist').html(" ");
 
 				var editId=$('#editId').val();
@@ -771,11 +770,13 @@ if ($('#Employeename').val()=='')
 
 					$('#customerForm')[0].reset();	
 					if(editId==""){
-					$('#insertSuccess').show();
+					$('#insertSuccesss').show();
+					$('#search_to').val("");
+					getDepart();
 					}
 					else{
 					$('#customerForm')[0].reset();	
-					$('#updateSuccess').show();
+					$('#updateSuccesss').show();
 					}
 
 				})

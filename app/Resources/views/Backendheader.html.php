@@ -53,7 +53,7 @@
 			<?php if($_SESSION['ExeType']==1){?>	
                             <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=Customer">Customer</a></li>
 			<?php } ?>
-                            <li><a href="<?php echo $view['assets']->getUrl('manage/addEmployeeMaster') ?>">Employee</a></li>
+                            <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=Employee">Trainee</a></li>
                             <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=Department">Department</a></li>
                             <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=Location">Location</a></li>
                              <li><a href="<?php echo $view['assets']->getUrl('manage/adminMaster') ?>?master=BasicMaster">Basic Master</a></li>
