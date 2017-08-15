@@ -1128,7 +1128,7 @@ public function InsertAdminMasterAction(Request $request)
 					$catName=$categoreyName[0]['subcategory'];
 					if($id=="")
 					{
-						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' )	
+						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' )	
 						{
 								if($uploadedFile!=""){
 							
