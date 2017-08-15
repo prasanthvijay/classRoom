@@ -143,9 +143,21 @@ var loginExeType="<?php echo $loginExeType; ?>";
 }
 </script>
 <script>
-function submitForm() {
+function submitFormnew(type,mapid) {
+		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type, $( "#customerForm" ).serialize(),function(data) {
 
+		if(data=="Success"){
+		$('#customerForm')[0].reset();	
+		$('#insertSuccess').show();
+		$('#emply').hide();	
+		}
+		modalWindowemployee(type,mapid);
+		})
+}
+function submitForm(type) {
 	var type='<?php echo $master; ?>';
+		
+	
 	if(type=="Customer")
 		{
 	
@@ -893,7 +905,7 @@ function deleteFunction(deleteId){
 	closeOnConfirm: false
 	},
 	function(){
-	$.get( "adminMaster?master="+type,{ deleteId : deleteId},function(data) {
+	$.get( "adminMaster?master="+type,{ deleteId : deleteId,mapid:mapid},function(data) {
 	})
 	swal("Removed!", "Remove this Trainee to this program.", "success");
 	dataTableFunction();
@@ -902,7 +914,14 @@ function deleteFunction(deleteId){
 
 
 }
+function modalWindowContent(type,mapid)
+{
 
+	 	$.get( "LoadModalContent",{ type : type,mapid : mapid },function(data) {
+		$( "#DisplayModlaDiv" ).html( data );
+  		})
+
+}
 function editFunction(editId)
 {
 	var type='<?php echo $master; ?>';
@@ -991,7 +1010,14 @@ swal({
 
 <script type="text/javascript">
 
+function LoadTrainee(mapid){
+	$.get( "getFunction?type=mapExtraTrainee",{ mapid : mapid},function(data) {
 
+		$('#emply').show();
+		$('#employeelist').html(data);
+		App.formElements();		
+	})
+}
 function updatescheduledate(type,id)
 {
 $.get( "getFunction?type="+type+"&id="+id, $( "#updatedate"+id).serialize(),function(data) {

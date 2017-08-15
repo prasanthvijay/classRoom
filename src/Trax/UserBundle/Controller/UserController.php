@@ -96,7 +96,19 @@ class UserController extends Controller
 			$LocationList = $em->createQuery("SELECT j.zoneid,j.location FROM TraxAdminBundle:TblLocation j where j.customerid='".$customerId."'")->getArrayResult();
 
 		}
-		return $this->render('TraxUserBundle:User:userFunction.html.php',array('getFunctionType'=>$getFunctionType,'subCategoryList'=>$subCategoryList,'loginuserId'=>$loginuserId,'customerId'=>$customerId,'Categorylist'=>$Categorylist,'DepartmentList'=>$DepartmentList,'LocationList'=>$LocationList));
+		if($getFunctionType=="editContent")
+		{
+			$mapid=$request->get('mapid'); 	
+			$mappedmodule = $em->createQuery("SELECT j FROM TraxAdminBundle:TblMapprogramtocategory j where j.mapmoduleid='".$mapid."'")->getArrayResult();
+			$Categorylist = $em->createQuery("SELECT j.cateid,j.modulecategory FROM TraxAdminBundle:TblModulecategory j where j.trainerid='".$loginuserId."' ")->getArrayResult();
+				
+			$subCategoryList = $em->createQuery("SELECT j.subcatid,j.subcategory FROM TraxAdminBundle:TblModulesubcategory j where j.subcatid in (".$mappedmodule[0]['subcategoryid'].")")->getArrayResult();
+			$notsubCategoryList = $em->createQuery("SELECT j.subcatid,j.subcategory FROM TraxAdminBundle:TblModulesubcategory j where j.subcatid NOT IN (".$mappedmodule[0]['subcategoryid'].")")->getArrayResult();
+
+			//print_r($subCategoryList);	
+
+		}
+		return $this->render('TraxUserBundle:User:userFunction.html.php',array('getFunctionType'=>$getFunctionType,'subCategoryList'=>$subCategoryList,'loginuserId'=>$loginuserId,'customerId'=>$customerId,'Categorylist'=>$Categorylist,'DepartmentList'=>$DepartmentList,'LocationList'=>$LocationList,'mappedmodule'=>$mappedmodule,'em'=>$em,'mapid'=>$mapid,'notsubCategoryList'=>$notsubCategoryList));
 	}
 	public function portletAction(Request $request)
 	{
@@ -277,7 +289,7 @@ $MapModuleList = $em->createQuery("SELECT j.mapid,j.scheduledate,m.modulecategor
 
 
 		}
-	      return $this->render('TraxUserBundle:User:modulemasterlist.html.php',array('loginId'=>$loginId,'loginuserId'=>$loginuserId,'ModuleCategory'=>$ModuleCategory,'em'=>$em,'customerId'=>$customerId,'delmodulemasterlist'=>$delmodulemasterlist,'type'=>$type,'userListt'=>$userListt,'modulefilelist'=>$modulefilelist,'MapModuleList'=>$MapModuleList,'Employee'=>$Employee,'DepartmentList'=>$DepartmentList));
+	      return $this->render('TraxUserBundle:User:modulemasterlist.html.php',array('loginId'=>$loginId,'loginuserId'=>$loginuserId,'ModuleCategory'=>$ModuleCategory,'em'=>$em,'customerId'=>$customerId,'delmodulemasterlist'=>$delmodulemasterlist,'type'=>$type,'userListt'=>$userListt,'modulefilelist'=>$modulefilelist,'MapModuleList'=>$MapModuleList,'Employee'=>$Employee,'DepartmentList'=>$DepartmentList,'loginemployeeuserId'=>$loginemployeeuserId));
 	    }	
 	
 	public function mapmoduletouserAction(Request $request)

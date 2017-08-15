@@ -758,26 +758,25 @@ getCategoryList(Trainer);
 				$('#errorsearch_to').html("");
 			}
                    	if($('#select_All').prop("checked") == false){
-               		if($('#employeelist').val()==null || $('#employeelist').val()=="")
-			{		
-				$('#erroremployeelist').html("Please select a Trainee");
-				document.getElementById('employeelist').focus();
-				return false;
-		    	}
+		       		if($('#employeelist').val()==null || $('#employeelist').val()=="")
+				{		
+					$('#erroremployeelist').html("Please select a Trainee");
+					document.getElementById('employeelist').focus();
+					return false;
+			    	}
 
             		}    
-			
-			else
-			{
-			$('#erroremployeelist').html("");
+				
 				var editId=$('#editId').val();
-
+				$('#erroremployeelist').html("");
 				$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type=MapModule", $( "#customerForm" ).serialize(),function() {
 					$('html, body').animate({scrollTop : 0},800);
 					$("#search_to").empty();
+					$("#subCategory_to").empty();
 					$("#search").empty();
 					$("#employeelist").empty();
-					$('#customerForm')[0].reset();	
+					$('#customerForm')[0].reset();
+					$("#ResourceDiv").html("");
 					if(editId==""){
 					$('#insertSuccessmap').show();
 					}
@@ -786,7 +785,7 @@ getCategoryList(Trainer);
 					$('#updateSuccess').show();
 					}
 				})
-			}
+			
 			
 		}
 

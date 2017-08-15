@@ -87,27 +87,30 @@ class AdminController extends Controller
 		$countprogram=0;
 		$empid=$request->get('empid');			
 		$CheckDate=$em->createQuery("SELECT k.scheduledate,k.mapid FROM TraxAdminBundle:TblMapbatchtoemployee j INNER JOIN TraxAdminBundle:TblMapmodule k with k.mapid=j.mapmoduleid where j.employeeid='".$empid."'")->getArrayResult();
+//print_r($CheckDate);
 
 		if(count($CheckDate)>0){
-			$todayDate=date("Y/d/m");
+			 $todayDate=date("Y/m/d");
 			for($i=0;$i<count($CheckDate);$i++){
 		
-				 $scheldate=explode('-',$CheckDate[$i]['scheduledate']);
-		
-$date=date_create($scheldate[0]);
-$scheldateStart =date_format($date,"Y/m/d");
-$dateend=date_create($scheldate[1]);
-$scheldateEnd =date_format($dateend,"Y/m/d")."<br>";
+				$scheldate=explode('-',$CheckDate[$i]['scheduledate']);
+
+				$date=date_create($scheldate[0]);
+				 $scheldateStart =date_format($date,"Y/m/d");
+				$dateend=date_create($scheldate[1]);
+				 $scheldateEnd =date_format($dateend,"Y/m/d");
 						if($todayDate >= $scheldateStart && $todayDate <= $scheldateEnd){
 							$mapId.=$CheckDate[$i]['mapid'].',';				
 						}
-												
+						else{
+							
+						}						
 					}	
 				$mappedId=rtrim($mapId,',');
 			
-		
+		if($mappedId!=""){
 		$mapemploeelist = $em->createQuery("SELECT j.mapid,j.scheduledate,o.modulecategory,m.name as trainerName,o.description FROM TraxAdminBundle:TblMapmodule j INNER JOIN TraxAdminBundle:TblMapprogramtocategory k with k.mapmoduleid=j.mapid INNER JOIN TraxAdminBundle:TblModulecategory o with o.cateid=k.categoryid INNER JOIN TraxAdminBundle:TblUser m with m.userid=j.trainerid where j.mapid in (".$mappedId.")")->getArrayResult();
-
+			}
 			$mapmodulelistarray=$mapemploeelist;
 			}
 		}
@@ -279,6 +282,13 @@ if($getFunctionType=="getEmplisttrainer"){
 
 			$subCategoryListarray=$subCategoryList;
 		}
+if($getFunctionType=="getModuleFileNew"){	
+			$subCategoryListarray=array();
+			$subCategory=$request->get('subCategory');
+			$subCategoryList = $em->createQuery("SELECT j.subcatid,j.subcategory FROM TraxAdminBundle:TblModulesubcategory j where j.subcatid in (".$subCategory.") ")->getArrayResult();
+
+			$subCategoryListarray=$subCategoryList;
+		}
 if($getFunctionType=="getDepartmenttrainer"){	
 
 
@@ -314,7 +324,7 @@ if($getFunctionType=="getDepartmenttrainer"){
 				 $em->createQuery("update TraxAdminBundle:TblUser p set p.employeetype='".$currentType."' WHERE p.userid='".$empId."' ")->execute();
 
 		}
-if($getFunctionType=="updatedatepicker"){
+		if($getFunctionType=="updatedatepicker"){
 
 				 $subcatid=$request->get('subcatid');
 				 $date=$request->get('reservation');
@@ -322,26 +332,40 @@ if($getFunctionType=="updatedatepicker"){
 				 $em->createQuery("update TraxAdminBundle:TblMapmodule p set p.scheduledate='".$date."' WHERE p.mapid='".$subcatid."' ")->execute();
 
 		}
-if($getFunctionType=="viewhistory"){
+		if($getFunctionType=="mapExtraTrainee"){
+
+				$mapid=$request->get('mapid');
+
+				$mappedList = $em->createQuery("SELECT j.employeeid FROM TraxAdminBundle:TblMapbatchtoemployee j  where j.mapmoduleid='".$mapid."'")->getArrayResult();
+
+				for($i=0;$i<count($mappedList);$i++){
+					$empid.=$mappedList[$i]['employeeid'].',';		
+				}
+				$empIds=rtrim($empid,',');
+
+				$employeeList=$em->createQuery("SELECT j.userid,j.name,j.chorusid FROM TraxAdminBundle:TblUser j  where j.userid NOT IN (".$empIds.") and j.employeetype='Trainee'")->getArrayResult();
+//print_r($employeeList);
+		}
+		if($getFunctionType=="viewhistory"){
 
 
-				$empid=$request->get('empid');
-				 $moduleid=$request->get('moduleid');
+			$empid=$request->get('empid');
+			$moduleid=$request->get('moduleid');
 
-$usermaillist = $em->createQuery("SELECT j FROM TraxAdminBundle:TblViewHistory j  where j.moduleId='".$moduleid."' and j.empid='".$empid."'")->getArrayResult();
-if(count($usermaillist) <= 0)
-{
+			$usermaillist = $em->createQuery("SELECT j FROM TraxAdminBundle:TblViewHistory j  where j.moduleId='".$moduleid."' and j.empid='".$empid."'")->getArrayResult();
+			if(count($usermaillist) <= 0)
+			{
 
-					$insert=new TblViewHistory();
-					$insert->setEmpid($empid);
-					$insert->setModuleId($moduleid);
-					$insert->setViewDate(new \DateTime());	
-					$em->persist($insert);
-					$em->flush();
-}
+			$insert=new TblViewHistory();
+			$insert->setEmpid($empid);
+			$insert->setModuleId($moduleid);
+			$insert->setViewDate(new \DateTime());	
+			$em->persist($insert);
+			$em->flush();
+			}
 
-$successmsg[0]['msg']='success';
-				
+			$successmsg[0]['msg']='success';
+
 
 		}
         return $this->render('TraxAdminBundle:Admin:getFunction.html.php',array('getFunctionType'=>$getFunctionType,'trainingprogramList'=>$trainingprogramList,'EmployeeList'=>$EmployeeList,'trainerNamelist'=>$trainerNamelist,'userlist'=>$userlist,'frmoapp'=>$frmoapp,'userListarray'=>$userListarray,'mapmodulelistarray'=>$mapmodulelistarray,'sessionListarray'=>$sessionListarray,'mapmodulelistfilearray'=>$mapmodulelistfilearray,'mapmodulefileslist'=>$mapmodulefileslist,'sessionListEmparray'=>$sessionListEmparray,'employeeArray'=>$employeeArray,'subCategoryList'=>$subCategoryList,'Categorylist'=>$Categorylist,'departList'=>$departList,'employeeList'=>$employeeList,'em'=>$em,'loginuserId'=>$loginuserId,'deptListarray'=>$deptListarray,'userlistid'=>$userlistid,'successmsg'=>$successmsg,'usermaillist'=>$usermaillist,'newpassword'=>$newpassword,'subCategoryListarray'=>$subCategoryListarray,'mapModuleFileArray'=>$mapModuleFileArray));
@@ -430,7 +454,9 @@ $successmsg[0]['msg']='success';
 			if($master=='loademployeelist')
 				{
 				$empid=$request->get('deleteId');
-				$em->createQuery("Delete FROM TraxAdminBundle:TblMapbatchtoemployee j where j.employeeid='".$empid."'")->getArrayResult();
+				$mapid=$request->get('mapid');
+			
+				$em->createQuery("Delete FROM TraxAdminBundle:TblMapbatchtoemployee j where j.employeeid='".$empid."'and j.mapmoduleid='".$mapid."'")->getArrayResult();
 			
 				}
 		}
@@ -565,7 +591,7 @@ public function LoadModalContentAction(Request $request)
 				$DepartmentList = $em->createQuery("SELECT j.dprtid,j.department  FROM TraxAdminBundle:TblDepartment j  where j.customerid ='".$loginuserId."'")->getArrayResult();
 
 			}
-        return $this->render('TraxAdminBundle:Admin:LoadModalContent.html.php',array('mastertype'=>$mastertype,'editId'=>$editId,'editDepartment'=>$editDepartment,'editEmployeeList'=>$editEmployeeList,'editLocation'=>$editLocation,'editcustomerList'=>$editcustomerList,'locationList'=>$locationList,'DepartmentList'=>$DepartmentList,'batchlist'=>$batchlist,'edittrainingProgram'=>$edittrainingProgram,'departList'=>$departList,'editModuleCategory'=>$editModuleCategory,'ModuleCategory'=>$ModuleCategory,'editmodulefilelist'=>$editmodulefilelist,'moduleCateList'=>$moduleCateList,'Categorylist'=>$Categorylist,'TrainerList'=>$TrainerList,'getemployeevalue'=>$getemployeevalue,'em'=>$em,'id'=>$id,'subcatid'=>$subcatid,'SelectDate'=>$SelectDate));
+        return $this->render('TraxAdminBundle:Admin:LoadModalContent.html.php',array('mastertype'=>$mastertype,'editId'=>$editId,'editDepartment'=>$editDepartment,'editEmployeeList'=>$editEmployeeList,'editLocation'=>$editLocation,'editcustomerList'=>$editcustomerList,'locationList'=>$locationList,'DepartmentList'=>$DepartmentList,'batchlist'=>$batchlist,'edittrainingProgram'=>$edittrainingProgram,'departList'=>$departList,'editModuleCategory'=>$editModuleCategory,'ModuleCategory'=>$ModuleCategory,'editmodulefilelist'=>$editmodulefilelist,'moduleCateList'=>$moduleCateList,'Categorylist'=>$Categorylist,'TrainerList'=>$TrainerList,'getemployeevalue'=>$getemployeevalue,'em'=>$em,'id'=>$id,'subcatid'=>$subcatid,'SelectDate'=>$SelectDate,'mapid'=>$mapid));
     }
 public function dataTableMasterAction(Request $request)
     {
@@ -1391,8 +1417,39 @@ public function InsertAdminMasterAction(Request $request)
 				echo "invalid";
 			}
 		}
-			
-			
+		if($type=="loademployeelist"){
+			 $mapId=$request->get('mapId');
+			 $employeelist=$request->get('employeelist');
+				$val=$request->get('val'); 
+				if($val==1){
+				$customerId=$request->get('customerId'); 
+				$loginId=$request->get('Trainer'); 
+				}	 
+						for($i=0;$i<count($employeelist);$i++){
+							$insert=new TblMapbatchtoemployee();
+							$insert->setMapmoduleid($mapId);
+							$insert->setEmployeeid($employeelist[$i]);
+							$insert->setCustomerid($customerId);
+							$insert->setAdminid($loginId);
+							$insert->setCreatedat(new \DateTime());				
+							$em->persist($insert);
+							$em->flush();
+							echo "Success";	
+						}
+	
+		}	
+		if($type=="editContent"){
+			 $mapid=$request->get('mapid');
+			 $CategoryId=$request->get('CategoryId');
+			 $subCategory=implode(',',$request->get('subCategory_to'));
+			 $elearningModule=implode(',',$request->get('elearningModule'));
+				$val=$request->get('val'); 
+				if($val==1){
+				$customerId=$request->get('customerId'); 
+				$loginId=$request->get('Trainer'); 
+				}	 
+				$em->createQuery("update TraxAdminBundle:TblMapprogramtocategory j set j.categoryid='".$CategoryId."',j.subcategoryid='".$subCategory."',j.moduleid='".$elearningModule."' WHERE j.mapmoduleid='".$mapid."' ")->execute();	
+		}	
 			
         return $this->render('TraxAdminBundle:Admin:InsertAdminMaster.html.php',array('mastertype'=>$mastertype));
 	}

@@ -220,6 +220,118 @@ function getsubcategory(catid){
 }
 </script>
 
+<?php } else if($getFunctionType=='editContent') { ?>
+
+<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Content</h4>
+				</div>  
+				
+				
+<form action="" id="customerForm" name="customerForm" style="border-radius: 0px;" class="form" enctype="multipart/form-data">
+ <div class="modal-body">
+				<div align="center" style="display:none;" id="updateSuccess"> 
+					<h4 >Successfully Updated...</h4>
+					</div>
+
+					<div align="center" style="display:none;" id="insertSuccess"> 
+					<h4 class="text-primary">Successfully Insert.</h4>
+					</div>
+					
+					<div class="form-group">	
+						 <select name="CategoryId" id="CategoryIdModule" class="form-control" onchange="getsubCategory()">
+						<option value="">Select Category </option>
+						<?php for($i=0;$i<count($Categorylist);$i++) { ?>
+						<option value="<?php echo $Categorylist[$i]['cateid'];  ?>" <?php if($mappedmodule[0]['categoryid']==$Categorylist[$i]['cateid']){ echo "selected"; } ?>><?php  echo $Categorylist[$i]['modulecategory'];  ?></option>
+						<?php  } ?>
+					  </select><div style="color:red" id="errorCategoryIdModule"></div>
+						<label for="regular1">Category</label>
+						</div>
+                        <div class="form-group">
+					<label for="regular1">Sub Category </label>
+						<div class="col-sm-12">
+						<div class="col-sm-5">
+							<select name="subCategory[]" id="subCategory" class="form-control" multiple="multiple" >
+							<?php for($i=0;$i<count($notsubCategoryList);$i++){ ?>
+							<option value="<?php echo $notsubCategoryList[$i]['subcatid'] ?>"  ><?php echo $notsubCategoryList[$i]['subcategory'] ?></option>
+						<?php } ?>
+							</select>
+						</div>
+						<div class="col-sm-2">
+							<button type="button" id="search_right" class="btn btn-block" onclick="getmodule()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+							<button type="button" id="search_left" class="btn btn-block" onclick="getmoduleremove()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+						</div>
+						<div class="col-sm-5">
+						<select name="subCategory_to[]" id="subCategory_to" class="form-control" multiple="multiple"  >
+						<?php for($i=0;$i<count($subCategoryList);$i++){ ?>
+							<option value="<?php echo $subCategoryList[$i]['subcatid'] ?>" selected ><?php echo $subCategoryList[$i]['subcategory'] ?></option>
+						<?php } ?>
+						</select><div id="errorsubCategory_to" style="color:red"></div>
+					</div>	
+					</div>		
+				</div><br><br>
+					<div class="form-group">	
+						<div id="ResourceDiv">
+						<?php 			$contenArra=explode(',',$mappedmodule[0]['moduleid']); 
+
+				for($k=0;$k<count($subCategoryList);$k++) {		
+			$Modulelist = $em->createQuery("SELECT j.moduleid,j.modulename,j.filetype,j.filename,j.filepath FROM TraxAdminBundle:TblModulefiles j where j.subcategory='".$subCategoryList[$k]['subcatid']."' ")->getArrayResult();
+//print_r($Modulelist);
+?>
+
+		<h4 style="color:#052E51;"><strong> <?php echo $subCategoryList[$k]['subcategory'];  ?></strong></h4>	
+				
+		<?php   if(count($Modulelist)>0){ 
+			
+			for($j=0;$j<count($Modulelist);$j++) { 
+			$fileName=explode( '.', $Modulelist[$j]['filename'] ); 
+			$filepath=explode( '/', $Modulelist[$j]['filepath'] );	
+		if($Modulelist[$j]['filetype']=='Story'){
+
+			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename']."/story.html";
+		}
+		else{
+			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename'];
+		}	
+?>				
+				<div class="row">
+				<label><input type="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>" <?php for($m=0;$m<count($contenArra);$m++){ if($contenArra[$m]==$Modulelist[$j]['moduleid']){ echo "checked"; } }  ?>>&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?> </label>
+				</br>
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href='<?php echo $url; ?>'>
+					<?php if($Modulelist[$j]['filetype']=='url'){ echo "View URL"; }else{  echo  $Modulelist[$j]['filename']; }  ?></a></lable>
+				</div>
+			<?php } } ?><div id="errorelearningModule" style="color:red"></div>
+
+
+<?php  } ?>
+	
+</div>
+					</div>
+                       
+			<input type="hidden" id="editId" name="editId" value="">
+				<input type="hidden" id="arrayvalue" name="arrayvalue" value="">
+				<input type="hidden" id="arrayvalue1" name="arrayvalue1" value="">
+				<input type="hidden" id="arrayvaluenew1" name="arrayvaluenew1" value="">
+				<input type="hidden" id="arrayvaluenew" name="arrayvaluenew" value="">					
+				<input type="hidden" id="Trainer" name="Trainer" value="<?php echo $_SESSION['userid'] ?>">
+ 				<input type="hidden"  value="<?php echo $customerId ?>" name="customerId" id="customerId">
+				<input type="hidden" name="editId" id="editId" value="<?php echo $editmodulefilelist[0]['moduleid']; ?>">
+								
+								
+								
+<div class="form-group">
+<button class="btn btn-success" type="button" id="submit" name="submit" value="homemenu"  onclick="submitForm('<?php echo $getFunctionType; ?>','<?php echo $mapid; ?>');"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
+								</div>
+
+					
+				</div>
+							</form>
+							
+											</div>
+ 
+
+
 <?php }  if($getFunctionType=='Department') { ?> 	
 
 <div class="modal-content">

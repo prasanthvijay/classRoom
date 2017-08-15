@@ -1284,18 +1284,42 @@ function getsubCategory(catid){
 				<div class="form-group">
 
 					<?php for($j=0;$j<count($getemployeevalue);$j++){ ?>
-					<div align="center"><label class="control-label"><?php echo $getemployeevalue[$j]['name']." Chorus id :".$getemployeevalue[$j]['chorusid']." GId : ".$getemployeevalue[$j]['gid']; ?></label>		
-					<span id="dismiss" class="dismiss" style="color:#EB7A75; font-weight:bold; cursor:pointer;" onclick="deleteFunctionemplooyee(<?php  echo $getemployeevalue[0]['userid']; ?>,<?php  echo $getemployeevalue[0]['mapmoduleid']; ?>)">
+					<div class="col-sm-3"></div><div align="left"><label class="control-label"><?php echo $getemployeevalue[$j]['name']." Chorus id :".$getemployeevalue[$j]['chorusid']." GId : ".$getemployeevalue[$j]['gid']; ?></label>		
+					<span id="dismiss" class="dismiss" style="color:#EB7A75; font-weight:bold; cursor:pointer;" onclick="deleteFunctionemplooyee(<?php  echo $getemployeevalue[$j]['userid']; ?>,<?php  echo $getemployeevalue[0]['mapmoduleid']; ?>)">
 					<i class="fa fa-trash-o" style="color:#EB7A75;" aria-hidden="true"></i>
 					</span></div>
 
 					<?php } ?>
 						
-				</div>	
+				</div>
+
+					
+					<div class="form-group">
+					<label class="col-sm-7 control-label"></label>
+					<div class="col-sm-4">
+					<a class="btn btn-success" href="javascript:void(0)" onclick=LoadTrainee(<?php echo $mapid; ?>)>Add Trainee</a>					
+					</div>
+					</div>
+					<br><br>
+				 <form action="" id="customerForm" name="customerForm" class="form-horizontal group-border-dashed">
+
+					<input type="hidden" value="<?php  echo $getemployeevalue[0]['mapmoduleid']; ?>" name="mapId" id="mapId">
+					<div class="form-group" id="emply" style="display:none;">
+					<label class="col-sm-4 control-label">Select Trainee</label>
+					<div class="col-sm-5">
+					<div id="employeelist"></div>
+					</div>
+					<div class="col-sm-3"> 
+						<button class="btn btn-success" type="button" id="submit" name="submit"  value="homemenu"  onclick="submitFormnew('loademployeelist','<?php  echo $getemployeevalue[0]['mapmoduleid']; ?>');">Submit</button>
+					</div>
+					</div> 
+					</form> 
+	
 <div class="modal-footer"></div>	
 			</div>	
 			
-		
+<script>
+</script>		
 	
 
 <?php }  else if($mastertype=='updatescheduledate') { ?> 	
@@ -1326,7 +1350,60 @@ function getsubCategory(catid){
 				</div>	
 <div class="modal-footer"></div>
 			</div>	
-			
+
+<?php }  else if($mastertype=='editContent') { ?> 	
+
+				<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Content</h4>
+				</div>
+				<div class="modal-body form">
+				<form action="" id="updatedate<?php echo $id; ?>" name="updatedate<?php echo $id; ?>">
+
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Module Category</label>
+					<div class="col-sm-5">
+					 <div id="CategoryDiv">
+					 <select name="Category" id="CategoryIdNew" class="form-control" onchange="getsubCategory(this.value)">
+						<option value="">Select Category </option>
+						
+					  </select><div id="errorCategory" class="errorText"></div>
+					</div>
+					</div>
+					</div>
+
+					<div class="form-group">
+					<label class="col-sm-4 control-label">Module Sub Category </label>
+
+						<div class="col-sm-2">
+							<select name="subCategory[]" id="subCategory" class="form-control" multiple="multiple" >
+							
+							</select>
+						</div>
+						<div class="col-xs-1">
+							<button type="button" id="search_right" class="btn btn-block" onclick="getmodule()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+							<button type="button" id="search_left" class="btn btn-block" onclick="getmoduleremove()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+						</div>
+						<div class="col-sm-2">
+						<select name="subCategory_to[]" id="subCategory_to" class="form-control" multiple="multiple" >
+
+						</select><div id="errorsubCategory_to" class="errorText"></div>
+					</div>				
+				</div>
+
+
+
+				<div class="form-group">			
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4" >	<input type="hidden" name="subcatid" id="subcatid" value="<?php echo $SelectDate[0]['mapid']; ?>">
+			<button align="center" class="btn btn-success" type="button" id="homemenu" name="homemenu" value="homemenu"  onclick="updatescheduledate('updatedatepicker',<?php echo $id; ?>);">Submit</button>
+			</div>
+			</div>
+			</form>	
+				</div>	
+<div class="modal-footer"></div>
+			</div>				
 		
 	
 

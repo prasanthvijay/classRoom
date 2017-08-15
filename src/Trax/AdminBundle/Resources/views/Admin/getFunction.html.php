@@ -93,8 +93,37 @@
 
 </div>
 
-<?php  } ?>			
+<?php  } ?>	
+		
+<?php } else if($getFunctionType=='getModuleFileNew'){
+		for($i=0;$i<count($subCategoryListarray);$i++) {		
+			$Modulelist = $em->createQuery("SELECT j.moduleid,j.modulename,j.filetype,j.filename,j.filepath FROM TraxAdminBundle:TblModulefiles j where j.subcategory='".$subCategoryListarray[$i]['subcatid']."' ")->getArrayResult();
+//print_r($Modulelist);
+?>
 
+		<h4  style="color:#052E51;"><strong> <?php echo $subCategoryListarray[$i]['subcategory'];  ?></strong></h4>	
+				
+		<?php   if(count($Modulelist)>0){ for($j=0;$j<count($Modulelist);$j++) { 
+			$fileName=explode( '.', $Modulelist[$j]['filename'] ); 
+			$filepath=explode( '/', $Modulelist[$j]['filepath'] );	
+		if($Modulelist[$j]['filetype']=='Story'){
+
+			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename']."/story.html";
+		}
+		else{
+			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename'];
+		}	
+?>				
+				<div class="row">
+				<label><input type="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>">&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?> </label>
+				</br>
+				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href='<?php echo $url; ?>'>
+					<?php if($Modulelist[$j]['filetype']=='url'){ echo "View URL"; }else{  echo  $Modulelist[$j]['filename']; }  ?></a></lable>
+				</div>
+			<?php } } ?><div id="errorelearningModule" style="color:red"></div>
+
+
+<?php  } ?>
 <?php } else if($getFunctionType=='getsubCategory'){ ?>
 
 		<select name="SubCategory" id="SubCategory" class="form-control" >
@@ -225,13 +254,16 @@ $em->createQuery("update TraxAdminBundle:TblUser j set j.password='".$newpasswor
 
 if($response_code==200)
 {
-
 //echo " Send successfully";
 }
-  
-
-}
-
-
-		echo json_encode($usermaillist);
+ }		echo json_encode($usermaillist);
  }  ?>
+<?php if($getFunctionType=='mapExtraTrainee') {  ?>
+		<select aria-hidden="true" tabindex="-1" multiple="multiple"  name="employeelist[]" id="employeelist" class="select2 select2-hidden-accessible">		
+?>		
+        				<?php  for($j=0;$j<count($employeeList);$j++){ ?>                                  
+					<option value="<?php echo $employeeList[$j]['userid']; ?>"><?php echo $employeeList[$j]['name']." - ".$employeeList[$j]['chorusid']; ?></option>
+					<?php } ?>
+                                           	
+		</select>
+<?php } ?>

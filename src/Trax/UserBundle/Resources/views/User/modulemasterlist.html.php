@@ -376,6 +376,7 @@ function editFunction(id)
                 <th>Trainer</th>
 		<th>Schedule Date</th>
                 <th>Trainees</th>
+                <th>Edit Content</th>
 		<th>Delete</th>		
 
             </tr>
@@ -389,10 +390,11 @@ function editFunction(id)
             <tr>
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $MapModuleList[$i]['modulecategory']; ?></td>
-                <td><?php echo $MapModuleList[$i]['name']; ?></td>
-		 <td><a href="javascript:void(0);" data-toggle="modal" class="text-primary" data-target="#myModalupdate" onclick="viewdatepicker(<?php echo $i+1; ?>,<?php echo $MapModuleList[$i]['subcatid'];?>);"><?php echo $MapModuleList[$i]['scheduledate'];?></a>
+                <td><?php echo ucfirst($MapModuleList[$i]['name']); ?></td>
+		 <td><a href="javascript:void(0);" data-toggle="modal" class="text-primary" data-target="#myModalupdate" onclick="viewdatepicker(<?php echo $MapModuleList[$i]['mapid']  ?>);"><?php echo $MapModuleList[$i]['scheduledate'];?></a>
 		</td>
                 <th><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="text-warning" onclick="modalWindowemployee('loademployeelist',<?php echo $MapModuleList[$i]['mapid']  ?>);">View Trainees</a></th>
+			<th><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="text-warning" onclick="modalWindowContent('editContent',<?php echo $MapModuleList[$i]['mapid']  ?>);">Edit Content</a></th>
                	<th><a href="javascript:void(0);" class="text-danger" onclick="deleteFunction(<?php  echo $MapModuleList[$i]['mapid']; ?>,'MapModule');">Delete</a></th>
                	
             </tr>
@@ -440,6 +442,58 @@ function modalWindowemployee(type,mapid)
   		})
 
 }
+function modalWindowContent(type,mapid)
+{
+
+	 	$.get( "userFunction",{ type : type,mapid : mapid },function(data) {
+		$( "#DisplayModlaDiv" ).html( data );
+  		})
+
+}
+function getsubCategory(){
+
+	var catid=$('#CategoryIdModule').val();
+	$.get( "manage/getFunction",{type:"getsubCategoryMultiple",catid:catid} ,function( data ) {
+
+	var result=JSON.parse(data);
+
+	$("#subCategory").empty();
+	$("#subCategory_to").empty();
+
+	for(var i=0;i<result['subCategoryList'].length;i++)
+	{
+	$("#subCategory").append($('<option></option>').attr("value", result['subCategoryList'][i]['subcatid']).text(result['subCategoryList'][i]['subcategory']));
+	}
+
+	});
+}
+function LoadTrainee(mapid){
+	$.get( "manage/getFunction?type=mapExtraTrainee",{ mapid : mapid},function(data) {
+
+		$('#emply').show();
+		$('#employeelist').html(data);
+		App.formElements();		
+	})
+}
+
+function submitFormnew(type,mapid) {	 			
+		var customerId="<?php echo $customerId; ?>";
+		var Trainer="<?php echo $loginemployeeuserId; ?>";				
+	
+		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1&customerId="+customerId+"&Trainer="+Trainer, $( "#customerForm" ).serialize(),function(data) {
+
+		if(data=="Success"){
+		$('#customerForm')[0].reset();	
+		$('#insertSuccess').show();
+		$('#emply').hide();	
+		}
+		modalWindowemployee(type,mapid);
+		})
+
+
+
+}
+
 function viewdatepicker(id,subcatid)
 {
 var type ="updatescheduledate";
@@ -466,7 +520,7 @@ function deleteFunctionemplooyee(deleteId,mapid){
 	closeOnConfirm: false
 	},
 	function(){
-	$.get( "manage/adminMaster?master="+type,{ deleteId : deleteId},function(data) {
+	$.get( "manage/adminMaster?master="+type,{ deleteId : deleteId,mapid:mapid},function(data) {
 	})
 	swal("Removed!", "Remove this Trainee to this program.", "success");
 	modalWindowemployee(type,mapid);
@@ -488,6 +542,104 @@ $.get( "manage/getFunction?type="+type+"&id="+id, $( "#updatedate"+id).serialize
 
 	
 }
+
+function getmodule() 
+{
+var origin="#subCategory";
+ var dest="#subCategory_to";
+
+	var catid="";
+	var tnl = document.getElementById("subCategory");
+		
+		for(i=0;i<tnl.length;i++){
+			if(tnl[i].selected == true)
+			{
+			//alert(tnl[i].value);
+			catid += tnl[i].value+',';
+			
+			}
+		}
+		catid = catid.replace(/,\s*$/, "");
+		document.getElementById("arrayvalue1").value=catid;
+
+		var category_New=$('#arrayvaluenew1').val();
+		var catidnew=$('#arrayvaluenew1').val(category_New+','+catid);
+		var catid_new = $('#arrayvaluenew1').val().slice( 1 );
+		var type="getModuleFileNew";	
+		$.get( "manage/getFunction",{ type : type, subCategory:catid_new},function(data) {
+		$('#ResourceDiv').html(data);
+		App.formElements();
+		})
+		$(origin).find(':selected').appendTo(dest);
+	
+}
+function getmoduleremove() {
+var origin="#subCategory";
+ var dest="#subCategory_to";
+
+	var selectedid =[];
+	selectedid=document.getElementById("arrayvalue1").value
+	var catid='';
+	var tnl = document.getElementById("subCategory_to");
+
+		for(i=0;i<tnl.length;i++){
+	
+			if(tnl[i].selected == true){
+				//catid += tnl[i].value+',';
+			}
+			else{
+				catid += tnl[i].value+',';
+				}
+		}
+		catid = catid.replace(/,\s*$/, "");
+		$('#arrayvaluenew1').val(","+catid);
+		if(catid!=''){
+			var type="getModuleFileNew";	
+			$.get( "manage/getFunction",{ type : type, subCategory:catid},function(data) {
+			$('#ResourceDiv').html(data);
+			App.formElements();
+			})
+		}
+
+		else{
+			$('#arrayvaluenew1').val('');
+			var type="getModuleFileNew";	
+			$.get( "manage/getFunction",{ type : type, subCategory:0},function(data) {
+			$('#ResourceDiv').html(data);
+		App.formElements();
+			})	
+		}
+		$(dest).find(':selected').appendTo(origin);
+		
+}
+function submitForm(type,mapid){
+
+			if($('#CategoryIdModule').val()==""){
+				$('#CategoryIdModule').focus();
+				$('#errorCategoryIdModule').html("Please select a category");	
+				return false;
+			}
+			else{
+				$('#errorCategoryIdModule').html("");	
+			}
+			if($('#subCategory_to').val()==null){
+				$('#errorsubCategory_to').focus();
+				$('#errorsubCategory_to').html("Please select a Sub category");	
+				return false;
+			}
+			else{
+					$('#errorsubCategory_to').html("");	
+			}
+			$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1&mapid="+mapid, $( "#customerForm" ).serialize(),function() {
+
+					$('#customerForm')[0].reset();	
+
+					})
+	modalWindowContent(type,mapid);
+
+}
+
+
             $(function () {
                 $('#datetimepicker').datetimepicker({ autoclose: true });
 			

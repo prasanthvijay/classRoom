@@ -379,7 +379,7 @@ var origin="#search";
 		$(dest).find(':selected').appendTo(origin);
 		
 }
-		function submitForm(type) {
+function submitForm(type) {
 
 				if(type=='Mapping')
 				{
@@ -394,7 +394,7 @@ var origin="#search";
 				{
 				$('#errorCategoryId').html(" ");
 				}
-                              var getCategoryList = document.getElementById('subCategory_to').value;
+                              	var getCategoryList = document.getElementById('subCategory_to').value;
 				if (getCategoryList == "")
 				{
 				$('#errorsubCategory_to').html("Please select a subCategory");
@@ -452,7 +452,7 @@ var origin="#search";
 				{
 				$('#errorsearch_to').html(" ");
 				}
-			 if($('#select_All').prop("checked") == false){
+				 if($('#select_All').prop("checked") == false){
 				var employeelist = document.getElementById('employeelist').value;
 				if (employeelist == "")
 				{
@@ -462,10 +462,7 @@ var origin="#search";
 			
 					}
 				}
-				else
-				{
 				$('#erroremployeelist').html(" ");
-
 				var editId=$('#editId').val();
 
 				$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type=MapModule", $( "#customerForms" ).serialize(),function() {
@@ -482,7 +479,7 @@ var origin="#search";
 					$('#updateSuccess').show();
 					}
 				})
-			}
+			
 
 
 		}
