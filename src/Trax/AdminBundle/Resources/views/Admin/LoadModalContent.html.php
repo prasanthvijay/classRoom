@@ -1382,8 +1382,8 @@ function getsubCategory(catid){
 							</select>
 						</div>
 						<div class="col-xs-1">
-							<button type="button" id="search_right" class="btn btn-block" onclick="getmodule()"><i class="glyphicon glyphicon-chevron-right"></i></button>
-							<button type="button" id="search_left" class="btn btn-block" onclick="getmoduleremove()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+					<button type="button" id="search_right" class="btn btn-block" onclick="getmodule()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+					<button type="button" id="search_left" class="btn btn-block" onclick="getmoduleremove()"><i class="glyphicon glyphicon-chevron-left"></i></button>
 						</div>
 						<div class="col-sm-2">
 						<select name="subCategory_to[]" id="subCategory_to" class="form-control" multiple="multiple" >
