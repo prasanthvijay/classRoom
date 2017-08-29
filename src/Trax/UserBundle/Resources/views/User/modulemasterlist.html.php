@@ -721,70 +721,45 @@ function submitForm(type,mapid){
 									</div>
 								</div><!--end .margin-bottom-xxl -->
 								<div class="list-results">
-<?php 
- $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-$link= explode( '/', $actual_link );
- $link1=$link[0]."/".$link[1]."/".$link[2]."/".$link[3]."/".$link[4];
+<table id="example" class="table table-bordered data-table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>S.NO</th>
+		<th>Name</th>
+                <th>User Name</th>
+                <th>Password</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        
+        <tbody>
 
-for($i=0;$i<count($Employee);$i++)
-	{ 
+	<?php  for($i=0;$i<count($Employee);$i++)
+		{ 
+
 
 ?>
-	
-									<div class="col-xs-12 col-lg-6 hbox-xs">
-										<div class="hbox-column width-2">
-											<img class="img-circle img-responsive pull-left" src="<?php echo $link1.'/'.$Employee[$i]['filename']; ?>" alt="">
-										</div><!--end .hbox-column -->
-										<div class="hbox-column v-top">
-											<div class="clearfix">
-												<div class="col-lg-12 margin-bottom-lg">
-													<a class="text-lg text-medium" href="#"><h3><?php echo $Employee[$i]['surename'].", ".$Employee[$i]['name']; ?> </h3></a>
-												</div>
-											</div>
-			<div class="clearfix opacity-75">
-				<div class="col-md-5">
-					<span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;<?php echo $Employee[$i]['chorusid']; ?>
-				</div>
-				<div class="col-md-7">
-					<span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;<?php echo $Employee[$i]['username']; ?>
-				</div>
-			</div>
-			<div class="clearfix opacity-75">
-				<div class="col-md-5">
-<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;<?php echo $Employee[$i]['location']; ?></span>
-				</div>
-				<div class="col-md-7">
-<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;<?php echo $Employee[$i]['department']; ?></span>
-				</div>
-				</div>
-											
-			<div class="stick-top-right small-padding">
-				<a  href="javascript:void(0)" onclick="deleteFunction(<?php echo $Employee[$i]['userid']; ?>,'Employee')"><i class=" fa fa-trash-o  fa-fw text-success" data-toggle="tooltip" data-placement="left" data-original-title="Delete"></i></a>
-			</div>
-		</div><!--end .hbox-column -->
+            <tr>
+                <td><?php echo $i+1; ?></td>
 
-
-									</div><!--end .hbox-xs -->
+		<td> <h3><?php echo $Employee[$i]['surename'].", ".$Employee[$i]['name']; ?> </h3></td>
+                <td><?php echo $Employee[$i]['username']; ?></td>
+                <td><?php echo $Employee[$i]['chorusid']; ?></td>
+                <th><a href="<?php  echo $view['assets']->getUrl('modulemaster') ?>?type=Trainee&editId=<?php echo $Employee[$i]['userid']; ?>">Edit</a></th>
+                  
+		<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $Employee[$i]['userid']; ?>,'Employee');">Delete</a></th>
+            </tr>
 	<?php } ?>
+
+            
+        </tbody>
+    </table>
 								</div><!--end .list-results -->
 								<!-- BEGIN SEARCH RESULTS LIST -->
 
-								<!-- BEGIN SEARCH RESULTS PAGING -->
-								<div class="text-center">
-									<ul class="pagination">
-										<li class="disabled"><a href="#">«</a></li>
-										<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#">»</a></li>
-									</ul>
-								</div><!--end .text-center -->
-								<!-- BEGIN SEARCH RESULTS PAGING -->
-
-													</div><!--end .col -->
+																					</div><!--end .col -->
 					</div><!--end .row -->
 				</div><!--end .card-body -->
 				<!-- END SEARCH RESULTS -->

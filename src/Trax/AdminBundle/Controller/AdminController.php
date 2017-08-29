@@ -1117,7 +1117,7 @@ public function InsertAdminMasterAction(Request $request)
 					$uploadedFilenew = $request->files->get('uploadedFile');
 					$uploadfile="";
 					$ImagePath="";
-					$date = date("Y-m-d H:i:s");
+					$date=date("dMY_H:i:s");
 					$path_parts = pathinfo($_FILES["uploadedFile"]["name"]);
 					$path_parts['dirname'] ;
 					$path_parts['basename'] ;
@@ -1128,7 +1128,7 @@ public function InsertAdminMasterAction(Request $request)
 					$catName=$categoreyName[0]['subcategory'];
 					if($id=="")
 					{
-						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' )	
+						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp' )	
 						{
 								if($uploadedFile!=""){
 							
