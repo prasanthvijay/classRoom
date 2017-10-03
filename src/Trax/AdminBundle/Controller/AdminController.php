@@ -1128,7 +1128,7 @@ public function InsertAdminMasterAction(Request $request)
 					$catName=$categoreyName[0]['subcategory'];
 					if($id=="")
 					{
-						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp'|| $exten=='avi')	
+						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp'|| $exten=='avi'||$exten=='flv')	
 						{
 								if($uploadedFile!=""){
 							
@@ -1150,7 +1150,12 @@ public function InsertAdminMasterAction(Request $request)
 										exec("ffmpeg -i ".$newFilename." -an ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
 										$Filepath=$ImagePath."/".preg_replace('/\s+/', '',$filename)."_".$date.".mp4";
 										unlink($newFilename);
-									}else{
+									}else if($exten=='flv'){
+										exec('assets/ffmpeg.exe');
+										exec("ffmpeg -i ".$newFilename." -c:v libx264 ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
+										$Filepath=$ImagePath."/".preg_replace('/\s+/', '',$filename)."_".$date.".mp4";
+										unlink($newFilename);
+									} else{
 										$Filepath=$type;
 									}									
 
