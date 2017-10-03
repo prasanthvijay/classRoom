@@ -1155,7 +1155,7 @@ public function InsertAdminMasterAction(Request $request)
 										$newFilename=preg_replace('/\s+/', '',$type);
 										exec('assets/ffmpeg.exe');
 										exec("ffmpeg -i ".$newFilename." -c:v libx264 ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
-										echo $Filepath=$ImagePath."/".preg_replace('/\s+/', '',$filename)."_".$date.".mp4";
+										$Filepath=$ImagePath."/".preg_replace('/\s+/', '',$filename)."_".$date.".mp4";
 										unlink($newFilename);
 									} else{
 										$Filepath=$type;
