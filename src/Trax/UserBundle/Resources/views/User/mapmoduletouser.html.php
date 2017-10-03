@@ -616,20 +616,38 @@ function submitForm(type) {
 			
 			
 			
-			if ($('#uploadedFile').val()=='')
-			{
-			$('#errorfile').html("Please upload File");
-			document.getElementById('uploadedFile').focus();
-
-			return false;
-			}
-			else
-			{
-			$('#errorfile').html("");
-			}
-
-			$('#progress').show();
+	var uploadedFile = document.getElementById('uploadedFile').value;
+	var Urlname = document.getElementById('Urlname').value;
+	if($('#checkbox').is(':checked'))
+	{
+	if (Urlname == "")
+	{
+        $('#errorUrlname').html("Please enter the Url ");
+	document.getElementById('Urlname').focus();
+	return false;
+	}
+	
+	else{
+		$('#erroruUrlname').html(" ");
+		}
+	}
+	else
+	{
+	if (uploadedFile == "")
+	{
+        $('#erroruploadedFile').html("Please upload File ");
+	document.getElementById('uploadedFile').focus();
+	return false;
+	}
+	
+	else{
+		$('#erroruploadedFile').html(" ");
+		$('#progress').show();
                         $('#fileCancel').show();
+		}
+	}
+
+			
 			$('#homemenu').prop('disabled', true);
 			var vFD = new FormData(document.getElementById('customerForm'));			
 			var hrx= $.ajax({
@@ -659,6 +677,11 @@ function submitForm(type) {
 						$('#customerForm')[0].reset();
 						$("#insertSuccesss").show();
 						$('#erroruploadedFile').html("");
+						
+						$("#Urlname").hide();
+						$("#uploadedFile").show();
+						$("#fileCancel").hide();
+						$("#errorUrlname").html(" ");
 					}					
 					else{
                       				  $('#progress').hide();

@@ -690,20 +690,38 @@ var SubCategory=document.getElementById('SubCategory').value;
 			{
 				$('#errorModuleName').html("");
 			}
-			var uploadedFile=document.getElementById('uploadedFile').value;	
-			if(uploadedFile=="")
-			{		
-
-				$('#erroruploadedFile').html("Please uploaded File");
-				document.getElementById('uploadedFile').focus();
-				return false;
-		    	}
-			else
-			{
-			$('#erroruploadedFile').html("");
-			var editId=$('#editId').val();
-			$('#progress').show();
+			var Urlname=document.getElementById('Urlname').value;
+			var uploadedFile=document.getElementById('uploadedFile').value;
+	if($('#checkbox').is(':checked'))
+	{
+	if (Urlname == "")
+	{
+        $('#errorurlText').html("Please enter the Url ");
+	document.getElementById('Urlname').focus();
+	return false;
+	}
+	
+	else{
+		$('#errorurlText').html(" ");
+		}
+	}
+	else
+	{
+	if (uploadedFile == "")
+	{
+        $('#erroruploadedFile').html("Please upload File ");
+	document.getElementById('uploadedFile').focus();
+	return false;
+	}
+	
+	else{
+		$('#erroruploadedFile').html(" ");
+		$('#progress').show();
                         $('#fileCancel').show();
+		}
+	}
+			var editId=$('#editId').val();
+			
 			$('#homemenu').prop('disabled', true);
 			var vFD = new FormData(document.getElementById('customerForms'));			
 			var hrx= $.ajax({
@@ -732,6 +750,10 @@ var SubCategory=document.getElementById('SubCategory').value;
 		       				$('#fileCancel').hide();
 						$('#customerForms')[0].reset();
 						$("#insertSuccess").show();
+						$("#inserturlfile").hide();
+						$("#insertimagefile").show();
+						$("#fileCancel").hide();
+						$("#erroruploadedFile").html(" ");
 						dataTableFunction();
 					}					
 					else{
@@ -777,7 +799,7 @@ var SubCategory=document.getElementById('SubCategory').value;
 			});*/
 
 				
-			}
+			
 			
 		}
 		if(type=='BasicMaster'){

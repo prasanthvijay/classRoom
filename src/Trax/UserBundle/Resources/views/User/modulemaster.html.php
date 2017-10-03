@@ -270,7 +270,7 @@ function submitForm() {
 									<label for="regular1">Description</label>
 								</div>
 <div class="form-group">
-					<input class="" id="uploadedFile" name="uploadedFile" value="" type="file"><div style="color:red" id="erroruploadedFile"></div>
+					<div id="uploadedFilehide"><input class="" id="uploadedFile" name="uploadedFile" value="" type="file"><div style="color:red" id="erroruploadedFile"></div></div>
 									<label for="regular1">Upload Files</label>
 
 			
@@ -280,10 +280,21 @@ function submitForm() {
 
 				        </div>
 			</div>
+			<input type="text" name="Urlname" id="Urlname" style="display:none"  class="form-control"  >
+					<div id="errorUrlname" style="color:red" ></div> 
+
+					
+					
 					
 					<div class="col-sm-1"><div id="fileCancel" style="display:none">
 					<img style="width:20px;height:20px;" id="cancel_all"  src="<?php echo $view['assets']->getUrl('assets/img/Remove.png')?>">					
 					</div></div>
+					
+					
+					<br><div class="col-sm-4">
+					<input name="checkbox" type="checkbox" id="checkbox" />
+					<label class="control-label">Url</label>
+					</div>
 								</div>
 			
 																
@@ -306,7 +317,24 @@ function submitForm() {
 		</div>
 
 
-
+<script>
+$(document).ready(function(){
+  $(checkbox).click(function() {
+    if ($('#checkbox').is(':checked')) {
+	$("#Urlname").show();
+	$("#cancel_all").hide();
+	$("#uploadedFilehide").hide();
+	$("#fileCancel").hide();
+	$("#validateFun").val("URL");
+    } else {
+	$("#Urlname").hide();
+	$("#uploadedFilehide").show();
+	$("#fileCancel").hide();
+	$("#errorUrlname").html(" ");
+    }
+  });
+});
+</script>
 
 
 <script>
@@ -359,6 +387,22 @@ function submitForm() {
 	}
 
 	var uploadedFile = document.getElementById('uploadedFile').value;
+	var Urlname = document.getElementById('Urlname').value;
+	if($('#checkbox').is(':checked'))
+	{
+	if (Urlname == "")
+	{
+        $('#errorUrlname').html("Please enter the Url ");
+	document.getElementById('Urlname').focus();
+	return false;
+	}
+	
+	else{
+		$('#erroruUrlname').html(" ");
+		}
+	}
+	else
+	{
 	if (uploadedFile == "")
 	{
         $('#erroruploadedFile').html("Please upload File ");
@@ -368,9 +412,12 @@ function submitForm() {
 	
 	else{
 		$('#erroruploadedFile').html(" ");
-			//var editId=$('#editId').val();
-			$('#progress').show();
+		$('#progress').show();
                         $('#fileCancel').show();
+		}
+	}
+			//var editId=$('#editId').val();
+			
 			$('#homemenu').prop('disabled', true);
 			var vFD = new FormData(document.getElementById('customerForm'));			
 			var hrx= $.ajax({
@@ -397,13 +444,25 @@ function submitForm() {
 
 
 				if(response=='Success'){
-						$('#progress').hide();
-			$('.myprogress').css('width', '0%');
+				$('#customerForm')[0].reset();
+				
+						$("#Urlname").hide();
+						$("#uploadedFilehide").show();
+						$("#fileCancel").hide();
+						$("#errorUrlname").html(" ");
+						
+						
+						 $('#progress').hide();
+			                     $('.myprogress').css('width', '0%');
 		       				$('#fileCancel').hide();
 						$('#customerForm')[0].reset();
 						$("#insertSuccess").show();
-						dataTableFunction();
-					}					
+
+						}
+						
+
+						
+										
 					else{
                       				  $('#progress').hide();
 			$('.myprogress').css('width', '0%');
@@ -421,8 +480,9 @@ function submitForm() {
 			$('.myprogress').css('width', '0%');
                        				 $('#fileCancel').hide();
 			});
+			
 
-		}	
+			
 
 			/*$.ajax({
 			url: "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster')?>?type="+type+"&val="+val,
@@ -442,6 +502,7 @@ function submitForm() {
 
 			
 	}
+	
 }
 function getsubCategory(catid){
 	var type="getsubCategory";

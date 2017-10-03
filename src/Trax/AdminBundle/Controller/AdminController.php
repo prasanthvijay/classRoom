@@ -137,6 +137,8 @@ class AdminController extends Controller
 							$extensionName="story";
 						}else if($mapModuleFileArr[$i]['filetype']=="story"){
 							$filename=$mapModuleFileArr[$i]['filename'];
+						}else if($mapModuleFileArr[$i]['filetype']=="url"){
+							$extensionName="url";
 						}  else{					
 							$filename=$mapModuleFileArr[$i]['filename'];
 								$extensionName=strrev($extension[0]);
@@ -1112,6 +1114,7 @@ public function InsertAdminMasterAction(Request $request)
 					$Category=$request->get('CategoryId');
 					$ModuleName=$request->get('ModuleName');
 					$Description=$request->get('Description');
+					$Urlname=$request->get('Urlname');
 					$id=$request->get('editId');
 					$SubCategory=$request->get('SubCategory'); 
 					$uploadedFilenew = $request->files->get('uploadedFile');
@@ -1128,10 +1131,11 @@ public function InsertAdminMasterAction(Request $request)
 					$catName=$categoreyName[0]['subcategory'];
 					if($id=="")
 					{
-						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp'|| $exten=='avi'||$exten=='flv')	
+						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp'|| $exten=='avi'||$exten=='flv' || $Urlname!='')	
 						{
+						                  
 								if($uploadedFile!=""){
-							
+							                 if($filename!=""){
 									if($exten != 'zip'){
 									$uploadfile = $uploadedFile;
 									$uploadurl = '/var/www/html/MichelinClassroom/web/uploadfiles';
@@ -1186,6 +1190,13 @@ public function InsertAdminMasterAction(Request $request)
 									unlink($fileextr);
 							
 
+									}
+									}
+									else
+									{
+									
+									$uploadfile=$Urlname;
+									$fileType="url";
 									}
 									
 								}

@@ -1002,20 +1002,27 @@ function getCategoryList(trainerId){
 					</div>
 					<div class="form-group"><div class="col-sm-1"></div>
 					<label class="col-sm-3 control-label">Upload Files</label>
-					<div class="col-sm-5">
+					<div class="col-sm-5" id="insertimagefile">
 
-						<input class="" id="uploadedFile" name="uploadedFile" value="" type="file">
+					<input class="" id="uploadedFile" name="uploadedFile" value="" type="file">
 					<div id="erroruploadedFile" class="errorText"></div>
 					<div class="col-sm-10">
 					<div class="progress" id="progress" style="display:none">
 				            <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
 
-				        </div></div>
-					
+				        </div></div></div>
+					<div class="col-sm-5"  id="inserturlfile" style="display:none">
+					<input type="text" name="Urlname" id="Urlname"  class="form-control"  >
+					<div id="errorurlText" class="errorText"></div> 
+					</div>
 					<div id="fileCancel">
 					<img style="width:20px;height:20px;display:none" id="cancel_all"  src="<?php echo $view['assets']->getUrl('assets/img/Remove.png')?>">					
 					</div>
 					
+					
+					<div class="col-sm-2">
+					<input name="checkbox" type="checkbox" id="checkbox" />
+					<label class="control-label">Url</label>
 					</div>
 					</div>
 					
@@ -1029,7 +1036,27 @@ function getCategoryList(trainerId){
 
 				</form>
 
-			</div> 
+
+			</div>
+			
+			<script>
+$(document).ready(function(){
+  $(checkbox).click(function() {
+    if ($('#checkbox').is(':checked')) {
+	$("#inserturlfile").show();
+	$("#cancel_all").hide();
+	$("#insertimagefile").hide();
+	$("#fileCancel").hide();
+	$("#validateFun").val("URL");
+    } else {
+	$("#inserturlfile").hide();
+	$("#insertimagefile").show();
+	$("#fileCancel").hide();
+	$("#validateFun").val("FILE");
+    }
+  });
+});
+</script> 
 <script>
 function getCategoryList(trainerId){
 	var type="getCategoryList";

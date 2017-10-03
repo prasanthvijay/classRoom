@@ -191,20 +191,22 @@ var type="getCategoryListM";
 					<div id="fileCancel" style="display:none">
 					<img style="width:20px;height:20px;" id="cancel_all"  src="<?php echo $view['assets']->getUrl('assets/img/Remove.png')?>">					
 					</div>
-<input class="" id="uploadedFile" name="uploadedFile" value="" type="file">
-									<label for="regular1">Upload Files</label><div style="color:red" id="erroruploadedFile"></div><input type="text" name="Urlname" id="Urlname" style="display:none"  class="form-control"  >
-					<div id="errorUrlname" style="color:red" ></div> 
-									<br><div class="col-sm-4">
-					<input name="checkbox" type="checkbox" id="checkbox" />
-					<label class="control-label">Url</label>
-					</div>
+<input class="" id="uploadedFile" name="uploadedFile" value="" type="file"> <div style="color:red" id="erroruploadedFile" class="errorText"></div>
+									<label for="regular1">Upload Files</label><div style="color:red" id="errorfile"></div>
 								</div>
 								
 								<input type="hidden" id="Trainer" name="Trainer" value="<?php echo $_SESSION['userid'] ?>">
  				<input type="hidden"  value="<?php echo $customerId ?>" name="customerId" id="customerId">
 <input type="hidden" name="editId" id="editId" value="<?php echo $editmodulefilelist[0]['moduleid']; ?>">
 								
-								
+	<div class="form-group"  id="inserturlfile" style="display:none">
+					<input type="text" name="Urlname" id="Urlname"  class="form-control"  >
+					<div id="errorurlText" style="color:red" class="errorText"></div> 
+					</div>
+					<div class="form-group">
+					<input name="checkbox" type="checkbox" id="checkbox" />
+					<label class="control-label">Url</label>
+					</div>								
 								
 <div class="form-group">
 <button class="btn btn-success" type="button" id="submit" name="submit" value="homemenu"  onclick="submitForm('<?php echo $getFunctionType; ?>');"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
@@ -228,21 +230,26 @@ function getsubcategory(catid){
 $(document).ready(function(){
   $(checkbox).click(function() {
     if ($('#checkbox').is(':checked')) {
-	$("#Urlname").show();
+	$("#inserturlfile").show();
 	$("#cancel_all").hide();
 	$("#uploadedFile").hide();
+	$("#progress").hide();
 	$("#fileCancel").hide();
 	$("#validateFun").val("URL");
-	$("#erroruploadedFile").html(" ");
     } else {
-	$("#Urlname").hide();
+	$("#inserturlfile").hide();
+	$("#cancel_all").show();
+        $("#progress").hide();
+	$("#fileCancel").hide();
 	$("#uploadedFile").show();
 	$("#fileCancel").hide();
-	$("#errorUrlname").html(" ");
+	$("#validateFun").val("FILE");
     }
   });
 });
 </script>
+
+
 <?php } else if($getFunctionType=='editContent') { ?>
 
 <div class="modal-content">
