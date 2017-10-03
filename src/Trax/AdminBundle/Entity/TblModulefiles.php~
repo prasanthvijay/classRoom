@@ -66,14 +66,14 @@ class TblModulefiles
     /**
      * @var string
      *
-     * @ORM\Column(name="fileName", type="string", length=255, nullable=true)
+     * @ORM\Column(name="fileName", type="text", length=65535, nullable=true)
      */
     private $filename;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="filePath", type="string", length=255, nullable=true)
+     * @ORM\Column(name="filePath", type="text", length=65535, nullable=true)
      */
     private $filepath;
 

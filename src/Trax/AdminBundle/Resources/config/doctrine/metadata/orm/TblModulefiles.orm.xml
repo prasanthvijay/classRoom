@@ -34,12 +34,12 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="filename" type="string" column="fileName" length="255" nullable="true">
+    <field name="filename" type="text" column="fileName" length="65535" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="filepath" type="string" column="filePath" length="255" nullable="true">
+    <field name="filepath" type="text" column="filePath" length="65535" nullable="true">
       <options>
         <option name="fixed"/>
       </options>

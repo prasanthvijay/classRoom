@@ -92,5 +92,254 @@ class TblEmployee
     private $createdat;
 
 
-}
 
+    /**
+     * Get empid
+     *
+     * @return integer
+     */
+    public function getEmpid()
+    {
+        return $this->empid;
+    }
+
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     *
+     * @return TblEmployee
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * Set employeename
+     *
+     * @param string $employeename
+     *
+     * @return TblEmployee
+     */
+    public function setEmployeename($employeename)
+    {
+        $this->employeename = $employeename;
+
+        return $this;
+    }
+
+    /**
+     * Get employeename
+     *
+     * @return string
+     */
+    public function getEmployeename()
+    {
+        return $this->employeename;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     *
+     * @return TblEmployee
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set employeetype
+     *
+     * @param string $employeetype
+     *
+     * @return TblEmployee
+     */
+    public function setEmployeetype($employeetype)
+    {
+        $this->employeetype = $employeetype;
+
+        return $this;
+    }
+
+    /**
+     * Get employeetype
+     *
+     * @return string
+     */
+    public function getEmployeetype()
+    {
+        return $this->employeetype;
+    }
+
+    /**
+     * Set department
+     *
+     * @param integer $department
+     *
+     * @return TblEmployee
+     */
+    public function setDepartment($department)
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get department
+     *
+     * @return integer
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }
+
+    /**
+     * Set location
+     *
+     * @param integer $location
+     *
+     * @return TblEmployee
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return integer
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set chorusid
+     *
+     * @param string $chorusid
+     *
+     * @return TblEmployee
+     */
+    public function setChorusid($chorusid)
+    {
+        $this->chorusid = $chorusid;
+
+        return $this;
+    }
+
+    /**
+     * Get chorusid
+     *
+     * @return string
+     */
+    public function getChorusid()
+    {
+        return $this->chorusid;
+    }
+
+    /**
+     * Set customerid
+     *
+     * @param integer $customerid
+     *
+     * @return TblEmployee
+     */
+    public function setCustomerid($customerid)
+    {
+        $this->customerid = $customerid;
+
+        return $this;
+    }
+
+    /**
+     * Get customerid
+     *
+     * @return integer
+     */
+    public function getCustomerid()
+    {
+        return $this->customerid;
+    }
+
+    /**
+     * Set adminid
+     *
+     * @param integer $adminid
+     *
+     * @return TblEmployee
+     */
+    public function setAdminid($adminid)
+    {
+        $this->adminid = $adminid;
+
+        return $this;
+    }
+
+    /**
+     * Get adminid
+     *
+     * @return integer
+     */
+    public function getAdminid()
+    {
+        return $this->adminid;
+    }
+
+    /**
+     * Set createdat
+     *
+     * @param \DateTime $createdat
+     *
+     * @return TblEmployee
+     */
+    public function setCreatedat($createdat)
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    /**
+     * Get createdat
+     *
+     * @return \DateTime
+     */
+    public function getCreatedat()
+    {
+        return $this->createdat;
+    }
+}
