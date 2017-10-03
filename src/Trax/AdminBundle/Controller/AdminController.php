@@ -1128,7 +1128,7 @@ public function InsertAdminMasterAction(Request $request)
 					$catName=$categoreyName[0]['subcategory'];
 					if($id=="")
 					{
-						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp' )	
+						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp'|| $exten=='avi')	
 						{
 								if($uploadedFile!=""){
 							
@@ -1142,8 +1142,18 @@ public function InsertAdminMasterAction(Request $request)
 									$Tempfile= $_FILES["uploadedFile"]["tmp_name"];
 									move_uploaded_file($Tempfile,$type);
 									chmod($type, 0777);
-									$Filepath=$type;
-									
+    									
+									if($exten=='avi'){
+										rename($type, preg_replace('/\s+/', '',$type));
+										$newFilename=preg_replace('/\s+/', '',$type);
+										exec('assets/ffmpeg.exe');
+										exec("ffmpeg -i ".$newFilename." -an ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
+										$Filepath=$ImagePath."/".preg_replace('/\s+/', '',$filename)."_".$date.".mp4";
+										unlink($newFilename);
+									}else{
+										$Filepath=$type;
+									}									
+
 									}else{
 
 									$fileType="Story";

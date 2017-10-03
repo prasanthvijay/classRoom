@@ -394,6 +394,8 @@ function submitForm() {
 			},
 			success: function (response) {
 			$('#homemenu').prop('disabled', false);
+
+
 				if(response=='Success'){
 						$('#progress').hide();
 			$('.myprogress').css('width', '0%');
