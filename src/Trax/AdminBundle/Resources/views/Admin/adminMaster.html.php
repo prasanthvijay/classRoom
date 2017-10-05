@@ -117,7 +117,7 @@ function dataTableFunction()
 var loginExeType="<?php echo $loginExeType; ?>";
 	var type='<?php echo $master; ?>';
 	if(type=='Customer'){
-	$( "#DisplayTableDiv" ).html( "<div align='center'><img src='/assets/load2.gif'></div>" );	
+	$( "#DisplayTableDiv" ).html( "<div align='center'><img src='<?php echo $view['assets']->getUrl('/assets/load2.gif') ?>'></div>" );	
 		$.get( "dataTableMaster",{ type : type},function(data) {
 		$( "#DisplayTableDiv" ).html( data );
 		$('#example').DataTable();
@@ -134,7 +134,7 @@ var loginExeType="<?php echo $loginExeType; ?>";
 		customer="<?php echo $loginuserId; ?>";
 		}
 	
-		$( "#DisplayTableDiv" ).html( "<div align='center'><img src='/assets/load2.gif'></div>" );	
+		$( "#DisplayTableDiv" ).html( "<div align='center'><img src='<?php echo $view['assets']->getUrl('/assets/load2.gif') ?>'></div>" );	
 		$.get( "dataTableMaster",{ type : type,customer:customer},function(data) {
 		$( "#DisplayTableDiv" ).html( data );
 		$('#example').DataTable();

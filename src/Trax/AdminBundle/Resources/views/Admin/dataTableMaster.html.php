@@ -367,7 +367,7 @@
                 <td><?php echo $modulefilelist[$i]['modulecategory']; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulename']; ?></td>
                 <td><?php echo $modulefilelist[$i]['description']; ?></td>
-		<td><a target="_blank" href="<?php if($modulefilelist[$i]['filetype']=='Story'){   echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else{ echo "../uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php echo $modulefilelist[$i]['filename']; ?></a></td>
+		<td><a target="_blank" href="<?php if($modulefilelist[$i]['filetype']=='Story'){  echo "../uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else if($modulefilelist[$i]['filetype']=='url'){ echo  $modulefilelist[$i]['filename']; }else{ echo "../uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php if($modulefilelist[$i]['filetype']=='url'){  echo "View Url"; }else { echo $modulefilelist[$i]['filename'];} ?></a></td>
                	<!--<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $modulefilelist[$i]['moduleid'];?>)">Edit</a></th>-->
 		<th><a href="javascript:void(0);" onclick="deleteFunction(<?php  echo $modulefilelist[$i]['moduleid']; ?>);">Delete</a></th>
             </tr>
