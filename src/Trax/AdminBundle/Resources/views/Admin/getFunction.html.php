@@ -22,6 +22,12 @@
  } else if($getFunctionType=='getDepartmenttrainer'){ 
 	
 	echo json_encode($deptListarray);	
+ } else if($getFunctionType=='videoLastHistory'){ 
+	
+	echo json_encode($deptListarray);	
+ } else if($getFunctionType=='videoSession'){ 
+	
+	echo json_encode($successmsg);	
 
  } else if($getFunctionType=='getEmplist'){ ?>
 
@@ -80,8 +86,12 @@
 
 			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename']."/story.html";
 		}
+		else if($Modulelist[$j]['filetype']=='url'){
+
+			$url=$Modulelist[$j]['filename'];
+		}
 		else{
-			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename'];
+			$url='../uploadfiles/'.$filepath[7].'/'.$filepath[8];
 		}	
 ?>				
 				<div class="row">
@@ -110,15 +120,20 @@
 
 			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename']."/story.html";
 		}
+		else if($Modulelist[$j]['filetype']=='url'){
+
+			$url=$Modulelist[$j]['filename'];
+		}
 		else{
-			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename'];
+			$url='../uploadfiles/'.$filepath[7].'/'.$filepath[8];
 		}	
 ?>				
-				<div class="row">
-				<label><input type="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>">&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?> </label>
-				</br>
-				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href='<?php echo $url; ?>'>
+				<div class="form-group">
+				<div class="col-sm-12">
+				<label class="text-danger regular1"><input type="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>"><b>&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?></b> </label>
+				<br><lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href='<?php echo $url; ?>'>
 					<?php if($Modulelist[$j]['filetype']=='url'){ echo "View URL"; }else{  echo  $Modulelist[$j]['filename']; }  ?></a></lable>
+				</div>
 				</div>
 			<?php } } ?><div id="errorelearningModule" style="color:red"></div>
 

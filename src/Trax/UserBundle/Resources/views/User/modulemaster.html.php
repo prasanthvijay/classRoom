@@ -70,7 +70,7 @@ function submitForm() {
 		var Category = document.getElementById('Category').value;
 		if (Category == "")
 		{
-                $('#errorCategory').html("Please enter the Module Category");
+                $('#errorCategory').html("Please enter a Category");
 		document.getElementById('Category').focus();
 		return false;
 		}
@@ -80,7 +80,7 @@ function submitForm() {
 		}
 
 		
-		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function() {
+		$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1", $( "#customerForm" ).serialize(),function(data) {
 
 		$('#customerForm')[0].reset();	
 		$('html, body').animate({scrollTop : 0},800);
@@ -177,7 +177,7 @@ function submitForm() {
 		var Category = document.getElementById('CategoryId').value;
 		if (Category == "")
 		{
-                 $('#errorCategoryId').html("Please select  the Module Category");
+                 $('#errorCategoryId').html("Please select a category");
 		document.getElementById('CategoryId').focus();
 		return false;
 		}
@@ -189,7 +189,7 @@ function submitForm() {
 		var subCategory = document.getElementById('SubCategory').value;
 		if (subCategory == "")
 		{
-                $('#errorSubCategory').html("Please enter  the SubCategory");
+                $('#errorSubCategory').html("Please enter a sub category.");
 		document.getElementById('SubCategory').focus();
 		return false;
 		}
@@ -291,7 +291,8 @@ function submitForm() {
 					</div></div>
 					
 					
-					<br><div class="col-sm-4">
+					<br>
+<div id="convert" style="display:none">Converting. <img src="<?php echo $view['assets']->getUrl('assets/loading.gif')?>" ></div><div class="col-sm-4">
 					<input name="checkbox" type="checkbox" id="checkbox" />
 					<label class="control-label">Url</label>
 					</div>
@@ -352,7 +353,7 @@ function submitForm() {
 	var Category = document.getElementById('CategoryId').value;
 	if (Category == "")
 	{
-           $('#errorCategoryId').html("Please select the Category");
+           $('#errorCategoryId').html("Please select a category.");
 	document.getElementById('CategoryId').focus();
 	return false;
 	}
@@ -364,7 +365,7 @@ function submitForm() {
 	var SubCategory = document.getElementById('SubCategory').value;
 	if (SubCategory == "")
 	{
-       $('#errorSubCategory').html("Please select the SubCategory");
+       $('#errorSubCategory').html("Please select a sub category.");
 	document.getElementById('SubCategory').focus();
 	return false;
 	}
@@ -377,7 +378,7 @@ function submitForm() {
 	var ModuleName = document.getElementById('ModuleName').value;
 	if (ModuleName == "")
 	{
-	$('#errorModuleName').html("Please enter the Content Name ");
+	$('#errorModuleName').html("Please enter a content title.");
 	document.getElementById('ModuleName').focus();
 	return false;
 	}
@@ -405,7 +406,7 @@ function submitForm() {
 	{
 	if (uploadedFile == "")
 	{
-        $('#erroruploadedFile').html("Please upload File ");
+        $('#erroruploadedFile').html("Please browse File ");
 	document.getElementById('uploadedFile').focus();
 	return false;
 	}
@@ -436,6 +437,11 @@ function submitForm() {
 			$('.myprogress').text(percentComplete + '%');
 			$('.myprogress').css('width', percentComplete + '%');
 			}
+				if(percentComplete==100){
+					$('#progress').hide();
+					$('#fileCancel').hide();
+					$('#convert').show();
+				}
 			}, false);
 			return xhr;			
 			},
@@ -445,13 +451,11 @@ function submitForm() {
 
 				if(response=='Success'){
 				$('#customerForm')[0].reset();
-				
+						 $('#convert').hide();
 						$("#Urlname").hide();
 						$("#uploadedFilehide").show();
 						$("#fileCancel").hide();
-						$("#errorUrlname").html(" ");
-						
-						
+						$("#errorUrlname").html(" ");						
 						 $('#progress').hide();
 			                     $('.myprogress').css('width', '0%');
 		       				$('#fileCancel').hide();
@@ -464,8 +468,9 @@ function submitForm() {
 						
 										
 					else{
+						 $('#convert').hide();
                       				  $('#progress').hide();
-			$('.myprogress').css('width', '0%');
+						$('.myprogress').css('width', '0%');
                        				 $('#fileCancel').hide();
 						$('#erroruploadedFile').html(response);
 					}	
@@ -635,11 +640,11 @@ $('input[name="Employeename"]').autoComplete({
         xhr = $.getJSON('manage/getFunction', { employeename: term,customerId:customerId,type:"employeeDetails" }, function(data){ response(data); });
     }
 });
+
 function employeeDetils(employeeId){
 var type="EmployeefullDetails";
 $.get('manage/getFunction', { employeeId: employeeId,customerId:customerId,type:type }, function(data){ 
 	var result=JSON.parse(data);
-
 	if(result!=""){
 				$('#Password').val(result[0]['chorusid']);
 				$('#gid').val(result[0]['gid']);				
@@ -647,13 +652,14 @@ $.get('manage/getFunction', { employeeId: employeeId,customerId:customerId,type:
 				$("#location").val(result[0]['location']);
 			}	
  });
+	$('#errorEmployeename').html(" ");
 
 } 
 function submitForm() {
 
      if ($('#Employeename').val()=='')
 	{
-	$('#errorEmployeename').html("Please enter the Trainee Name");
+	$('#errorEmployeename').html("Please enter a Trainee name.");
 	document.getElementById('Employeename').focus();
 
 	return false;
@@ -665,7 +671,7 @@ function submitForm() {
 	
 	if ($('#gid').val()=='')
 	{
-	$('#errorgid').html("Please enter the User Name");
+	$('#errorgid').html("Please enter a user name.");
 	document.getElementById('gid').focus();
 
 	return false;
@@ -678,7 +684,7 @@ function submitForm() {
 	
 	if ($('#Password').val()=='')
 	{
-	$('#errorPassword').html("Please enter the Password / Chorus Id");
+	$('#errorPassword').html("Please enter a Password / Chorus Id.");
 	document.getElementById('Password').focus();
 
 	return false;
@@ -690,7 +696,7 @@ function submitForm() {
 	
 	if ($('#department').val()=='')
 	{
-	$('#errordepartment').html("Please select the Department");
+	$('#errordepartment').html("Please select a Department.");
 	document.getElementById('departments').focus();
 
 	return false;
@@ -702,7 +708,7 @@ function submitForm() {
 	
 	if ($('#location').val()=='')
 	{
-	$('#errorlocation').html("Please select the Location");
+	$('#errorlocation').html("Please select a Location");
 	document.getElementById('location').focus();
 
 	return false;
@@ -757,7 +763,7 @@ function checkUserName(username){
 
 				var result=JSON.parse(data);
 				if(result!=""){
-					$('#errorusername').html("User Already Exists..!");
+					$('#errorusername').html("This user already exists.");
 				document.getElementById('gid').focus();
 				return false;
 				}

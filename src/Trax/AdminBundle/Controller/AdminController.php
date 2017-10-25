@@ -22,6 +22,7 @@ use Trax\AdminBundle\Entity\TblModulesubcategory;
 use Trax\AdminBundle\Entity\TblViewHistory;
 use Trax\AdminBundle\Entity\TblMapbatchtoemployee;
 use Trax\AdminBundle\Entity\TblMapprogramtocategory;
+use Trax\AdminBundle\Entity\TblVideohistory;
 
 class AdminController extends Controller
 {
@@ -370,6 +371,41 @@ if($getFunctionType=="getDepartmenttrainer"){
 
 
 		}
+		if($getFunctionType=="videoSession"){
+
+			//print_r($_REQUEST);
+			$moduleid=$request->get('moduleid');
+			$programid=$request->get('programid');
+			$empid=$request->get('empid');
+			$currentdurationtime=$request->get('currentDurationTime');
+			$historyList = $em->createQuery("SELECT j FROM TraxAdminBundle:TblVideohistory j where j.moduleid='".$moduleid."' and j.empid='".$empid."' and j.programid='".$programid."'")->getArrayResult();
+
+			if(count($historyList)>0)
+			{
+				$em->createQuery("update TraxAdminBundle:TblVideohistory p set p.currentdurationtime='".$currentdurationtime."' WHERE p.moduleid='".$moduleid."' and p.empid='".$empid."' and p.programid='".$programid."'")->execute();
+			$successmsg[0]['msg']='success';
+			}else{
+			$insert=new TblVideohistory();
+			$insert->setEmpid($empid);
+			$insert->setProgramid($programid);
+			$insert->setModuleid($moduleid);
+			$insert->setCurrentdurationtime($currentdurationtime);
+			$insert->setCreatedat(new \DateTime());	
+			$em->persist($insert);
+			$em->flush();
+			$successmsg[0]['msg']='success';
+			}
+		}
+
+		if($getFunctionType=="videoLastHistory"){
+
+			$moduleid=$request->get('moduleid');
+			$programid=$request->get('programid');
+			$empid=$request->get('empid');
+			$deptListarray = $em->createQuery("SELECT j.currentdurationtime FROM TraxAdminBundle:TblVideohistory j where j.moduleid='".$moduleid."' and j.empid='".$empid."' and j.programid='".$programid."'")->getArrayResult();
+
+	
+			}
         return $this->render('TraxAdminBundle:Admin:getFunction.html.php',array('getFunctionType'=>$getFunctionType,'trainingprogramList'=>$trainingprogramList,'EmployeeList'=>$EmployeeList,'trainerNamelist'=>$trainerNamelist,'userlist'=>$userlist,'frmoapp'=>$frmoapp,'userListarray'=>$userListarray,'mapmodulelistarray'=>$mapmodulelistarray,'sessionListarray'=>$sessionListarray,'mapmodulelistfilearray'=>$mapmodulelistfilearray,'mapmodulefileslist'=>$mapmodulefileslist,'sessionListEmparray'=>$sessionListEmparray,'employeeArray'=>$employeeArray,'subCategoryList'=>$subCategoryList,'Categorylist'=>$Categorylist,'departList'=>$departList,'employeeList'=>$employeeList,'em'=>$em,'loginuserId'=>$loginuserId,'deptListarray'=>$deptListarray,'userlistid'=>$userlistid,'successmsg'=>$successmsg,'usermaillist'=>$usermaillist,'newpassword'=>$newpassword,'subCategoryListarray'=>$subCategoryListarray,'mapModuleFileArray'=>$mapModuleFileArray));
     }
  public function adminMasterAction(Request $request)
@@ -1125,21 +1161,21 @@ public function InsertAdminMasterAction(Request $request)
 					$path_parts['dirname'] ;
 					$path_parts['basename'] ;
 					$exten = $path_parts['extension'] ;
-					$filename= $path_parts['filename'] ;
+					$filename= preg_replace('/[^A-Za-z0-9\-]/', '',$path_parts['filename']) ;
 					$uploadedFile = $filename.'_'.$date.'.'.$exten;
 					$categoreyName=$em->createQuery("SELECT p FROM TraxAdminBundle:TblModulesubcategory p where p.subcatid='".$SubCategory."' ")->getArrayResult();
 					$catName=$categoreyName[0]['subcategory'];
 					if($id=="")
 					{
-						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp'|| $exten=='avi'||$exten=='flv' || $Urlname!='')	
+						if($exten== 'jpg' || $exten== 'png' || $exten== 'jpeg' || $exten== 'gif' || $exten== 'zip' ||  $exten== 'odt'|| $exten== 'ods' || $exten== 'odp' || $exten== 'pdf' || $exten== 'mp4'|| $exten== 'webm'|| $exten== 'ogg'|| $exten== 'mp3' || $exten== '3gp' || $exten== 'mkv' ||$exten== '3gpp'|| $exten=='avi'||$exten=='flv' || $Urlname!=''||$exten=='mpg'|| $exten=='mpeg'|| $exten=='wmv'||$exten=='mov')	
 						{
 						                  
 								if($uploadedFile!=""){
-							                 if($filename!=""){
+							               if($filename!=""){
 									if($exten != 'zip'){
 									$uploadfile = $uploadedFile;
 									$uploadurl = '/var/www/html/MichelinClassroom/web/uploadfiles';
-									$ImagePath=$uploadurl.'/'.$catName;
+									$ImagePath=$uploadurl.'/'.preg_replace('/\s+/', '',$catName);
 									mkdir($ImagePath,0777);
 									chmod($ImagePath, 0777);
 									$type=$ImagePath."/".$uploadfile;
@@ -1147,21 +1183,28 @@ public function InsertAdminMasterAction(Request $request)
 									move_uploaded_file($Tempfile,$type);
 									chmod($type, 0777);
     									
-									if($exten=='avi'){
+									if($exten=='avi'||$exten== 'mkv' || $exten=='avi'||$exten=='flv' ||$exten=='mpg'|| $exten=='mpeg'|| $exten=='wmv'|| $exten== 'webm'){
 										rename($type, preg_replace('/\s+/', '',$type));
 										$newFilename=preg_replace('/\s+/', '',$type);
 										exec('assets/ffmpeg.exe');
-										exec("ffmpeg -i ".$newFilename." -an ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
+
+										if($exten=='avi'){
+										exec("ffmpeg -i ".$newFilename." -an ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");					}else if($exten=='flv'){
+										exec("ffmpeg -i ".$newFilename." -c:v libx264 ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");				}else if($exten=='mpg'||$exten=='mpeg'){
+										exec("ffmpeg -i ".$newFilename." -c:v libx264 -c:a libfaac -crf 20 -preset:v veryslow ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");
+										}else if($exten=='mkv' || $exten=='mov'){
+										exec("ffmpeg -i ".$newFilename." -vcodec copy -acodec copy ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
+										}else if($exten=='wmv'){
+										exec("ffmpeg -i ".$newFilename." -c:v libx264 -crf 23 -profile:v high -r 30 -c:a libfaac -q:a 100 -ar 48000 ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");
+										}else if($exten=='webm'){
+										exec("ffmpeg -i ".$newFilename." -sameq ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
+										}
+
+
 										$Filepath=$ImagePath."/".preg_replace('/\s+/', '',$filename)."_".$date.".mp4";
 										unlink($newFilename);
-									}else if($exten=='flv'){
-										rename($type, preg_replace('/\s+/', '',$type));
-										$newFilename=preg_replace('/\s+/', '',$type);
-										exec('assets/ffmpeg.exe');
-										exec("ffmpeg -i ".$newFilename." -c:v libx264 ".$ImagePath."/". preg_replace('/\s+/', '',$filename)."_".$date.".mp4");			
-										$Filepath=$ImagePath."/".preg_replace('/\s+/', '',$filename)."_".$date.".mp4";
-										unlink($newFilename);
-									} else{
+									}
+										 else{
 										$Filepath=$type;
 									}									
 
@@ -1170,7 +1213,7 @@ public function InsertAdminMasterAction(Request $request)
 									$fileType="Story";
 									$uploadfile = $filename.'_'.$date;
 									$uploadurl = '/var/www/html/MichelinClassroom/web/uploadfiles';
-									$ImagePath=$uploadurl.'/'.$catName;
+									$ImagePath=$uploadurl.'/'.preg_replace('/\s+/', '',$catName);
 									mkdir($ImagePath,0777);
 									chmod($ImagePath, 0777);
 									$directoryName=$ImagePath.'/'.$uploadfile;
@@ -1187,8 +1230,7 @@ public function InsertAdminMasterAction(Request $request)
 									$zip->extractTo($directoryName);
 									$zip->close();
 									} 
-									unlink($fileextr);
-							
+									unlink($fileextr);						
 
 									}
 									}
@@ -1477,6 +1519,7 @@ public function InsertAdminMasterAction(Request $request)
 				$loginId=$request->get('Trainer'); 
 				}	 
 				$em->createQuery("update TraxAdminBundle:TblMapprogramtocategory j set j.categoryid='".$CategoryId."',j.subcategoryid='".$subCategory."',j.moduleid='".$elearningModule."' WHERE j.mapmoduleid='".$mapid."' ")->execute();	
+				echo "Success";
 		}	
 			
         return $this->render('TraxAdminBundle:Admin:InsertAdminMaster.html.php',array('mastertype'=>$mastertype));

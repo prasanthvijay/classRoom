@@ -295,7 +295,7 @@ function editFunction(id)
                 <td><?php echo $i+1; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulecategory']; ?></td>
                 <td><?php echo $modulefilelist[$i]['modulename']; ?></td>
-		<td><a target=_blank class="text-warning" href="<?php if($modulefilelist[$i]['filetype']=='Story'){  echo "uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else if($modulefilelist[$i]['filetype']=='url'){ echo $modulefilelist[$i]['filename']; }else{  echo "uploadfiles/".$pathArray[7]."/".$modulefilelist[$i]['filename']; } ?>"><?php if($modulefilelist[$i]['filetype']=='url'){ echo "View Url"; }else{ echo $modulefilelist[$i]['filename']; } ?></a></td>
+		<td><a target=_blank class="text-warning" href="<?php if($modulefilelist[$i]['filetype']=='Story'){  echo "uploadfiles/".$pathArray[7]."/".$pathArray[8]."/story.html"; }else if($modulefilelist[$i]['filetype']=='url'){ echo $modulefilelist[$i]['filename']; }else{  echo "uploadfiles/".$pathArray[7]."/".$pathArray[8]; } ?>"><?php if($modulefilelist[$i]['filetype']=='url'){ echo "View Url"; }else{ echo $modulefilelist[$i]['filename']; } ?></a></td>
                	<!--<th><a href="" data-toggle="modal"  data-target="#myModal" onclick="editFunction(<?php echo $modulefilelist[$i]['moduleid'];?>)">Edit</a></th>-->
 		<th><a href="javascript:void(0);" class="text-danger" onclick="deleteFunction(<?php  echo $modulefilelist[$i]['moduleid']; ?>);">Delete</a></th>
             </tr>
@@ -533,13 +533,13 @@ function deleteFunctionemplooyee(deleteId,mapid){
 
 function updatescheduledate(type,id)
 {
-$.get( "manage/getFunction?type="+type+"&id="+id, $( "#updatedate"+id).serialize(),function() {
-
-					$('#updatedate'+id)[0].reset();	
-					 location.reload(); 	
-								
+				$.get( "manage/getFunction?type="+type+"&id="+id, $( "#updatedate"+id).serialize(),function() {
+					swal("Good job!", "You update the training program date!", "success", {
+				
+					});					
 				})
-
+		viewdatepicker(id);
+						
 	
 }
 
@@ -613,7 +613,6 @@ var origin="#subCategory";
 		
 }
 function submitForm(type,mapid){
-
 			if($('#CategoryIdModule').val()==""){
 				$('#CategoryIdModule').focus();
 				$('#errorCategoryIdModule').html("Please select a category");	
@@ -630,9 +629,12 @@ function submitForm(type,mapid){
 			else{
 					$('#errorsubCategory_to').html("");	
 			}
-			$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1&mapid="+mapid, $( "#customerForm" ).serialize(),function() {
+			$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type="+type+"&val=1&mapid="+mapid, $( "#customerForm" ).serialize(),function(data) {
 
-					$('#customerForm')[0].reset();	
+					if(data=='Success'){
+					swal("Good job!", "You update the training content!", "success", {
+					});
+					}
 
 					})
 	modalWindowContent(type,mapid);

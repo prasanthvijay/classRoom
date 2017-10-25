@@ -183,6 +183,7 @@ var type="getCategoryListM";
 						<div class="form-group">
 								
 					<div class="col-sm-10">
+
 					<div class="progress" id="progress" style="display:none">
 				            <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
 
@@ -194,6 +195,7 @@ var type="getCategoryListM";
 <input class="" id="uploadedFile" name="uploadedFile" value="" type="file">
 									<label for="regular1">Upload Files</label><div style="color:red" id="erroruploadedFile"></div><input type="text" name="Urlname" id="Urlname" style="display:none"  class="form-control"  >
 					<div id="errorUrlname" style="color:red" ></div> 
+<div id="convert" style="display:none">Converting. <img src="<?php echo $view['assets']->getUrl('assets/loading.gif')?>" ></div>
 									<br><div class="col-sm-4">
 					<input name="checkbox" type="checkbox" id="checkbox" />
 					<label class="control-label">Url</label>
@@ -206,9 +208,11 @@ var type="getCategoryListM";
 								
 								
 								
-<div class="form-group">
-<button class="btn btn-success" type="button" id="submit" name="submit" value="homemenu"  onclick="submitForm('<?php echo $getFunctionType; ?>');"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
-								</div>
+<div class="form-group">					
+			<button class="btn btn-success" type="button" id="submit" name="submit" value="homemenu"  onclick="submitForm('<?php echo $getFunctionType; ?>');"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
+					
+	</div>  
+
 
 					<input type="hidden" name="editId" id="editId" value="<?php echo $editDepartment[0]['dprtid']; ?>">
 				</div>
@@ -314,16 +318,20 @@ $(document).ready(function(){
 
 			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename']."/story.html";
 		}
+		else if($Modulelist[$j]['filetype']=='url'){
+
+			$url=$Modulelist[$j]['filename'];
+		}
 		else{
-			$url='../uploadfiles/'.$filepath[7].'/'.$Modulelist[$j]['filename'];
+			$url='../uploadfiles/'.$filepath[7].'/'.$filepath[8];
 		}	
 ?>				
-				<div class="row">
-				<label><input type="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>" <?php for($m=0;$m<count($contenArra);$m++){ if($contenArra[$m]==$Modulelist[$j]['moduleid']){ echo "checked"; } }  ?>>&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?> </label>
-				</br>
-				<lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href='<?php echo $url; ?>'>
+				<div class="form-group">
+				<div class="col-sm-12">
+				<input type="checkbox"  class="checkbox" name="elearningModule[]"  id="elearningModule"  value="<?php echo $Modulelist[$j]['moduleid'];  ?>" <?php for($m=0;$m<count($contenArra);$m++){ if($contenArra[$m]==$Modulelist[$j]['moduleid']){ echo "checked"; } }  ?>><label class="text-danger regular1"><b>&nbsp;&nbsp;<?php echo $Modulelist[$j]['modulename']; ?> </b></label>
+				<br><lable>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File: <a target="_blank" href='<?php echo $url; ?>'>
 					<?php if($Modulelist[$j]['filetype']=='url'){ echo "View URL"; }else{  echo  $Modulelist[$j]['filename']; }  ?></a></lable>
-				</div>
+				</div></div>
 			<?php } } ?><div id="errorelearningModule" style="color:red"></div>
 
 

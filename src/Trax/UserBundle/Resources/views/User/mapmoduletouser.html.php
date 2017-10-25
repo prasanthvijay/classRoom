@@ -468,16 +468,15 @@ function submitForm(type) {
 				$.get( "<?php echo $view['assets']->getUrl('manage/InsertAdminMaster');?>?type=MapModule", $( "#customerForms" ).serialize(),function() {
 					$('html, body').animate({scrollTop : 0},800);
 					$("#search_to").empty();
+					$("#subCategory_to").empty();
+					$("#subCategory").empty();
 					$("#search").empty();
 					$("#employeelist").empty();
+					$('#ResourceDiv').html(" ");
 					$('#customerForms')[0].reset();	
 					if(editId==""){
 					$('#insertSuccess').show();
-					}
-					else{
-					$('#customerForms')[0].reset();	
-					$('#updateSuccess').show();
-					}
+					}					
 				})
 			
 
@@ -666,12 +665,19 @@ function submitForm(type) {
 			$('.myprogress').text(percentComplete + '%');
 			$('.myprogress').css('width', percentComplete + '%');
 			}
+			if(percentComplete==100){
+					$('#progress').hide();
+					$('#fileCancel').hide();
+					$('#convert').show();
+				}
+
 			}, false);
 			return xhr;			
 			},
 			success: function (response) {
 			$('#homemenu').prop('disabled', false);
 				if(response=='Success'){
+						$('#convert').hide();
 						$('#progress').hide();
 		       				$('#fileCancel').hide();
 						$('#customerForm')[0].reset();
@@ -684,6 +690,7 @@ function submitForm(type) {
 						$("#errorUrlname").html(" ");
 					}					
 					else{
+					 	 $('#convert').hide();
                       				  $('#progress').hide();
                        				 $('#fileCancel').hide();
 						$('#erroruploadedFile').html(response);
