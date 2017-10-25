@@ -351,7 +351,7 @@ $(document).ready(function(){
 								
 								
 								
-<div class="form-group">
+<div class="row" align="center">
 <button class="btn btn-success" type="button" id="submit" name="submit" value="homemenu"  onclick="submitForm('<?php echo $getFunctionType; ?>','<?php echo $mapid; ?>');"><?php if($editId!=''){ echo "Update"; } else { echo "Submit"; }?></button>
 								</div>
 
